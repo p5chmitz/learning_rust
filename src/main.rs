@@ -1,4 +1,5 @@
 fn main() {
     println!("Hello, world!");
-    println!("You sure are filthy these days.");
+    println!("Learning Vim is difficult");
+    println!("420 as a u16 is: {}", 420 as u16);
 }
