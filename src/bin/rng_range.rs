@@ -2,9 +2,6 @@ use std::io;
 use rand::Rng;
 
 fn main() {
-    let a: i32 = rand::thread_rng().gen_range(1..=10);
-    println!("RANDOM NUMBER: {}", a);
-
     let mut a: String = String::new();
     let mut b: String = String::new();
     println!("Whats the range we're dealing with here?\n\
