@@ -1,11 +1,13 @@
-use std::io;
 use rand::Rng;
+use std::io;
 
 fn main() {
     let mut a: String = String::new();
     let mut b: String = String::new();
-    println!("Whats the range we're dealing with here?\n\
-        Enter the the low and high limits separately as integers followed by an \"enter\".");
+    println!(
+        "Whats the range we're dealing with here?\n\
+        Enter the the low and high limits separately as integers followed by an \"enter\"."
+    );
     io::stdin()
         .read_line(&mut a)
         .expect("Why must you constantly disappoint me?");
