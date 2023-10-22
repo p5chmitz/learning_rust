@@ -7,7 +7,7 @@ fn main() {
     let secret_number: u32 = rand::thread_rng().gen_range(1..=100);
     loop {
         println!("Enter guess: ");
-        let mut guess = String::new();
+        let mut guess: String = String::new();
         io::stdin()
             .read_line(&mut guess)
             .expect("Failure. You're a failure.");
