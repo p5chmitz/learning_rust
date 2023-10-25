@@ -74,12 +74,15 @@ fn tuple() {
 }
 //Its an array, Carlie Brown!
 fn array() {
+    //Be explicit
     let array: [f64; 3] = [32.0, 6.4, 8.0];
     let a: f64 = array[0]; //access specific elements by index
     println!("Accessing a tuple index: {a}");
+    //Be implicit
+    let array_two =  [23; 5];
+    let b: i32 = array_two[3];
+    println!("Lets print a hastily initialized array index: {b}");
 }
-
-
 //Example of a while loop.
 fn my_age() {
     let mut age: i32 = 0;
