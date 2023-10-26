@@ -1,5 +1,5 @@
 use json;
-use json::{JsonValue, object};
+use json::{object, JsonValue};
 
 //Basic declaration, instantiation, and printing
 fn basic_declaration() {
@@ -15,7 +15,10 @@ fn constants() {
     let mon: i32 = 12;
     let yr: i32 = 23;
     println!("\nCombining {} with {} results in {}.", mon, yr, (mon + yr));
-    println!("The value of pie is roughly {}, and double that is roughly {}.", PIE, TWO_PIE);
+    println!(
+        "The value of pie is roughly {}, and double that is roughly {}.",
+        PIE, TWO_PIE
+    );
 }
 //Example of (over)shadowing where multiple variables are created
 //with the same name, but hold different values .
@@ -79,7 +82,7 @@ fn array() {
     let a: f64 = array[0]; //access specific elements by index
     println!("Accessing a tuple index: {a}");
     //Be implicit
-    let array_two =  [23; 5];
+    let array_two = [23; 5];
     let b: i32 = array_two[3];
     println!("Lets print a hastily initialized array index: {b}");
 }
@@ -90,26 +93,67 @@ fn my_age() {
     println!("I was born in {}.", year);
     year += 1;
     while year <= 2023 {
-        println!("For most of {} I was {}, but at the very end I turned {}.", year, age, (age + 1));
+        println!(
+            "For most of {} I was {}, but at the very end I turned {}.",
+            year,
+            age,
+            (age + 1)
+        );
         age += 1;
-        year += 1;
+        year += 1
     }
+}
+//Example of a while loop.
+fn my_age_static() {
+    let year: i32 = 2023;
+    let mut age: i32 = year - 1984;
+    println!(
+        "For most of {} I was {}, but at the very end I turned {}.",
+        year,
+        age,
+        (age + 1)
+    )
+}
+//Example of a while loop.
+fn my_age_again(year: i32) {
+    let mut age: i32 = year - 1984;
+    println!(
+        "For most of {} I was {}, but at the very end I turned {}.",
+        year,
+        age,
+        (age + 1)
+    );
+}
+fn return_type() -> i32 {
+    let x: i32 = 12;
+    let y: i32 = 23;
+    x + y
+}
+fn return_type_two() -> i32 {
+    let x: i32 = 23;
+    let y: i32 = 83;
+    return x + y;
+}
+fn working_with_return_statements() {
+    println!("{}", return_type());
+    println!("{}", return_type_two());
 }
 //JSON parsing experiment
 fn json_parsing() {
     let parsed: JsonValue = json::parse(
         r#"
-            {
-                "key": "12/23/1983",
-                "anotherKey": "value",
-                "object": {
-                    "nestedOne": "one",
-                    "nestedTwo": "two"
-                }
+        {
+            "key": "12/23/1983",
+            "anotherKey": "value",
+            "object": {
+                "nestedOne": "one",
+                "nestedTwo": "two"
             }
-        "#
-    ).unwrap();
-    let instantiated = object!{
+        }
+        "#,
+    )
+    .unwrap();
+    let instantiated = object! {
         "key": "12/23/1983",
         "anotherKey": "value",
         "object": {
@@ -118,13 +162,17 @@ fn json_parsing() {
         }
     };
     println!("The \"key's\" value is: \"{}\"", parsed["key"]);
-    println!("For the parsed object, the nested key \"nestedOne\" value is: \"{}\"", (parsed["object"]["nestedOne"]));
-    println!("For the instantiated object, the nested key \"nestedTwo\" value is: \"{}\"", (instantiated["object"]["nestedTwo"]));
-
+    println!(
+        "For the parsed object, the nested key \"nestedOne\" value is: \"{}\"",
+        (parsed["object"]["nestedOne"])
+    );
+    println!(
+        "For the instantiated object, the nested key \"nestedTwo\" value is: \"{}\"",
+        (instantiated["object"]["nestedTwo"])
+    );
 }
 
 fn main() {
-
     // basic_declaration();
     // constants();
     // shadow_one();
@@ -132,8 +180,11 @@ fn main() {
     // shadow_three();
     //my_age();
     //json_parsing();
-    integer_overflow();
-    integer_rounding();
-    tuple();
-    array();
+    // integer_overflow();
+    // integer_rounding();
+    // tuple();
+    // array();
+    my_age_static();
+    my_age_again(2023);
+    working_with_return_statements()
 }
