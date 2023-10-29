@@ -135,8 +135,47 @@ fn return_type_two() -> i32 {
     return x + y;
 }
 fn working_with_return_statements() {
-    println!("{}", return_type());
-    println!("{}", return_type_two());
+    println!("{} | {}", return_type(), return_type_two());
+}
+fn if_statements(n: f64) {
+    if n < 0.33 {
+        println!("lower third")
+    }
+    else if (0.33 < n) && (n < 0.66) {
+        println!("middle third")
+    }
+    else if 0.66 < n {
+        println!("upper third");
+    }
+}
+// fn so_many_times(n: f64) {
+//     let i = {
+//         if n < 0.33 {33}
+//         else if (0.33 < n) && (n < 0.66) {50}
+//         else if 0.66 < n {66};
+//         return ()
+//     };
+//     println!("{i}");
+// }
+fn loops() {
+    let mut i: i32 = 12;
+    let x: i32 = loop {
+        println!("{i}");
+        i += 1;
+        if i == 23 {
+            println!("{i} <- nice");
+            i += 1;
+            continue
+        }
+        if i == 30 {
+            break i;
+        }
+    };
+    println!("The max is: {x}");
+}
+fn again_lets_if(n: i32) {
+    let i: &str = if n < 5 {"true"} else {"false"};
+    println!("{i}");
 }
 //JSON parsing experiment
 fn json_parsing() {
@@ -186,5 +225,10 @@ fn main() {
     // array();
     my_age_static();
     my_age_again(2023);
-    working_with_return_statements()
+    working_with_return_statements();
+    if_statements(0.45);
+    //if_statement_in_let(0.56);
+    again_lets_if(6);
+    // so_many_times(0.5); //doesn't actually work
+    loops();
 }
