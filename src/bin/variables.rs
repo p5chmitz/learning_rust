@@ -157,7 +157,27 @@ fn if_statements(n: f64) {
 //     };
 //     println!("{i}");
 // }
+fn again_lets_if(n: i32) {
+    let i: &str = if n < 5 {"true"} else {"false"};
+    println!("{i}");
+}
 fn loops() {
+    let mut i: i32 = 12;
+    loop {
+        println!("{i}");
+        i += 1;
+        if i == 23 {
+            println!("{i} <- nice");
+            i += 1;
+            continue
+        }
+        if i == 30 {
+            println!("The max is: {i}");
+            break;
+        }
+    }
+}
+fn loop_lets() {
     let mut i: i32 = 12;
     let x: i32 = loop {
         println!("{i}");
@@ -173,9 +193,41 @@ fn loops() {
     };
     println!("The max is: {x}");
 }
-fn again_lets_if(n: i32) {
-    let i: &str = if n < 5 {"true"} else {"false"};
-    println!("{i}");
+fn loop_labels() {
+    let mut count: i32 = 1;
+    loop {
+        println!("{count}");
+        let mut second_count: i32 = 101;
+        'second_loop: loop {
+            println!("{second_count}");
+            second_count += 1;
+            if second_count == 110 {
+                break 'second_loop;
+            }
+        }
+        count += 1;
+        if count == 4 {
+            break;
+        }
+    }
+}
+fn while_loops() {
+    let mut i: i32 = 10;
+    while i >= 1 {     //Use the loop expression to bind a variable
+        println!("{i}");
+        i -= 1;
+    };
+    println!("Blast off!");
+}
+fn for_loops() {
+    let a: [&str; 4] = ["a", "b", "c", "d"];
+    for index in a {
+        println!("{index}")
+    }
+    for i in (1..10).rev() {
+        println!("{i}")
+    }
+    println!("Blorst off!");
 }
 //JSON parsing experiment
 fn json_parsing() {
@@ -228,7 +280,11 @@ fn main() {
     working_with_return_statements();
     if_statements(0.45);
     //if_statement_in_let(0.56);
-    again_lets_if(6);
+    //loops();
+    //again_lets_if(6);
     // so_many_times(0.5); //doesn't actually work
-    loops();
+    loop_lets();
+    loop_labels();
+    //while_loops();
+    for_loops();
 }
