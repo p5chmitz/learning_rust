@@ -1,6 +1,8 @@
 //use std::io;
 //use std::str;
 
+use std::io::Write;
+
 //Instantiates a String class and binds user input to the variable
 fn new_string_class() -> String {
     let mut a: String = String::new();
@@ -36,7 +38,10 @@ fn deep_fucking_copy() {
 }
 
 fn main() {
-    println!("{:?}", new_string_class());
+    print!("Enter phrase: ");
+    std::io::stdout().flush().unwrap();
+    let a: String = new_string_class();
+    print!("main() output: {}", a);
     println!("{}", new_string_class_literal());
     new_string_literal();
     shallow_copy();
