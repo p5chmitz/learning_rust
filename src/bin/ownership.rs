@@ -9,7 +9,7 @@ fn new_string_class() -> String {
     std::io::stdin()
         .read_line(&mut a)
         .expect("Failure. You're a failure.");
-    return a
+    return a;
 }
 fn new_string_class_contained() {
     let mut a: String = String::new();

@@ -140,11 +140,9 @@ fn working_with_return_statements() {
 fn if_statements(n: f64) {
     if n < 0.33 {
         println!("lower third")
-    }
-    else if (0.33 < n) && (n < 0.66) {
+    } else if (0.33 < n) && (n < 0.66) {
         println!("middle third")
-    }
-    else if 0.66 < n {
+    } else if 0.66 < n {
         println!("upper third");
     }
 }
@@ -158,7 +156,7 @@ fn if_statements(n: f64) {
 //     println!("{i}");
 // }
 fn again_lets_if(n: i32) {
-    let i: &str = if n < 5 {"true"} else {"false"};
+    let i: &str = if n < 5 { "true" } else { "false" };
     println!("{i}");
 }
 fn loops() {
@@ -169,7 +167,7 @@ fn loops() {
         if i == 23 {
             println!("{i} <- nice");
             i += 1;
-            continue
+            continue;
         }
         if i == 30 {
             println!("The max is: {i}");
@@ -185,7 +183,7 @@ fn loop_lets() {
         if i == 23 {
             println!("{i} <- nice");
             i += 1;
-            continue
+            continue;
         }
         if i == 30 {
             break i;
@@ -213,10 +211,10 @@ fn loop_labels() {
 }
 fn while_loops() {
     let mut i: i32 = 10;
-    while i >= 1 {     //Use the loop expression to bind a variable
+    while i >= 1 {
         println!("{i}");
         i -= 1;
-    };
+    }
     println!("Blast off!");
 }
 fn for_loops() {
