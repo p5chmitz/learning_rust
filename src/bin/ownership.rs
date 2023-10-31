@@ -9,7 +9,16 @@ fn new_string_class() -> String {
     std::io::stdin()
         .read_line(&mut a)
         .expect("Failure. You're a failure.");
-    return a;
+    return a
+}
+fn new_string_class_contained() {
+    let mut a: String = String::new();
+    print!("Enter phrase: ");
+    std::io::stdout().flush().unwrap();
+    std::io::stdin()
+        .read_line(&mut a)
+        .expect("Failure. You're a failure.");
+    print!("function output: {}", a);
 }
 //Instantiates a String class and binds hardcoded literal to the variable
 fn new_string_class_literal() -> String {
@@ -38,10 +47,14 @@ fn deep_fucking_copy() {
 }
 
 fn main() {
+    //This design uses a function that returns a value
     print!("Enter phrase: ");
     std::io::stdout().flush().unwrap();
     let a: String = new_string_class();
     print!("main() output: {}", a);
+    //This design does the same thing but with a self-contained void function
+    new_string_class_contained();
+
     println!("{}", new_string_class_literal());
     new_string_literal();
     shallow_copy();
