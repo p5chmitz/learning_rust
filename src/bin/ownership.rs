@@ -26,8 +26,12 @@ fn shallow_copy() {
     let a: i32 = 12;
     let b: i32 = a;
     println!("a = {}, and b = {}.", a, b);
+}
+//Deep copy
+fn deep_fucking_copy() {
     let x: String = String::from("Peter");
-    let y: String = x.clone();
+    let mut y: String = x.clone();
+    y.push_str(" Schmitz");
     println!("x = {}, and y = {}.", x, y);
 }
 
@@ -36,4 +40,5 @@ fn main() {
     println!("{}", new_string_class_literal());
     new_string_literal();
     shallow_copy();
+    deep_fucking_copy();
 }
