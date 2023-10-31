@@ -39,7 +39,7 @@ fn shadow_two() {
     let spaces: usize = spaces.len();
     println!("\nThe value of spaces is \"{}\".", spaces);
 }
-//This example accomplishes the same thing, but does not use shadowing
+//This example accomplishes the same thing as above, but does not use shadowing
 //It appears I may not understand Strings yet
 fn shadow_three() {
     let mut phrase: String = String::new();
@@ -86,147 +86,23 @@ fn array() {
     let b: i32 = array_two[3];
     println!("Lets print a hastily initialized array index: {b}");
 }
-//Example of a while loop.
-fn my_age() {
-    let mut age: i32 = 0;
-    let mut year: i32 = 1983;
-    println!("I was born in {}.", year);
-    year += 1;
-    while year <= 2023 {
-        println!(
-            "For most of {} I was {}, but at the very end I turned {}.",
-            year,
-            age,
-            (age + 1)
-        );
-        age += 1;
-        year += 1
-    }
-}
-//Example of a while loop.
-fn my_age_static() {
-    let year: i32 = 2023;
-    let mut age: i32 = year - 1984;
-    println!(
-        "For most of {} I was {}, but at the very end I turned {}.",
-        year,
-        age,
-        (age + 1)
-    )
-}
-//Example of a while loop.
-fn my_age_again(year: i32) {
-    let mut age: i32 = year - 1984;
-    println!(
-        "For most of {} I was {}, but at the very end I turned {}.",
-        year,
-        age,
-        (age + 1)
-    );
-}
+//Function that returns a value
 fn return_type() -> i32 {
     let x: i32 = 12;
     let y: i32 = 23;
     x + y
 }
+//Another function that returns a value
 fn return_type_two() -> i32 {
     let x: i32 = 23;
     let y: i32 = 83;
     return x + y;
 }
+//Exploring return statements
 fn working_with_return_statements() {
     println!("{} | {}", return_type(), return_type_two());
 }
-fn if_statements(n: f64) {
-    if n < 0.33 {
-        println!("lower third")
-    } else if (0.33 < n) && (n < 0.66) {
-        println!("middle third")
-    } else if 0.66 < n {
-        println!("upper third");
-    }
-}
-// fn so_many_times(n: f64) {
-//     let i = {
-//         if n < 0.33 {33}
-//         else if (0.33 < n) && (n < 0.66) {50}
-//         else if 0.66 < n {66};
-//         return ()
-//     };
-//     println!("{i}");
-// }
-fn again_lets_if(n: i32) {
-    let i: &str = if n < 5 { "true" } else { "false" };
-    println!("{i}");
-}
-fn loops() {
-    let mut i: i32 = 12;
-    loop {
-        println!("{i}");
-        i += 1;
-        if i == 23 {
-            println!("{i} <- nice");
-            i += 1;
-            continue;
-        }
-        if i == 30 {
-            println!("The max is: {i}");
-            break;
-        }
-    }
-}
-fn loop_lets() {
-    let mut i: i32 = 12;
-    let x: i32 = loop {
-        println!("{i}");
-        i += 1;
-        if i == 23 {
-            println!("{i} <- nice");
-            i += 1;
-            continue;
-        }
-        if i == 30 {
-            break i;
-        }
-    };
-    println!("The max is: {x}");
-}
-fn loop_labels() {
-    let mut count: i32 = 1;
-    loop {
-        println!("{count}");
-        let mut second_count: i32 = 101;
-        'second_loop: loop {
-            println!("{second_count}");
-            second_count += 1;
-            if second_count == 110 {
-                break 'second_loop;
-            }
-        }
-        count += 1;
-        if count == 4 {
-            break;
-        }
-    }
-}
-fn while_loops() {
-    let mut i: i32 = 10;
-    while i >= 1 {
-        println!("{i}");
-        i -= 1;
-    }
-    println!("Blast off!");
-}
-fn for_loops() {
-    let a: [&str; 4] = ["a", "b", "c", "d"];
-    for index in a {
-        println!("{index}")
-    }
-    for i in (1..10).rev() {
-        println!("{i}")
-    }
-    println!("Blorst off!");
-}
+
 //JSON parsing experiment
 fn json_parsing() {
     let parsed: JsonValue = json::parse(
@@ -262,27 +138,15 @@ fn json_parsing() {
 }
 
 fn main() {
-    // basic_declaration();
-    // constants();
-    // shadow_one();
-    // shadow_two();
-    // shadow_three();
-    //my_age();
-    //json_parsing();
-    // integer_overflow();
-    // integer_rounding();
-    // tuple();
-    // array();
-    my_age_static();
-    my_age_again(2023);
+    basic_declaration();
+    constants();
+    shadow_one();
+    shadow_two();
+    shadow_three();
+    json_parsing();
+    integer_overflow();
+    integer_rounding();
+    tuple();
+    array();
     working_with_return_statements();
-    if_statements(0.45);
-    //if_statement_in_let(0.56);
-    //loops();
-    //again_lets_if(6);
-    // so_many_times(0.5); //doesn't actually work
-    loop_lets();
-    loop_labels();
-    //while_loops();
-    for_loops();
 }
