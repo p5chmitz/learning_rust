@@ -1,17 +1,18 @@
-use std::io;
-use std::str;
+//use std::io;
+//use std::str;
 
 //Instantiates a String class and binds user input to the variable
 fn new_string_class() -> String {
     let mut a: String = String::new();
-    io::stdin()
+    std::io::stdin()
         .read_line(&mut a)
         .expect("Failure. You're a failure.");
     return a;
 }
 //Instantiates a String class and binds hardcoded literal to the variable
 fn new_string_class_literal() -> String {
-    let mut a: String = String::from("hello");
+    let mut a: String = String::from("Hello");
+    a.push_str(" world!");
     return a;
 }
 //Creates a new reference and binds hardcoded literal to the variable
@@ -20,8 +21,19 @@ fn new_string_literal() {
     println!("{a}");
 }
 
+//Shallow copies
+fn shallow_copy() {
+    let a: i32 = 12;
+    let b: i32 = a;
+    println!("a = {}, and b = {}.", a, b);
+    let x: String = String::from("Peter");
+    let y: String = x.clone();
+    println!("x = {}, and y = {}.", x, y);
+}
+
 fn main() {
     println!("{:?}", new_string_class());
     println!("{}", new_string_class_literal());
     new_string_literal();
+    shallow_copy();
 }
