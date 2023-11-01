@@ -75,6 +75,18 @@ fn tuple() {
     let e = whatev.3;
     println!("When the tuple hits just right, {e}");
 }
+fn tuple_two() {
+    let x: (String, u8) = (String::from("Peter"), 40);
+    let name: String = String::from(x.0);
+    let age: u8 = x.1;
+    println!("{name} is {age} years old.");
+}
+fn str_type() {
+    let s: &str = "This is a str type";
+    let t: &str = s;
+    let r: &str = t;
+    println!("{r}");
+}
 //Its an array, Carlie Brown!
 fn array() {
     //Be explicit
@@ -147,6 +159,8 @@ fn main() {
     integer_overflow();
     integer_rounding();
     tuple();
+    tuple_two();
+    str_type();
     array();
     working_with_return_statements();
 }
