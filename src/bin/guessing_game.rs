@@ -12,6 +12,7 @@ fn main() {
         io::stdin()
             .read_line(&mut guess)
             .expect("Failure. You're a failure.");
+        //Shadows String guess and coverts to i32
         let guess: i32 = match guess.trim().parse() {
             Ok(num) => num,
             Err(_) => {
