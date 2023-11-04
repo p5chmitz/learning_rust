@@ -65,11 +65,15 @@ fn main() {
     //This design does the same thing but with a self-contained void function
     new_string_class_contained();
 
+    //Runs the New String class literal function that appends "world" to hello
     println!("{}", new_string_class_literal());
+
+    //Binds and prints a slice
     new_string_literal();
+
+    //Copy-type functions
     shallow_copy();
     deep_fucking_copy();
-
     //Requires a clone() because the heap-allocated type exits scope at its first use
     let s: String = String::from("Hello");
     let cloned_var: String = s.clone();
