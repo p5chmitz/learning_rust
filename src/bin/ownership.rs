@@ -56,6 +56,12 @@ fn var_scope_primitive(i: i32) -> i32 {
     return a;
 }
 
+//References
+fn calc_len(s: &String) -> usize { //The function takes a reference type
+    let i: usize = s.len();
+    return i
+}
+
 fn main() {
     //This design uses a function that returns a value
     print!("Enter phrase: ");
@@ -84,5 +90,13 @@ fn main() {
     let n: i32 = 30;
     println!("Modified number: {}", var_scope_primitive(n));
     println!("Original number: {n}");
+
+    //References
+    //Rust would otherwise move s1 when we pass it to the calling function.
+    //In order to use s1 after passing it to a function we can either create a tuple to return it,
+    //or we can create a reference to the value
+    let s1: String = String::from("Peter");
+    let s2: usize = calc_len(&s1); //Create a reference type
+    println!("The string {s1} is {s2} characters long.");
 
 }
