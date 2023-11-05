@@ -64,7 +64,7 @@ fn integer_rounding() {
 //Its tuples!
 fn tuple() {
     //declares a tuple of mixed types
-    let idk: (i32, f64, u8) = (32, 6.4, 8);
+    let idk: (i32, f64, u8) = (32, 6.4, 8); //Creates a tuple
     let (a, b, c) = idk; //access all elements
     let d = idk.1; //access specific elements by index
     println!("The whole tuple: {a}, {b}, {c}");
