@@ -57,12 +57,14 @@ fn var_scope_primitive(i: i32) -> i32 {
 }
 
 //References
-fn calc_len(s: &String) -> usize { //The function takes a reference type
+fn calc_len(s: &String) -> usize {
+    //The function takes a reference type
     let i: usize = s.len();
-    return i
+    return i;
 }
 
 fn main() {
+    
     //This design uses a function that returns a value
     print!("Enter phrase: ");
     std::io::stdout().flush().unwrap();
@@ -98,5 +100,5 @@ fn main() {
     let s1: String = String::from("Peter");
     let s2: usize = calc_len(&s1); //Create a reference type
     println!("The string {s1} is {s2} characters long.");
-
-}
+           
+}       
