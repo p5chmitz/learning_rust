@@ -81,12 +81,6 @@ fn tuple_two() {
     let age: u8 = x.1;
     println!("{name} is {age} years old.");
 }
-fn str_type() {
-    let s: &str = "This is a str type";
-    let t: &str = s;
-    let r: &str = t;
-    println!("{r}");
-}
 //Its an array, Carlie Brown!
 fn array() {
     //Be explicit
@@ -98,6 +92,24 @@ fn array() {
     let b: i32 = array_two[3];
     println!("Lets print a hastily initialized array index: {b}");
 }
+
+//Str type
+fn str_type() {
+    let s: &str = "Peter";
+}
+
+//String Slice (not really a type, but a reference to a String index)
+fn slice_type(){
+    let s = String::from("Hello, world!");
+    let hello = &s[0..5]; //References the first 6 indexes
+    let hello = &s[..5]; //Result is same as above
+    let world = &s[7..12]; //References another 6 indexes
+    println!( "{hello} || {world}" );
+
+    let hello_world = &s[..]; //References the whole index range
+    println!( "{hello_world}" );
+}
+
 //Function that returns a value
 fn return_type() -> i32 {
     let x: i32 = 12;
@@ -163,4 +175,5 @@ fn main() {
     str_type();
     array();
     working_with_return_statements();
+    slice_type();
 }

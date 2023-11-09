@@ -63,8 +63,19 @@ fn calc_len(s: &String) -> usize {
     return i;
 }
 
+//The Slice type
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() { //enumerate() returns a tuple with index i
+        if item == b' ' { //byte literal syntx ' ' returns position i
+            return &s[..i];
+        }
+    }
+    &s[..] //if the function doesn't find an empty byte ' ' it returns the length of the string
+} 
+
 fn main() {
-    
+
     //This design uses a function that returns a value
     print!("Enter phrase: ");
     std::io::stdout().flush().unwrap();
@@ -100,5 +111,19 @@ fn main() {
     let s1: String = String::from("Peter");
     let s2: usize = calc_len(&s1); //Create a reference type
     println!("The string {s1} is {s2} characters long.");
-           
-}       
+
+    //Slices
+    let first_wordle: String = String::from( "Peter is a weirdo" );
+    let w: &String = &first_wordle;
+    println!( "The first word of the phrase \"{}\" is \"{}\"", first_wordle, first_word(w));
+
+    let s = String::from("Hello, world!");
+    let hello = &s[0..5];                 
+    let world = &s[7..12];
+    println!( "{hello} || {world}" );
+
+    let s: &str = "Hello, World";
+    let sl = &s[..5];
+    println!( "{sl}" );
+
+}
