@@ -63,67 +63,43 @@ fn calc_len(s: &String) -> usize {
     return i;
 }
 
-//The Slice type
-fn first_word(s: &String) -> &str {
-    let bytes = s.as_bytes();
-    for (i, &item) in bytes.iter().enumerate() { //enumerate() returns a tuple with index i
-        if item == b' ' { //byte literal syntx ' ' returns position i
-            return &s[..i];
-        }
-    }
-    &s[..] //if the function doesn't find an empty byte ' ' it returns the length of the string
-} 
 
 fn main() {
 
-    //This design uses a function that returns a value
-    print!("Enter phrase: ");
-    std::io::stdout().flush().unwrap();
-    let a: String = new_string_class();
-    print!("main() output: {}", a);
-    //This design does the same thing but with a self-contained void function
-    new_string_class_contained();
+   //This design uses a function that returns a value
+   print!("Enter phrase: ");
+   std::io::stdout().flush().unwrap();
+   let a: String = new_string_class();
+   print!("main() output: {}", a);
+   //This design does the same thing but with a self-contained void function
+   new_string_class_contained();
 
-    //Runs the New String class literal function that appends "world" to hello
-    println!("{}", new_string_class_literal());
+   //Runs the New String class literal function that appends "world" to hello
+   println!("{}", new_string_class_literal());
 
-    //Binds and prints a slice
-    new_string_literal();
+   //Binds and prints a slice
+   new_string_literal();
 
-    //Copy-type functions
-    shallow_copy();
-    deep_fucking_copy();
-    //Requires a clone() because the heap-allocated type exits scope at its first use
-    let s: String = String::from("Hello");
-    let cloned_var: String = s.clone();
-    println!("Modified greeting: {}", var_scope_complex(cloned_var));
-    println!("Original greeting: {s}");
+   //Copy-type functions
+   shallow_copy();
+   deep_fucking_copy();
+   //Requires a clone() because the heap-allocated type exits scope at its first use
+   let s: String = String::from("Hello");
+   let cloned_var: String = s.clone();
+   println!("Modified greeting: {}", var_scope_complex(cloned_var));
+   println!("Original greeting: {s}");
 
-    //Implicit stack frame copy is produced so the variable never leaves scope
-    let n: i32 = 30;
-    println!("Modified number: {}", var_scope_primitive(n));
-    println!("Original number: {n}");
+   //Implicit stack frame copy is produced so the variable never leaves scope
+   let n: i32 = 30;
+   println!("Modified number: {}", var_scope_primitive(n));
+   println!("Original number: {n}");
 
-    //References
-    //Rust would otherwise move s1 when we pass it to the calling function.
-    //In order to use s1 after passing it to a function we can either create a tuple to return it,
-    //or we can create a reference to the value
-    let s1: String = String::from("Peter");
-    let s2: usize = calc_len(&s1); //Create a reference type
-    println!("The string {s1} is {s2} characters long.");
-
-    //Slices
-    let first_wordle: String = String::from( "Peter is a weirdo" );
-    let w: &String = &first_wordle;
-    println!( "The first word of the phrase \"{}\" is \"{}\"", first_wordle, first_word(w));
-
-    let s = String::from("Hello, world!");
-    let hello = &s[0..5];                 
-    let world = &s[7..12];
-    println!( "{hello} || {world}" );
-
-    let s: &str = "Hello, World";
-    let sl = &s[..5];
-    println!( "{sl}" );
+   //References
+   //Rust would otherwise move s1 when we pass it to the calling function.
+   //In order to use s1 after passing it to a function we can either create a tuple to return it,
+   //or we can create a reference to the value
+   let s1: String = String::from("Peter");
+   let s2: usize = calc_len(&s1); //Create a reference type
+   println!("The string {s1} is {s2} characters long.");
 
 }
