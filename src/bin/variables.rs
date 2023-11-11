@@ -101,9 +101,9 @@ fn str_type() {
 //String Slice (not really a type, but a reference to a String index)
 fn slice_type(){
     let s = String::from("Hello, world!");
-    let hello = &s[0..5]; //References the first 6 indexes
-    let hello = &s[..5]; //Result is same as above
-    let world = &s[7..12]; //References another 6 indexes
+    let hello = &s[0..5]; //References the first 5 indexes
+    let hello = &s[1..5]; //Result is same as above
+    let world = &s[7..12]; //References another 5 indexes
     println!( "{hello} || {world}" );
 
     let hello_world = &s[..]; //References the whole index range
@@ -176,4 +176,7 @@ fn main() {
     array();
     working_with_return_statements();
     slice_type();
+    let a = [1, 2, 3, 4, 5];
+    let slice = &a[1..3];
+    assert_eq!(slice, &[2, 3])
 }
