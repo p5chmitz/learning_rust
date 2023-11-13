@@ -70,6 +70,18 @@ fn tuple() {
     println!("The whole tuple: {a}, {b}, {c}");
     println!("Accessing a tuple index: {d}");
 
+    //Declares a User tuple
+    let user: (bool, String, String, u64) = (
+        true,
+        String::from("Pschmitz"),
+        String::from("peter@email.com"),
+        23,
+    );
+    let user_name = user.1;
+    let email = user.2;
+    println!("Username: {user_name}");
+    println!("Email: {email}");
+
     //declares a tuple of the same type
     let whatev = (1, 2, 3, 4);
     let e = whatev.3;
@@ -99,15 +111,15 @@ fn str_type() {
 }
 
 //String Slice (not really a type, but a reference to a String index)
-fn slice_type(){
+fn slice_type() {
     let s = String::from("Hello, world!");
     let hello = &s[0..5]; //References the first 5 indexes
     let hello = &s[1..5]; //Result is same as above
     let world = &s[7..12]; //References another 5 indexes
-    println!( "{hello} || {world}" );
+    println!("{hello} || {world}");
 
     let hello_world = &s[..]; //References the whole index range
-    println!( "{hello_world}" );
+    println!("{hello_world}");
 }
 
 //Function that returns a value
