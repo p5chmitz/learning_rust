@@ -1,3 +1,4 @@
+#[derive(Debug)]
 struct User {
     struct_name: String,
     active: bool,
@@ -44,6 +45,9 @@ fn main() {
     let mut uemail: &String = &user1.email;
     let mut uname: &String = &user1.username;
     print_struct(&uemail, &uname);
+    //    println!("Debugging: {:#?}", user1);
+    dbg!(&user1);
+    println!("");
 
     //Resets the value of username from the mutable struct in the user1 instance
     let uname: &String = &String::from("petername");
@@ -77,9 +81,5 @@ fn main() {
     let v1 = green.0;
     let v2 = green.1;
     let v3 = green.2;
-    println!(
-        "The RGB value of {} is set to: {v1}, {v2}, {v3}",
-        color_name
-    );
-
+    println!("The RGB value of {color_name} is set to: {v1}, {v2}, {v3}");
 }
