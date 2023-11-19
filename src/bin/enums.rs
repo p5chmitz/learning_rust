@@ -1,4 +1,3 @@
-
 //Defines the enum
 #[derive(Debug)]
 enum IpAddrKind {
@@ -6,7 +5,7 @@ enum IpAddrKind {
     V6(String),
 }
 //Function that takes specified enum type
-fn route(a: IpAddrKind){
+fn route(a: IpAddrKind) {
     println!("The struct is: {:#?}", a)
 }
 
@@ -21,7 +20,6 @@ enum TestingEnumsEnum {
     B(TestingEnumsStruct, String),
 }
 fn main() {
-
     //Builds enum instances
     let addr1: IpAddrKind = IpAddrKind::V4(10, 0, 0, 1);
     let addr2: IpAddrKind = IpAddrKind::V6(String::from("2345:0425:2CA1:0000:0000:0567:5673:23b5"));
@@ -41,5 +39,4 @@ fn main() {
     let third = TestingEnumsEnum::A(first);
     println!("{:#?}", third);
     //println!("Greeting: {}", &first.one)
-
 }

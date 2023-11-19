@@ -45,7 +45,6 @@ impl Rectangle {
 }
 
 fn main() {
-
     let first: Rectangle = Rectangle::constructor(20, 30);
     println!("The area of rekt is: {}", first.area3());
 
@@ -73,7 +72,7 @@ fn main() {
         "3) The area of the rect2 is {} square pixels.",
         area2(&rect2)
     );
-        println!(
+    println!(
         "4) The width of rect2 is {} and the width of rect3 is {}.",
         &rect2.width, &rect3.width
     );
