@@ -17,17 +17,19 @@ impl Time {
         return milliseconds;
     }
     fn time_constructor(system_time: u128) -> Self {
-        let current_seconds: u128 = system_time / 1000 % 60 % 60; //works
-        let current_minute: u128 = system_time / 1000 / 60 % 60; //works
-        let current_hour: u128 = system_time / 1000 / 60 / 60 % 24; //all fucked up
+        let current_seconds: u128 = system_time / 1000 % 60;
+        let current_minute: u128 = system_time / 1000 / 60 % 60;
+        let current_hour: u128 = system_time / 1000 / 60 / 60 % 24;
+        let current_year: u128 = system_time / 31557600000 + 1970;
         Self {
             current_seconds,
             current_minute,
             current_hour,
-            current_year: 0,
+            current_year,
         }
     }
-    fn set_period(&mut self, offset: &u128) -> String {
+    //TODO: fix UB with mutable reference offset
+    fn set_12h_period(&mut self, offset: &u128) -> String {
         let mut period: String = String::from(" AM");
         if self.current_hour < *offset {
             self.current_hour = (self.current_hour + 24) - offset;
@@ -62,10 +64,11 @@ fn main() {
     //Prints the time
     let mut time_now: Time = Time::time_constructor(Time::get_system_time());
     //println!("Struct debug: {:#?}", time_now);
-    let period: String = Time::set_period(&mut time_now, &offset);
+    let period: String = Time::set_12h_period(&mut time_now, &offset);
     let hour: i32 = Time::set_timezone(&mut time_now);
     println!(
         "{}:{}:{}{}",
         hour, time_now.current_minute, time_now.current_seconds, period
     );
+    println!("{}", time_now.current_year);
 }
