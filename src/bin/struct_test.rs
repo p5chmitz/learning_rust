@@ -18,7 +18,7 @@ fn area2(r: &Rectangle) -> u32 {
 }
 impl Rectangle {
     //Implements the area method
-    fn area3(&self) -> u32 {
+    fn area3(self: &Self) -> u32 {
         self.width * self.height
     }
     //Implements the can_hold method

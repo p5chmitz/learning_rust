@@ -6,6 +6,11 @@ struct User {
     email: String,
     sign_in_count: i32,
 }
+impl User {
+    fn print_me(&self) {
+        println!("{}", self.struct_name)
+    }
+}
 
 //It is also possible to use the "Field Init Shorthand" for self-same fields.
 fn build_user(struct_name: String, email: String, username: String) -> User {
@@ -59,7 +64,8 @@ fn main() {
         username: String::from("Michael"),
         ..user1
     };
-    print_struct_with_name(user2.struct_name, &user2.email, &user2.username);
+    //print_struct_with_name(user2.struct_name, &user2.email, &user2.username);
+    user2.print_me();
 
     //Instantiates a new User struct using a build function
     let new_struct: String = String::from("user3"); //Names struct
