@@ -13,7 +13,7 @@ impl Time {
         let since_the_epoch: Duration = start
             .duration_since(UNIX_EPOCH)
             .expect("Time went backwards");
-        let milliseconds: u128 = since_the_epoch.as_millis() as u128;
+        let milliseconds: u128 = since_the_epoch.as_millis();
         return milliseconds;
     }
     fn time_constructor(system_time: u128) -> Self {
@@ -39,7 +39,7 @@ impl Time {
         }
         return period;
     }
-    fn set_timezone(&mut self, offset: &u128) -> i32 {
+    fn set_timezone(&mut self) -> i32 {
         //let mut updated_hour: i32 = (self.current_hour - offset) as i32;
         let mut updated_hour: i32 = self.current_hour as i32;
         if updated_hour <= 0 {
@@ -50,8 +50,8 @@ impl Time {
         }
         return updated_hour;
     }
-    fn format_minute() {}
-    fn format_second() {}
+    //fn format_minute() -> String {}
+    //fn format_second() -> String {}
     fn print_time() {}
 }
 
@@ -63,12 +63,9 @@ fn main() {
     let mut time_now: Time = Time::time_constructor(Time::get_system_time());
     //println!("Struct debug: {:#?}", time_now);
     let period: String = Time::set_period(&mut time_now, &offset);
-    let hour: i32 = Time::set_timezone(&mut time_now, &offset);
+    let hour: i32 = Time::set_timezone(&mut time_now);
     println!(
         "{}:{}:{}{}",
         hour, time_now.current_minute, time_now.current_seconds, period
     );
-
-    // let time: SystemTime = SystemTime::now();
-    // println!("{:#?}", time);
 }
