@@ -1,8 +1,10 @@
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::{io, thread, time};
+use std::io::Write;
 
 #[derive(Debug)]
 struct Time {
-    current_seconds: u128,
+    current_second: u128,
     current_minute: u128,
     current_hour: u128,
     current_year: u128,
@@ -17,17 +19,49 @@ impl Time {
         return milliseconds;
     }
     fn time_constructor(system_time: u128) -> Self {
-        let current_seconds: u128 = system_time / 1000 % 60;
+        let current_second: u128 = system_time / 1000 % 60;
         let current_minute: u128 = system_time / 1000 / 60 % 60;
         let current_hour: u128 = system_time / 1000 / 60 / 60 % 24;
         let current_year: u128 = system_time / 31557600000 + 1970;
         Self {
-            current_seconds,
+            current_second,
             current_minute,
             current_hour,
             current_year,
         }
     }
+    fn set_timezone(&mut self) -> i32 {
+        //let mut updated_hour: i32 = (self.current_hour - offset) as i32;
+        let mut updated_hour: i32 = self.current_hour as i32;
+        if updated_hour <= 0 {
+            updated_hour = updated_hour + 12;
+        }
+        if updated_hour > 12 {
+            updated_hour = updated_hour - 12;
+        }
+        return updated_hour;
+    }
+    fn format_minute(&self) -> String {
+        if self.current_minute < 10 {
+            let i: String = self.current_minute.to_string();
+            let mut formatted_minute: String = String::from("0");
+            formatted_minute.push_str(&i);
+            return formatted_minute
+        } else {
+            return self.current_minute.to_string();
+        }
+    }
+    fn format_second(&self) -> String {
+        if self.current_second < 10 {
+            let i: String = self.current_second.to_string();
+            let mut formatted_second: String = String::from("0");
+            formatted_second.push_str(&i);
+            return formatted_second
+        } else {
+            return self.current_second.to_string();
+        }
+    }
+
     //TODO: fix UB with mutable reference offset
     fn set_12h_period(&mut self, offset: &u128) -> String {
         let mut period: String = String::from(" AM");
@@ -41,34 +75,29 @@ impl Time {
         }
         return period;
     }
-    fn set_timezone(&mut self) -> i32 {
-        //let mut updated_hour: i32 = (self.current_hour - offset) as i32;
-        let mut updated_hour: i32 = self.current_hour as i32;
-        if updated_hour <= 0 {
-            updated_hour = updated_hour + 12;
-        }
-        if updated_hour > 12 {
-            updated_hour = updated_hour - 12;
-        }
-        return updated_hour;
-    }
-    //fn format_minute() -> String {}
-    //fn format_second() -> String {}
-    fn print_time() {}
 }
 
 fn main() {
     //Sets the timezone offset from UTC
     let offset: u128 = 8;
 
-    //Prints the time
-    let mut time_now: Time = Time::time_constructor(Time::get_system_time());
-    //println!("Struct debug: {:#?}", time_now);
-    let period: String = Time::set_12h_period(&mut time_now, &offset);
-    let hour: i32 = Time::set_timezone(&mut time_now);
-    println!(
-        "{}:{}:{}{}",
-        hour, time_now.current_minute, time_now.current_seconds, period
-    );
-    println!("{}", time_now.current_year);
+    loop {
+        //Prints the time
+        let mut time_now: Time = Time::time_constructor(Time::get_system_time());
+        //dbg!(&time_now);
+        let period: String = Time::set_12h_period(&mut time_now, &offset);
+        let hour: i32 = Time::set_timezone(&mut time_now);
+        let minute: String = time_now.format_minute();
+        let second: String = time_now.format_second();
+
+        print!(
+            "\r{}:{}:{}{}",
+            hour, minute, second, period
+        );
+        //println!("{}", time_now.current_year);
+        io::stdout().flush().unwrap();
+
+        let wait = time::Duration::from_millis(1000);
+        thread::sleep(wait);
+    }
 }
