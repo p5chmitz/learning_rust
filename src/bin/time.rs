@@ -88,7 +88,7 @@ fn main() {
         let hour: i32 = Time::set_timezone(&mut time_now);
         let minute: String = time_now.format_minute();
         let second: String = time_now.format_second();
-        print!("\r{}:{}:{}{}", hour, minute, second, period);
+        print!("\r{}:{}:{}{} ", hour, minute, second, period);
         //println!("{}", time_now.current_year);
         io::stdout().flush().unwrap();
         let wait = time::Duration::from_millis(1000);
