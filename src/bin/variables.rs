@@ -1,6 +1,5 @@
 use json;
 use json::{object, JsonValue};
-
 //Basic declaration, instantiation, and printing
 fn basic_declaration() {
     let mut x: i32 = 5;
@@ -40,11 +39,11 @@ fn shadow_two() {
     println!("\nThe value of spaces is \"{}\".", spaces);
 }
 //This example accomplishes the same thing as above, but does not use shadowing
-//It appears I may not understand Strings yet
 fn shadow_three() {
-    let mut phrase: String = String::new();
-    phrase = "Whatever we want it to, now".parse().expect("lol");
+    let phrase: String = String::from("Whatever we want it to, now");
+    //phrase = "Whatever we want it to, now".parse().expect("lol");
     println!("\nThe value of spaces is \"{}\".", phrase.len());
+    println!("{}", phrase);
 }
 //Integer overflow illustration with wrapping method
 fn integer_overflow() {
@@ -107,13 +106,12 @@ fn array() {
 
 //Str type
 fn str_type() {
-    let s: &str = "Peter";
+    let _s: &str = "Peter";
 }
-
 //String Slice (not really a type, but a reference to a String index)
 fn slice_type() {
     let s = String::from("Hello, world!");
-    let hello = &s[0..5]; //References the first 5 indexes
+    let _hello = &s[0..5]; //References the first 5 indexes
     let hello = &s[1..5]; //Result is same as above
     let world = &s[7..12]; //References another 5 indexes
     println!("{hello} || {world}");
