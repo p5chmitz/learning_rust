@@ -15,10 +15,10 @@ impl User {
 //It is also possible to use the "Field Init Shorthand" for self-same fields.
 fn build_user(struct_name: String, email: String, username: String) -> User {
     User {
-        struct_name: struct_name,
+        struct_name,
         active: true,
-        username: username,
-        email: email,
+        username,
+        email,
         sign_in_count: 1,
     } //Implicitly returns User
 }
@@ -39,7 +39,7 @@ fn print_struct(uemail: &String, uname: &String) {
 fn main() {
     //Instantiates/builds the User struct as user1
     let uname: String = String::from("user1");
-    let mut user1: User = User {
+    let user1: User = User {
         struct_name: uname,
         active: true,
         username: String::from("peter"),
@@ -48,7 +48,7 @@ fn main() {
     };
     //Accesses struct value(s) in the user1 instance
     let mut uemail: &String = &user1.email;
-    let mut uname: &String = &user1.username;
+    let uname: &String = &user1.username;
     print_struct(&uemail, &uname);
     //    println!("Debugging: {:#?}", user1);
     dbg!(&user1);
@@ -59,7 +59,7 @@ fn main() {
     print_struct(&uemail, &uname);
 
     //Uses the struct update syntax to copy values from user1 instance
-    let mut user2: User = User {
+    let user2: User = User {
         struct_name: String::from("user2"),
         username: String::from("Michael"),
         ..user1
