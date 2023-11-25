@@ -58,6 +58,15 @@ enum Movement {
     B { x: i32, y: i32, z: i32 },
     C(String),
 }
+fn testing_types(t: &Movement) -> String {
+    let mut _decision: String = Default::default();
+    //Prints a message
+    match t {
+        Movement::A(..) => _decision = String::from("Yes! Its Movement type A"),
+        _other => _decision = String::from("(Type not found)"),
+    };
+    return _decision;
+}
 
 fn main() {
     //Creates enum instances
@@ -106,5 +115,9 @@ fn main() {
     let input_coin: Coin = Coin::Quarter;
     println!("The value of the coin is: {}", value_of_coin(input_coin));
 
-    
+    let first: Movement = Movement::A(12, 23);
+    let second: Movement = Movement::C(String::from("Hello!"));
+    println!("Is the input valid??");
+    println!("    First test: {}", testing_types(&first));
+    println!("    Second test: {}", testing_types(&second));
 }
