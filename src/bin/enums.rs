@@ -1,3 +1,5 @@
+//This is just how we roll now
+
 //Defines the enum
 #[derive(Debug)]
 enum IpAddrKind {
@@ -20,26 +22,26 @@ impl IpAddrKind {
 #[derive(Debug)]
 enum Message {
     _Quit,
-    Move { x: i32, y: i32 },
+    _Move { x: i32, y: i32 },
     Write(String),
     _ChangeColor(i32, i32, i32),
 }
 impl Message {
-    fn set_move(x: i32, y: i32) -> Message {
-        Message::Move { x, y }
+    fn set_move(x: i32, y: i32) -> message {
+        message::_move { x, y }
     }
-    fn print_message(m: &Message) {
+    fn print_message(m: &message) {
         match m {
-            Message::Write(a) => {
-                println!("    Atuo-print method: {a}")
+            message::write(a) => {
+                println!("    atuo-print method: {a}")
             }
             _ => (),
         }
     }
-    fn get_message(m: &Message) -> String {
-        let mut s: String = String::new();
+    fn get_message(m: &message) -> string {
+        let mut s: string = string::new();
         match m {
-            Message::Write(a) => {
+            message::write(a) => {
                 s = a.to_string();
             }
             _ => (),
@@ -48,74 +50,64 @@ impl Message {
     }
 }
 
-//The Coin enum
-enum Coin {
-    Penny,
-    Nickel,
-    Dime,
-    Quarter,
+//the coin enum
+enum coin {
+    _penny,
+    _nickel,
+    _dime,
+    quarter,
 }
-fn value_of_coin(coin: Coin) -> u8 {
+fn value_of_coin(coin: coin) -> u8 {
     match coin {
-        Coin::Penny => {
-            println!("    Thats a penny!");
+        coin::_penny => {
+            println!("    thats a penny!");
             1
         }
-        Coin::Nickel => {
-            println!("    Thats a nickel!");
+        coin::_nickel => {
+            println!("    thats a nickel!");
             5
         }
-        Coin::Dime => {
-            println!("    Thats a dime!");
+        coin::_dime => {
+            println!("    thats a dime!");
             10
         }
-        Coin::Quarter => {
-            println!("    Thats a quarter!");
+        coin::quarter => {
+            println!("    thats a quarter!");
             25
         }
     }
 }
 
-//Enum with different structs
-#[derive(Debug)]
-enum Movement {
-    A(i32, i32),
-    //B { x: i32, y: i32, z: i32 },
-    C(String),
+//enum with different structs
+#[derive(debug)]
+enum movement {
+    a(i32, i32),
+    //b { x: i32, y: i32, z: i32 },
+    c(string),
 }
-fn testing_types(t: &Movement) -> String {
-    let mut _decision: String = Default::default();
-    //Prints a message
+//matches an enum and prints a message
+fn testing_types(t: &movement) -> string {
+    let mut _decision: string = default::default();
     match t {
-        Movement::A(..) => _decision = String::from("Yes! Its Movement type A"),
-        //Movement::C(..) => _decision = String::from("Yes! Its the Movement type C"),
-        _ => _decision = String::from("(Type not founderino)"),
+        movement::a(..) => _decision = string::from("yes! its movement type a"),
+        //movement::c(..) => _decision = string::from("yes! its the movement type c"),
+        _ => _decision = string::from("(type not founderino)"),
     };
     return _decision;
 }
-fn my_docs_example(t: &Movement) {
-    match t {
-        Movement::A(..) => {
-            println!("Type A");
-        }
-        _ => {
-            println!("Type not found");
-        }
-    };
-}
-fn plus_one(x: Option<i32>) -> Option<i32> {
+fn plus_one(x: option<i32>) -> option<i32> {
     match x {
-        None => None,
-        Some(i) => Some(i + 1),
+        none => none,
+        some(i) => some(i + 1),
     }
 }
 
 fn main() {
-    //Creates enum instances
-    //Calls associated function that takes enum types, prints values
-    let a1: IpAddrKind = IpAddrKind::V4(10, 0, 0, 1);
-    let a2: IpAddrKind = IpAddrKind::V6(String::from("2345:0425:2CA1:0000:0000:0567:5673:23b5"));
-    IpAddrKind::access_and_print(a1);
+    //creates enum instances
+    //calls associated function that takes enum types, prints values
+    let a1: ipaddrkind = ipaddrkind::v4(10, 0, 0, 1);
+    let a2: ipaddrkind = ipaddrkind::v6(string::from("2345:0425:2ca1:0000:0000:0567:5673:23b5"));
+    ipaddrkind::access_and_print(a1);
     IpAddrKind::access_and_print(a2);
 
     //Creates enum instances
@@ -129,7 +121,7 @@ fn main() {
     }
 
     //Writes to enum variant directly and prints variant
-    let mv: Message = Message::Move { x: 12, y: 23 };
+    let mv: Message = Message::_Move { x: 12, y: 23 };
     //println!("mva: {:#?}", mv);
 
     //Writes to enum variant and prints variant
