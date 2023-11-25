@@ -9,21 +9,20 @@ impl IpAddrKind {
         match a {
             IpAddrKind::V4(a, b, c, d) => {
                 println!("The IPv4 address is: {a}.{b}.{c}.{d}")
-            },
+            }
             IpAddrKind::V6(a) => {
                 println!("The IPv6 address is: {a}");
-            },
-            _ => (),
+            }
         }
     }
 }
 
 #[derive(Debug)]
 enum Message {
-    Quit,
+    _Quit,
     Move { x: i32, y: i32 },
     Write(String),
-    ChangeColor(i32, i32, i32),
+    _ChangeColor(i32, i32, i32),
 }
 impl Message {
     fn set_move(x: i32, y: i32) -> Message {
@@ -32,20 +31,20 @@ impl Message {
     fn print_message(m: &Message) {
         match m {
             Message::Write(a) => {
-                println!("{a}")
-            },
+                println!("    Atuo-print method: {a}")
+            }
             _ => (),
         }
     }
     fn get_message(m: &Message) -> String {
-        let mut s: String = String::new(); 
+        let mut s: String = String::new();
         match m {
             Message::Write(a) => {
-                s = a.to_string(); 
-            },
+                s = a.to_string();
+            }
             _ => (),
         };
-        return s
+        return s;
     }
 }
 
@@ -120,30 +119,34 @@ fn main() {
     IpAddrKind::access_and_print(a2);
 
     //Creates enum instances
-    //Prints specific fields from Message using two different techniques 
+    //Prints specific fields from Message using three different techniques
+    println!("1) Printing an element from an enum variant with multiple techniques");
     let m: Message = Message::Write(String::from("A rising tide lifts all the homies"));
-    println!("The message is: {}", Message::get_message(&m));
+    println!("    The message is: {}", Message::get_message(&m));
     Message::print_message(&m);
+    if let Message::Write(homies) = m {
+        println!("    If let syntax message: {homies}");
+    }
 
     //Writes to enum variant directly and prints variant
     let mv: Message = Message::Move { x: 12, y: 23 };
-    println!("mva: {:#?}", mv);
+    //println!("mva: {:#?}", mv);
 
     //Writes to enum variant and prints variant
     let mva: Message = Message::set_move(12, 1983);
-    println!("mva: {:#?}", mva);
+    //println!("mva: {:#?}", mva);
     //println!("IDK WTF: {:#?}", mva.get_move());
 
     //Introduces the Option<T> enum
     let some_number: Option<i32> = Some(5);
-    dbg!(some_number);
+    //dbg!(some_number);
     let some_character: Option<char> = Some('P');
-    dbg!(some_character);
+    //dbg!(some_character);
     let absent_value: Option<String> = None;
-    dbg!(absent_value);
+    //dbg!(absent_value);
 
     //No such thing as null in Rust
-    println!("1) Rust dont have no nulls");
+    println!("2) Rust dont have no nulls");
     let s1: String = String::new();
     println!("    This is a null string: {s1}");
     let s2: String = Default::default();
@@ -154,12 +157,12 @@ fn main() {
     let y: Option<i32> = Some(23);
     let z: i32 = y.unwrap();
     let xz: i32 = x + z;
-    println!("2) The value of x is {x}, and the unwrapped Option<T> type is is: {z}");
+    println!("3) The value of x is {x}, and the unwrapped Option<T> type is is: {z}");
 
     //Adds one to the passed number using Option<T>
     let five: Option<i32> = Some(5);
     let none: Option<i32> = None;
-    println!("3) More use of the Option<T> type");
+    println!("4) More use of the Option<T> type");
     println!("    The value is now: {:?}", plus_one(five));
     println!("    Testing: {:?}", five);
     println!("    The value is now: {:?}", plus_one(Some(11)));
@@ -168,13 +171,13 @@ fn main() {
 
     //Introduces the match construct
     let input_coin: Coin = Coin::Quarter;
-    println!("4) The value of the coin is:");
+    println!("5) The value of the coin is:");
     println!("{}", value_of_coin(input_coin));
 
     //Passes a moement type and returns a string based on a match pattern
     let first: Movement = Movement::A(12, 23);
     let second: Movement = Movement::C(String::from("Hello!"));
-    println!("5) Is the input valid??");
+    println!("6) Is the input valid??");
     println!("    First test: {}", testing_types(&first));
     println!("    Second test: {}", testing_types(&second));
 }
