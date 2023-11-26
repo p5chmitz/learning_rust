@@ -53,29 +53,30 @@ enum Coin {
     _Dime,
     Quarter,
 }
-fn value_of_coin(coin: Coin) -> u8 {
-    match coin {
-        Coin::_Penny => {
-            println!("    that's a penny!");
-            1
-        }
-        Coin::_Nickel => {
-            println!("    that's a nickel!");
-            5
-        }
-        Coin::_Dime => {
-            println!("    that's a dime!");
-            10
-        }
-        Coin::Quarter => {
-            println!("    that's a quarter!");
-            25
+impl Coin {
+    fn value_of_coin(coin: Coin) -> u8 {
+        match coin {
+            Coin::_Penny => {
+                println!("    that's a penny!");
+                1
+            }
+            Coin::_Nickel => {
+                println!("    that's a nickel!");
+                5
+            }
+            Coin::_Dime => {
+                println!("    that's a dime!");
+                10
+            }
+            Coin::Quarter => {
+                println!("    that's a quarter!");
+                25
+            }
         }
     }
 }
 
 //enum with different structs
-#[derive(Debug)]
 enum Movement {
     A(i32, i32),
     //b { x: i32, y: i32, z: i32 },
@@ -149,7 +150,7 @@ fn main() {
     //Introduces the match construct
     let input_coin: Coin = Coin::Quarter;
     println!("5) The value of the coin is:");
-    println!("{}", value_of_coin(input_coin));
+    println!("{}", Coin::value_of_coin(input_coin));
 
     //Passes a moment type and returns a string based on a match pattern
     let first: Movement = Movement::A(12, 23);
@@ -157,5 +158,4 @@ fn main() {
     println!("6) Is the input valid??");
     println!("    First test: {}", testing_types(&first));
     println!("    Second test: {}", testing_types(&second));
-
 }
