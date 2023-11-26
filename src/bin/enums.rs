@@ -56,19 +56,19 @@ enum Coin {
 fn value_of_coin(coin: Coin) -> u8 {
     match coin {
         Coin::_Penny => {
-            println!("    thats a penny!");
+            println!("    that's a penny!");
             1
         }
         Coin::_Nickel => {
-            println!("    thats a nickel!");
+            println!("    that's a nickel!");
             5
         }
         Coin::_Dime => {
-            println!("    thats a dime!");
+            println!("    that's a dime!");
             10
         }
         Coin::Quarter => {
-            println!("    thats a quarter!");
+            println!("    that's a quarter!");
             25
         }
     }
@@ -94,7 +94,7 @@ fn testing_types(t: &Movement) -> String {
 fn plus_one(x: Option<i32>) -> Option<i32> {
     match x {
         none => none,
-        Some(_i) => Some(_i + 1),
+        //Some(_i) => Some(_i + 1),
     }
 }
 
@@ -109,7 +109,7 @@ fn main() {
     //Creates enum instances
     //Prints specific fields from Message using three different techniques
     println!("1) Printing an element from an enum variant with multiple techniques");
-    let m: Message = Message::Write(String::from("A rising tide lifts all the homies"));
+    let m: Message = Message::Write(String::from("A rising tide lifts all the homies!"));
     println!("    The message is: {}", Message::get_message(&m));
     Message::print_message(&m);
     //Uses the if let syntax!
