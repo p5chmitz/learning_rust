@@ -1,10 +1,10 @@
 #[derive(Debug)]
 struct User {
     struct_name: String,
-    active: bool,
+    _active: bool,
     username: String,
     email: String,
-    sign_in_count: i32,
+    _sign_in_count: i32,
 }
 impl User {
     fn print_me(&self) {
@@ -16,47 +16,47 @@ impl User {
 fn build_user(struct_name: String, email: String, username: String) -> User {
     User {
         struct_name,
-        active: true,
+        _active: true,
         username,
         email,
-        sign_in_count: 1,
+        _sign_in_count: 1,
     } //Implicitly returns User
 }
 //Prints the struct
-fn print_struct_with_name(new_struct_name: String, uemail: &String, uname: &String) {
+fn print_struct_with_name(new_struct_name: String, _user_email: &String, _user_name: &String) {
     println!("Struct: {}", &new_struct_name);
-    println!("Email: {uemail}");
-    println!("Username: {uname}");
-    println!("");
+    println!("Email: {_user_email}");
+    println!("Username: {_user_name}");
+    println!();
 }
-fn print_struct(uemail: &String, uname: &String) {
+fn print_struct(_user_email: &String, _user_name: &String) {
     println!("Struct: [generic]");
-    println!("Email: {uemail}");
-    println!("Username: {uname}");
-    println!("");
+    println!("Email: {_user_email}");
+    println!("Username: {_user_name}");
+    println!();
 }
 
 fn main() {
     //Instantiates/builds the User struct as user1
-    let uname: String = String::from("user1");
+    let user_name: String = String::from("user1");
     let user1: User = User {
-        struct_name: uname,
-        active: true,
+        struct_name: user_name,
+        _active: true,
         username: String::from("peter"),
         email: String::from("peter@email.com"),
-        sign_in_count: 23,
+        _sign_in_count: 23,
     };
     //Accesses struct value(s) in the user1 instance
-    let mut uemail: &String = &user1.email;
-    let uname: &String = &user1.username;
-    print_struct(&uemail, &uname);
+    let mut user_email: &String = &user1.email;
+    let user_name: &String = &user1.username;
+    print_struct(&user_email, &user_name);
     //    println!("Debugging: {:#?}", user1);
     dbg!(&user1);
-    println!("");
+    println!();
 
     //Resets the value of username from the mutable struct in the user1 instance
-    let uname: &String = &String::from("petername");
-    print_struct(&uemail, &uname);
+    let user_name: &String = &String::from("petername");
+    print_struct(&user_email, &user_name);
 
     //Uses the struct update syntax to copy values from user1 instance
     let user2: User = User {
@@ -76,16 +76,16 @@ fn main() {
         String::from("dingus@dorkus.com"),
         String::from("dangus"),
     );
-    uemail = &new_struct.email;
-    let uname: &String = &new_struct.username;
-    print_struct_with_name(new_struct_name, &uemail, &uname);
+    user_email = &new_struct.email;
+    let user_name: &String = &new_struct.username;
+    print_struct_with_name(new_struct_name, &user_email, &user_name);
 
     //Tuple structs are weird
     struct Green(i32, i32, i32);
-    let color_name: String = String::from("Green");
+    let _color_name: String = String::from("Green");
     let green = Green(134, 187, 140);
-    let v1 = green.0;
-    let v2 = green.1;
-    let v3 = green.2;
-    println!("The RGB value of {color_name} is set to: {v1}, {v2}, {v3}");
+    let _v1 = green.0;
+    let _v2 = green.1;
+    let _v3 = green.2;
+    println!("The RGB value of {_color_name} is set to: {_v1}, {_v2}, {_v3}");
 }

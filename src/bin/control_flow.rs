@@ -23,11 +23,11 @@ fn so_many_times(n: f64) -> String {
 }
 //Uses an if statement in a declaration
 fn again_lets_if(n: i32) {
-    let i: &str = if n < 5 { "true" } else { "false" };
-    println!("{i}");
+    let _i: &str = if n < 5 { "true" } else { "false" };
+    println!("{_i}");
 }
 //Introduces the basic loop keyword
-fn loops() {
+fn _loops() {
     let mut i: i32 = 12;
     loop {
         println!("{i}");
@@ -44,9 +44,9 @@ fn loops() {
     }
 }
 //Uses a loop in a declaration
-fn loop_lets() {
+fn _loop_lets() {
     let mut i: i32 = 12;
-    let x: i32 = loop {
+    let _x: i32 = loop {
         println!("{i}");
         i += 1;
         if i == 23 {
@@ -58,10 +58,10 @@ fn loop_lets() {
             break i;
         }
     };
-    println!("The max is: {x}");
+    println!("The max is: {_x}");
 }
 //Uses loop labels for nested/scoped identification
-fn loop_labels() {
+fn _loop_labels() {
     let mut count: i32 = 1;
     loop {
         println!("{count}");
@@ -80,7 +80,7 @@ fn loop_labels() {
     }
 }
 //While loops, yo
-fn while_loops() {
+fn _while_loops() {
     let mut i: i32 = 10;
     while i >= 1 {
         println!("{i}");
@@ -89,51 +89,51 @@ fn while_loops() {
     println!("Blast off!");
 }
 //Playing around with while loops
-fn my_age() {
+fn _my_age() {
     let mut age: i32 = 0;
     let mut year: i32 = 1983;
-    println!("I was born in {}.", year);
+    println!("I was born in {}.", &year);
     year += 1;
     while year <= 2023 {
         println!(
             "For most of {} I was {}, but at the very end I turned {}.",
             year,
             age,
-            (age + 1)
+            (&age + 1)
         );
         age += 1;
         year += 1
     }
 }
 //Just a static age calculator
-fn my_age_static() {
+fn _my_age_static() {
     let year: i32 = 2023;
-    let mut age: i32 = year - 1984;
+    let mut _age: i32 = year - 1984;
     println!(
         "For most of {} I was {}, but at the very end I turned {}.",
         year,
-        age,
-        (age + 1)
+        _age,
+        (_age + 1)
     )
 }
 //Just a static age calculator that takes a variable
-fn my_age_again(year: i32) {
-    let mut age: i32 = year - 1984;
+fn _my_age_again(year: i32) {
+    let mut _age: i32 = year - 1984;
     println!(
         "For most of {} I was {}, but at the very end I turned {}.",
         year,
-        age,
-        (age + 1)
+        _age,
+        (_age + 1)
     );
 }
 //For loop with an array
-fn for_loops() {
+fn _for_loops() {
     let a: [&str; 4] = ["a", "b", "c", "d"];
-    for index in a {
-        println!("{index}")
+    for _index in a {
+        println!("{_index}")
     }
-    for i in (1..10).rev() {
-        println!("{i}")
+    for _i in (1..10).rev() {
+        println!("{_i}")
     }
     println!("Blorst off!");
 }

@@ -14,12 +14,12 @@ fn area1(dimensions: (u32, u32)) -> u32 {
 }
 //Takes a single, (immutable) borrow argument of a Rectangle instance (&rect2)
 fn area2(r: &Rectangle) -> u32 {
-    r.width * r.height
+    &r.width * &r.height
 }
 impl Rectangle {
     //Implements the area method
     fn area3(self: &Self) -> u32 {
-        self.width * self.height
+        &self.width * &self.height
     }
     //Implements the can_hold method
     fn is_wider(&self, second_instance: &Rectangle) -> bool {
@@ -31,7 +31,7 @@ impl Rectangle {
     }
     //Mutates the size of the rectangle
     fn mutate(&self, x: u32, y: u32) -> u32 {
-        (self.width * x) * (self.height * y)
+        (&self.width * x) * (&self.height * y)
     }
     fn _whatever() -> String {
         String::from("Is this a method?")

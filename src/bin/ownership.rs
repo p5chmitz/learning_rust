@@ -28,8 +28,9 @@ fn new_string_class_literal() -> String {
 }
 //Creates a new reference and binds hardcoded literal to the variable
 fn new_string_literal() {
-    let a: &str = "henlo!";
-    println!("{a}");
+    let _a: &str = "henlo!";
+    dbg!(_a);
+    //println!("{a}");
 }
 
 //Shallow copies with
@@ -97,6 +98,6 @@ fn main() {
     //In order to use s1 after passing it to a function we can either create a tuple to return it,
     //or we can create a reference to the value
     let s1: String = String::from("Peter");
-    let s2: usize = calc_len(&s1); //Create a reference type
-    println!("The string {s1} is {s2} characters long.");
+    let _s2: usize = calc_len(&s1); //Create a reference type
+    println!("The string {s1} is {_s2} characters long.");
 }

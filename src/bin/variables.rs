@@ -57,17 +57,17 @@ fn integer_overflow() {
 fn integer_rounding() {
     let a: i32 = 24;
     let b: i32 = 5;
-    let c: i32 = a / b;
-    println!("{a}/{b} = {c}");
+    let _c: i32 = a / b;
+    println!("{a}/{b} = {_c}");
 }
 //Its tuples!
 fn tuple() {
     //declares a tuple of mixed types
     let idk: (i32, f64, u8) = (32, 6.4, 8); //Creates a tuple
-    let (a, b, c) = idk; //access all elements
-    let d = idk.1; //access specific elements by index
-    println!("The whole tuple: {a}, {b}, {c}");
-    println!("Accessing a tuple index: {d}");
+    let (_a, _b, _c) = idk; //access all elements
+    let _d: &f64 = &idk.1; //access specific elements by index
+    println!("The whole tuple: {_a}, {_b}, {_c}");
+    println!("Accessing a tuple index: {_d}");
 
     //Declares a User tuple
     let user: (bool, String, String, u64) = (
@@ -76,32 +76,32 @@ fn tuple() {
         String::from("peter@email.com"),
         23,
     );
-    let user_name = user.1;
-    let email = user.2;
-    println!("Username: {user_name}");
-    println!("Email: {email}");
+    let _user_name = user.1;
+    let _email = user.2;
+    println!("Username: {_user_name}");
+    println!("Email: {_email}");
 
     //declares a tuple of the same type
     let whatev = (1, 2, 3, 4);
-    let e = whatev.3;
-    println!("When the tuple hits just right, {e}");
+    let _e = whatev.3;
+    println!("When the tuple hits just right, {_e}");
 }
 fn tuple_two() {
     let x: (String, u8) = (String::from("Peter"), 40);
-    let name: String = String::from(x.0);
-    let age: u8 = x.1;
-    println!("{name} is {age} years old.");
+    let _name: String = String::from(x.0);
+    let _age: u8 = x.1;
+    println!("{_name} is {_age} years old.");
 }
 //Its an array, Carlie Brown!
 fn array() {
     //Be explicit
     let array: [f64; 3] = [32.0, 6.4, 8.0];
-    let a: f64 = array[0]; //access specific elements by index
-    println!("Accessing a tuple index: {a}");
+    let _a: &f64 = &array[0]; //access specific elements by index
+    println!("Accessing a tuple index: {_a}");
     //Be implicit
     let array_two = [23; 5];
-    let b: i32 = array_two[3];
-    println!("Lets print a hastily initialized array index: {b}");
+    let _b: &i32 = &array_two[3];
+    println!("Lets print a hastily initialized array index: {_b}");
 }
 
 //Str type
@@ -112,12 +112,12 @@ fn str_type() {
 fn slice_type() {
     let s = String::from("Hello, world!");
     let _hello = &s[0..5]; //References the first 5 indexes
-    let hello = &s[1..5]; //Result is same as above
-    let world = &s[7..12]; //References another 5 indexes
-    println!("{hello} || {world}");
+    let _hello = &s[1..5]; //Result is same as above
+    let _world = &s[7..12]; //References another 5 indexes
+    println!("{_hello} || {_world}");
 
-    let hello_world = &s[..]; //References the whole index range
-    println!("{hello_world}");
+    let _hello_world = &s[..]; //References the whole index range
+    println!("{_hello_world}");
 }
 
 //Function that returns a value
