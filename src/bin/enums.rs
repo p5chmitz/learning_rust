@@ -1,7 +1,4 @@
-//This is just how we roll now
-
 //Defines the enum
-#[derive(Debug)]
 enum IpAddrKind {
     V4(u8, u8, u8, u8),
     V6(String),
@@ -19,7 +16,6 @@ impl IpAddrKind {
     }
 }
 
-#[derive(Debug)]
 enum Message {
     _Quit,
     _Move { x: i32, y: i32 },
@@ -27,21 +23,21 @@ enum Message {
     _ChangeColor(i32, i32, i32),
 }
 impl Message {
-    fn set_move(x: i32, y: i32) -> message {
-        message::_move { x, y }
+    fn set_move(x: i32, y: i32) -> Message {
+        Message::_Move { x, y }
     }
-    fn print_message(m: &message) {
+    fn print_message(m: &Message) {
         match m {
-            message::write(a) => {
-                println!("    atuo-print method: {a}")
+            Message::Write(a) => {
+                println!("    auto-print method: {a}")
             }
             _ => (),
         }
     }
-    fn get_message(m: &message) -> string {
-        let mut s: string = string::new();
+    fn get_message(m: &Message) -> String {
+        let mut s: String = String::new();
         match m {
-            message::write(a) => {
+            Message::Write(a) => {
                 s = a.to_string();
             }
             _ => (),
@@ -51,27 +47,27 @@ impl Message {
 }
 
 //the coin enum
-enum coin {
-    _penny,
-    _nickel,
-    _dime,
-    quarter,
+enum Coin {
+    _Penny,
+    _Nickel,
+    _Dime,
+    Quarter,
 }
-fn value_of_coin(coin: coin) -> u8 {
+fn value_of_coin(coin: Coin) -> u8 {
     match coin {
-        coin::_penny => {
+        Coin::_Penny => {
             println!("    thats a penny!");
             1
         }
-        coin::_nickel => {
+        Coin::_Nickel => {
             println!("    thats a nickel!");
             5
         }
-        coin::_dime => {
+        Coin::_Dime => {
             println!("    thats a dime!");
             10
         }
-        coin::quarter => {
+        Coin::Quarter => {
             println!("    thats a quarter!");
             25
         }
@@ -79,35 +75,35 @@ fn value_of_coin(coin: coin) -> u8 {
 }
 
 //enum with different structs
-#[derive(debug)]
-enum movement {
-    a(i32, i32),
+#[derive(Debug)]
+enum Movement {
+    A(i32, i32),
     //b { x: i32, y: i32, z: i32 },
-    c(string),
+    C(String),
 }
 //matches an enum and prints a message
-fn testing_types(t: &movement) -> string {
-    let mut _decision: string = default::default();
+fn testing_types(t: &Movement) -> String {
+    let mut _decision: String = Default::default();
     match t {
-        movement::a(..) => _decision = string::from("yes! its movement type a"),
+        Movement::A(..) => _decision = String::from("yes! its movement type a"),
         //movement::c(..) => _decision = string::from("yes! its the movement type c"),
-        _ => _decision = string::from("(type not founderino)"),
+        _ => _decision = String::from("(type not founderino)"),
     };
     return _decision;
 }
-fn plus_one(x: option<i32>) -> option<i32> {
+fn plus_one(x: Option<i32>) -> Option<i32> {
     match x {
         none => none,
-        some(i) => some(i + 1),
+        Some(i) => Some(i + 1),
     }
 }
 
 fn main() {
     //creates enum instances
     //calls associated function that takes enum types, prints values
-    let a1: ipaddrkind = ipaddrkind::v4(10, 0, 0, 1);
-    let a2: ipaddrkind = ipaddrkind::v6(string::from("2345:0425:2ca1:0000:0000:0567:5673:23b5"));
-    ipaddrkind::access_and_print(a1);
+    let a1: IpAddrKind = IpAddrKind::V4(10, 0, 0, 1);
+    let a2: IpAddrKind = IpAddrKind::V6(String::from("2345:0425:2ca1:0000:0000:0567:5673:23b5"));
+    IpAddrKind::access_and_print(a1);
     IpAddrKind::access_and_print(a2);
 
     //Creates enum instances
@@ -166,10 +162,11 @@ fn main() {
     println!("5) The value of the coin is:");
     println!("{}", value_of_coin(input_coin));
 
-    //Passes a moement type and returns a string based on a match pattern
+    //Passes a moment type and returns a string based on a match pattern
     let first: Movement = Movement::A(12, 23);
     let second: Movement = Movement::C(String::from("Hello!"));
     println!("6) Is the input valid??");
     println!("    First test: {}", testing_types(&first));
     println!("    Second test: {}", testing_types(&second));
+
 }
