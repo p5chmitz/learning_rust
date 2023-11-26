@@ -18,13 +18,13 @@ impl IpAddrKind {
 
 enum Message {
     _Quit,
-    _Move { x: i32, y: i32 },
+    _Move { _x: i32, _y: i32 },
     Write(String),
     _ChangeColor(i32, i32, i32),
 }
 impl Message {
-    fn set_move(x: i32, y: i32) -> Message {
-        Message::_Move { x, y }
+    fn _set_move(_x: i32, _y: i32) -> Message {
+        Message::_Move { _x, _y }
     }
     fn print_message(m: &Message) {
         match m {
@@ -119,7 +119,7 @@ fn main() {
     }
 
     //Writes to enum variant directly and prints variant
-    let _mv: Message = Message::_Move { x: 12, y: 23 };
+    let _mv: Message = Message::_Move { _x: 12, _y: 23 };
     //println!("mva: {:#?}", mv);
 
     //No such thing as null in Rust
