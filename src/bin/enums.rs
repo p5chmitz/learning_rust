@@ -6,11 +6,11 @@ enum IpAddrKind {
 impl IpAddrKind {
     fn access_and_print(a: IpAddrKind) {
         match a {
-            IpAddrKind::V4(a, b, c, d) => {
-                println!("The IPv4 address is: {a}.{b}.{c}.{d}")
+            IpAddrKind::V4(_a, _b, _c, _d) => {
+                println!("The IPv4 address is: {_a}.{_b}.{_c}.{_d}")
             }
-            IpAddrKind::V6(a) => {
-                println!("The IPv6 address is: {a}");
+            IpAddrKind::V6(_a) => {
+                println!("The IPv6 address is: {_a}");
             }
         }
     }
@@ -28,8 +28,8 @@ impl Message {
     }
     fn print_message(m: &Message) {
         match m {
-            Message::Write(a) => {
-                println!("    auto-print method: {a}")
+            Message::Write(_a) => {
+                println!("    auto-print method: {_a}")
             }
             _ => (),
         }
@@ -85,16 +85,16 @@ enum Movement {
 fn testing_types(t: &Movement) -> String {
     let mut _decision: String = Default::default();
     match t {
-        Movement::A(..) => _decision = String::from("yes! its movement type a"),
+        Movement::A(..) => _decision = String::from("yes! its enum Movement of type A"),
         //movement::c(..) => _decision = string::from("yes! its the movement type c"),
-        _ => _decision = String::from("(type not founderino)"),
+        _ => _decision = String::from("(type not found)"),
     };
     return _decision;
 }
 fn plus_one(x: Option<i32>) -> Option<i32> {
     match x {
         none => none,
-        Some(i) => Some(i + 1),
+        Some(_i) => Some(_i + 1),
     }
 }
 
@@ -112,40 +112,29 @@ fn main() {
     let m: Message = Message::Write(String::from("A rising tide lifts all the homies"));
     println!("    The message is: {}", Message::get_message(&m));
     Message::print_message(&m);
-    if let Message::Write(homies) = m {
-        println!("    If let syntax message: {homies}");
+    //Uses the if let syntax!
+    if let Message::Write(_homies) = m {
+        println!("    If let syntax message: {_homies}");
     }
 
     //Writes to enum variant directly and prints variant
-    let mv: Message = Message::_Move { x: 12, y: 23 };
+    let _mv: Message = Message::_Move { x: 12, y: 23 };
     //println!("mva: {:#?}", mv);
-
-    //Writes to enum variant and prints variant
-    let mva: Message = Message::set_move(12, 1983);
-    //println!("mva: {:#?}", mva);
-    //println!("IDK WTF: {:#?}", mva.get_move());
-
-    //Introduces the Option<T> enum
-    let some_number: Option<i32> = Some(5);
-    //dbg!(some_number);
-    let some_character: Option<char> = Some('P');
-    //dbg!(some_character);
-    let absent_value: Option<String> = None;
-    //dbg!(absent_value);
 
     //No such thing as null in Rust
     println!("2) Rust dont have no nulls");
-    let s1: String = String::new();
-    println!("    This is a null string: {s1}");
-    let s2: String = Default::default();
-    println!("    This is a default string: {s2}");
+    let _s1: String = String::new();
+    println!("    This is a null string: {_s1}");
+    let _s2: String = Default::default();
+    println!("    This is a default string: {_s2}");
 
     //Option<T> is a type that must be converted to its base value to be used
     let x: i32 = 12;
     let y: Option<i32> = Some(23);
     let z: i32 = y.unwrap();
-    let xz: i32 = x + z;
+    let _xz: i32 = x + z;
     println!("3) The value of x is {x}, and the unwrapped Option<T> type is is: {z}");
+    println!("{_xz}");
 
     //Adds one to the passed number using Option<T>
     let five: Option<i32> = Some(5);
