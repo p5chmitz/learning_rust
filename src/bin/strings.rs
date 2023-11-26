@@ -16,8 +16,8 @@ fn first_word(s: &str) -> &str {
 fn main() {
     //String literals as slices
     let s: &str = "Hello, World"; //String literal
-    let sl: &str = &s[..5]; //Reference to a slice
-    println!("{sl}, suckers");
+    let _sl: &str = &s[..5]; //Reference to a slice
+    println!("{_sl}, suckers");
 
     //The String
     let mut name: String = String::new();
@@ -38,9 +38,9 @@ fn main() {
     );
 
     let s: String = String::from("Hello, world!");
-    let st: &str = &s;
-    println!("{st}");
-    let hello: &str = &s[0..5];
-    let world: &str = &s[7..12];
-    println!("{hello} || {world}");
+    let _st: &str = &s;
+    println!("{_st}");
+    let _hello: &str = &s[0..5];
+    let _world: &str = &s[7..12];
+    println!("{_hello} || {_world}");
 }
