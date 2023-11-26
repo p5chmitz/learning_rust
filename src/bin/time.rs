@@ -45,8 +45,8 @@ impl Time {
     }
     fn set_timezone(&mut self) -> i32 {
         //let mut updated_hour: i32 = (self.current_hour - offset) as i32;
-        let mut updated_hour: i32 = self.current_hour.clone() as i32;
         //let mut updated_hour: i32 = self.current_hour as i32;
+        let mut updated_hour: i32 = self.current_hour.clone() as i32;
         if updated_hour <= 0 {
             updated_hour = updated_hour + 12;
         }
