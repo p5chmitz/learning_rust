@@ -1,5 +1,5 @@
 pub mod ifs {
-    //Takes a float64 and prints the range
+    /**Takes a float64 and prints the range*/
     pub fn if_statements(n: f64) {
         if n < 0.33 {
             println!("lower third")
@@ -10,7 +10,7 @@ pub mod ifs {
         }
     }
 
-    //Takes a float64 and returns a String range
+    /**Takes a float64 and returns a String range*/
     fn so_many_times(n: f64) -> String {
         let mut s: String = String::new();
         if n < 0.33 {
@@ -23,14 +23,17 @@ pub mod ifs {
         return s;
     }
 
-    //Uses an if statement in a declaration
+    /** Uses an if statement in a declaration.
+
+    `let _i: &str = if n < 5 { "true" } else { "false" };`
+     */
     pub fn again_lets_if(n: i32) {
         let _i: &str = if n < 5 { "true" } else { "false" };
         println!("{_i}");
     }
 }
 pub mod loops {
-    //Introduces the basic loop keyword
+    /**Introduces the basic loop keyword*/
     fn _loops() {
         let mut i: i32 = 12;
         loop {
