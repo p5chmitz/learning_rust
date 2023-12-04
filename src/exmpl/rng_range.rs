@@ -1,7 +1,7 @@
 use rand::Rng;
 use std::io;
 
-fn main() {
+pub fn rng_range() {
     let mut a: String = String::new();
     let mut b: String = String::new();
     println!(
