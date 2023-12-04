@@ -5,7 +5,8 @@ use std::io::{self, Write};
 //use std::io;
 //use std::io::Write;
 
-pub fn game() {
+
+pub fn guessing_game() {
     println!("Guess the number!");
     let secret_number: i32 = rand::thread_rng().gen_range(1..=100);
     loop {
