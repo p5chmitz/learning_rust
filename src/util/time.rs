@@ -63,7 +63,7 @@ impl Time {
             formatted_minute
         } else {
             self._current_minute.to_string()
-        }
+        };
     }
     fn format_second(&self) -> String {
         return if self._current_second < 10 {
@@ -73,12 +73,11 @@ impl Time {
             formatted_second
         } else {
             self._current_second.to_string()
-        }
+        };
     }
 }
-pub fn looper(offset: u128) -> String {
+pub fn loop_time(offset: u128) {
     loop {
-        //Prints the util
         let mut time_now: Time = Time::time_constructor(Time::get_system_time());
         let period: String = Time::set_12h_period(&mut time_now, &offset);
         let hour: i32 = Time::set_timezone(&mut time_now);
@@ -91,23 +90,14 @@ pub fn looper(offset: u128) -> String {
         thread::sleep(wait);
     }
 }
-
-fn main() {
-    //Sets the timezone offset from UTC
+pub fn static_time(offset: u128) -> String {
     //TODO: Create logic to enter actual offset, which is -7/8 for PT
-    let offset: u128 = 8;
-
-    loop {
-        //Prints the util
-        let mut time_now: Time = Time::time_constructor(Time::get_system_time());
-        let period: String = Time::set_12h_period(&mut time_now, &offset);
-        let hour: i32 = Time::set_timezone(&mut time_now);
-        let minute: String = time_now.format_minute();
-        let second: String = time_now.format_second();
-        print!("\r{}:{}:{}{} ", hour, minute, second, period);
-        //println!("{}", time_now.current_year);
-        io::stdout().flush().unwrap();
-        let wait = Duration::from_millis(1000);
-        thread::sleep(wait);
-    }
+    let mut time_now: Time = Time::time_constructor(Time::get_system_time());
+    let period: String = Time::set_12h_period(&mut time_now, &offset);
+    let hour: i32 = Time::set_timezone(&mut time_now);
+    let minute: String = time_now.format_minute();
+    let second: String = time_now.format_second();
+    //println!("\r{}:{}:{}{} ", hour, minute, second, period);
+    //println!("{}", time_now.current_year);
+    return format!("{}:{}:{}{}", hour, minute, second, period);
 }

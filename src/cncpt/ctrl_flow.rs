@@ -150,3 +150,4 @@ pub mod loops {
     }
 }
 
+fn _main() {}

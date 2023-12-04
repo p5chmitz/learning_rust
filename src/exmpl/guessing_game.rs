@@ -1,6 +1,9 @@
 use rand::Rng;
-use std::cmp::Ordering;
+use std::cmp::*;
 use std::io::{self, Write};
+//use std::{io, io::Write, cmp::Ordering};
+//use std::io;
+//use std::io::Write;
 
 pub fn game() {
     println!("Guess the number!");
