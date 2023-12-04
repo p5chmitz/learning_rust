@@ -6,7 +6,8 @@ pub fn rng_range() {
     let mut b: String = String::new();
     println!(
         "Whats the range we're dealing with here?\n\
-        Enter the the low and high limits separately as integers followed by an \"enter\"."
+        Enter the the low and high limits separately as integers followed by an \"enter\".\n\
+        All values are inclusive."
     );
     io::stdin()
         .read_line(&mut a)
