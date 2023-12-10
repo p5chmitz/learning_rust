@@ -1,13 +1,20 @@
-//Its tuples!
-pub fn tuple() {
-    //declares a tuple of mixed types
+//Tuples
+//Declares a tuple with homogenous scalar types
+pub fn tuple_1() {
+    let whatev = (1, 2, 3, 4);
+    let _e = whatev.3;
+    println!("When the tuple hits just right, {_e}");
+}
+//Declares a tuple with mixed scalar types
+pub fn tuple_2() {
     let idk: (i32, f64, u8) = (32, 6.4, 8); //Creates a tuple
     let (_a, _b, _c) = idk; //access all elements
     let _d: &f64 = &idk.1; //access specific elements by index
     println!("The whole tuple: {_a}, {_b}, {_c}");
     println!("Accessing a tuple index: {_d}");
-
-    //Declares a User tuple
+}
+//Declares a tuple with mixed scalar and compound types
+pub fn tuple_3() {
     let user: (bool, String, String, u64) = (
         true,
         String::from("Pschmitz"),
@@ -18,36 +25,39 @@ pub fn tuple() {
     let _email = user.2;
     println!("Username: {_user_name}");
     println!("Email: {_email}");
-
-    //declares a tuple of the same type
-    let whatev = (1, 2, 3, 4);
-    let _e = whatev.3;
-    println!("When the tuple hits just right, {_e}");
 }
-
-pub fn tuple_two() {
+//Declares a tuple with mixed scalar and compound types
+pub fn tuple_4() {
     let x: (String, u8) = (String::from("Peter"), 40);
     let _name: String = String::from(x.0);
     let _age: u8 = x.1;
     println!("{_name} is {_age} years old.");
 }
 
-//Its an array, Carlie Brown!
-pub fn array() {
+//Arrays
+pub fn array_1() {
     //Be explicit
     let array: [f64; 3] = [32.0, 6.4, 8.0];
     let _a: &f64 = &array[0]; //access specific elements by index
     println!("Accessing a tuple index: {_a}");
+}
+pub fn array_2() {
     //Be implicit
     let array_two = [23; 5];
     let _b: &i32 = &array_two[3];
     println!("Lets print a hastily initialized array index: {_b}");
+}
+pub fn array_3() {
     let a = String::from("Peter");
-    let b = String ::from("Schmitz");
+    let b = String::from("Schmitz");
     let array_three: [&str; 2] = [&a, &b];
-    println!("My first name is {}, and my last name is {}", array_three[0], array_three[1])
+    println!(
+        "My first name is {}, and my last name is {}",
+        array_three[0], array_three[1]
+    )
 }
 
+//Vectors
 pub fn vec_test_1() {
     //Adds type annotation because no type is provided for inference
     let mut v: Vec<String> = Vec::new();

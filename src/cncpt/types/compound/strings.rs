@@ -1,4 +1,3 @@
-
 fn str_type() {
     let _s: &str = "Peter";
 }

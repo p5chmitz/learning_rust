@@ -14,7 +14,7 @@ pub fn json_parsing() {
         }
         "#,
     )
-        .unwrap();
+    .unwrap();
     let instantiated = object! {
         "key": "12/23/1983",
         "anotherKey": "value",
