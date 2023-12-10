@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 //Defines the enum
 enum IpAddrKind {
     V4(u8, u8, u8, u8),

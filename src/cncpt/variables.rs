@@ -1,4 +1,5 @@
-use json::{object, JsonValue};
+#![allow(dead_code)]
+#![allow(unused_variables)]
 
 //Basic declaration, instantiation, and printing
 fn basic_declaration() {

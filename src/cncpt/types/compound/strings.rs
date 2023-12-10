@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 fn str_type() {
     let _s: &str = "Peter";
 }

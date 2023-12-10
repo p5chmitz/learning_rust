@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 //Tuples
 //Declares a tuple with homogenous scalar types
 pub fn tuple_1() {
@@ -58,8 +61,9 @@ pub fn array_3() {
 }
 
 //Vectors
+/**Prints my birthday*/
 pub fn vec_test_1() {
-    //Adds type annotation because no type is provided for inference
+    //Requires type annotation because no type is provided for inference
     let mut v: Vec<String> = Vec::new();
     let bday: String = String::from("12/23/1983");
     let intro: String = String::from("My birthday is: ");
@@ -69,23 +73,35 @@ pub fn vec_test_1() {
     //println!("My birthday is: {}", v.get(n).unwrap());
 }
 
-pub fn vec_test_2(mut i: i32) {
+/**Creates a vector of i32 input size.
+The first line of output counts up from the 0 index.
+The second line of output counts back down.*/
+pub fn vec_test_2(i: i32) {
     //let mut v: Vec<i32> = Vec::with_capacity(i as usize);
+    let mut index = i;
     let mut v: Vec<i32> = Vec::new();
-    println!("i is: {i}");
-    while i >= 1 {
-        v.push(i.try_into().unwrap());
-        i -= 1;
+    while index >= 1 {
+        v.push(index.try_into().unwrap());
+        index -= 1;
     }
-    println!("i is: {i}");
-    for x in &v {
-        println!("{x}");
+    for x in v.iter().rev() {
+        print!("{x} ");
         match x {
-            1 => {
-                println!("Blastoff!");
+            //Requires a match guard conditional to match against the external variable i
+            //Requires a dereferenced y variable to compare like types (i32)
+            y if *y == i => {
+                println!(": Thats all she wrote!");
             }
             _ => {}
         }
     }
-    println!("i is: {i}");
+    for x in &v {
+        print!("{x} ");
+        match x {
+            1 => {
+                println!(": Blastoff!");
+            }
+            _ => {}
+        }
+    }
 }

@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 #[derive(Debug)]
 struct User {
     struct_name: String,

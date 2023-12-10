@@ -1,3 +1,7 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+//Re-exported to use in main.rs as cncpt::loops::_my_age_static() for example
+
 pub mod ifs {
     /**Takes a float64 and prints the range*/
     pub fn if_statements(n: f64) {

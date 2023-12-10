@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 //Function that returns a value
 fn return_type() -> i32 {
     let x: i32 = 12;

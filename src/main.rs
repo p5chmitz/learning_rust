@@ -4,11 +4,40 @@ mod cncpt;
 mod exmpl;
 mod util;
 
+fn timestamp(g: i32) {
+    let mut s: String = String::new();
+    let mut prompt: String = String::new();
+    match g {
+        1 => {
+            prompt.push_str("Start time: ");
+        },
+        2 => {
+            prompt.push_str("End time: ");
+        },
+        _ => {}
+    }
+    s.push_str(&prompt);
+    s.push_str(&util::time::static_time(8));
+    let mut l = 0;
+    while l < s.len() {
+        print!("=");
+        l += 1;
+    }
+    println!("\n{}{}", prompt, util::time::static_time(8));
+    let mut l = 0;
+    while l < s.len() {
+        print!("=");
+        l += 1;
+    }
+    println!("")
+}
+
 fn main() {
     //println!("Im a root crate");
-    println!("Start time: {}", util::time::static_time(8));
+    //println!("Start time: {}", util::time::static_time(8));
+    timestamp(1);
     loop {
-        println!("=====================\n");
+        //println!("=====================\n");
         println!(
             "PROGRAM MENU\n\
             1: Guessing game (book)\n\
@@ -41,15 +70,11 @@ fn main() {
         }
     }
 
-    cncpt::ctrl_flow::loops::_my_age_static();
-    //Sub-module/funciton re-exported in exmpl.rs/util.rs for cleaner access to example programs
-    cncpt::collections::vec_test_1();
+    //Sub-modules/funcitons re-exported for cleaner access to functions.
+    //See top-level modules for export and path details
+    //cncpt::loops::_my_age_static();
     cncpt::collections::vec_test_2(10);
-
-    cncpt::ifs::if_statements(0.45);
-    cncpt::ifs::again_lets_if(6);
-
     exmpl::json::json_parsing();
 
-    println!("End time: {}", util::time::static_time(8));
+    timestamp(2);
 }
