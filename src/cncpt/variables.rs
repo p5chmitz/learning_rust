@@ -171,7 +171,7 @@ fn json_parsing() {
     );
 }
 
-fn main() {
+fn _main() {
     basic_declaration();
     constants();
     shadow_one();
