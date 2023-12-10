@@ -1,3 +1,19 @@
+
+fn str_type() {
+    let _s: &str = "Peter";
+}
+//String Slice (not really a type, but a reference to a String index)
+fn slice_type() {
+    let s = String::from("Hello, world!");
+    let _hello = &s[0..5]; //References the first 5 indexes
+    let _hello = &s[1..5]; //Result is same as above
+    let _world = &s[7..12]; //References another 5 indexes
+    println!("{_hello} || {_world}");
+
+    let _hello_world = &s[..]; //References the whole index range
+    println!("{_hello_world}");
+}
+
 //The Slice type
 fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();

@@ -49,5 +49,7 @@ fn main() {
     cncpt::ifs::if_statements(0.45);
     cncpt::ifs::again_lets_if(6);
 
+    exmpl::json::json_parsing();
+
     println!("End time: {}", util::time::static_time(8));
 }

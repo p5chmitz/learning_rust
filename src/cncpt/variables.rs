@@ -1,5 +1,5 @@
-use json;
 use json::{object, JsonValue};
+
 //Basic declaration, instantiation, and printing
 fn basic_declaration() {
     let mut x: i32 = 5;
@@ -59,70 +59,4 @@ fn integer_rounding() {
     let b: i32 = 5;
     let _c: i32 = a / b;
     println!("{a}/{b} = {_c}");
-}
-
-//Str type
-fn str_type() {
-    let _s: &str = "Peter";
-}
-//String Slice (not really a type, but a reference to a String index)
-fn slice_type() {
-    let s = String::from("Hello, world!");
-    let _hello = &s[0..5]; //References the first 5 indexes
-    let _hello = &s[1..5]; //Result is same as above
-    let _world = &s[7..12]; //References another 5 indexes
-    println!("{_hello} || {_world}");
-
-    let _hello_world = &s[..]; //References the whole index range
-    println!("{_hello_world}");
-}
-
-//JSON parsing experiment
-fn json_parsing() {
-    let parsed: JsonValue = json::parse(
-        r#"
-        {
-            "key": "12/23/1983",
-            "anotherKey": "value",
-            "object": {
-                "nestedOne": "one",
-                "nestedTwo": "two"
-            }
-        }
-        "#,
-    )
-    .unwrap();
-    let instantiated = object! {
-        "key": "12/23/1983",
-        "anotherKey": "value",
-        "object": {
-            "nestedOne": "one",
-            "nestedTwo": "two"
-        }
-    };
-    println!("The \"key's\" value is: \"{}\"", parsed["key"]);
-    println!(
-        "For the parsed object, the nested key \"nestedOne\" value is: \"{}\"",
-        (parsed["object"]["nestedOne"])
-    );
-    println!(
-        "For the instantiated object, the nested key \"nestedTwo\" value is: \"{}\"",
-        (instantiated["object"]["nestedTwo"])
-    );
-}
-
-fn _main() {
-    basic_declaration();
-    constants();
-    shadow_one();
-    shadow_two();
-    shadow_three();
-    json_parsing();
-    integer_overflow();
-    integer_rounding();
-    str_type();
-    slice_type();
-    let a = [1, 2, 3, 4, 5];
-    let slice = &a[1..3];
-    assert_eq!(slice, &[2, 3])
 }
