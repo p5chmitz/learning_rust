@@ -92,6 +92,11 @@ pub fn vec_test_2(i: i32) {
             y if *y == i => {
                 println!(": Thats all she wrote!");
             }
+            //Only counts up to 12, but will count down all of the indexes
+            12 => {
+                println!(": Thats all you get.");
+                break;
+            }
             _ => {}
         }
     }

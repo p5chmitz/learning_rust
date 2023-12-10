@@ -5,31 +5,37 @@ mod exmpl;
 mod util;
 
 fn timestamp(g: i32) {
-    let mut s: String = String::new();
     let mut prompt: String = String::new();
+    let mut c1: char = 'x';
+    let mut c2: char = 'y';
     match g {
         1 => {
             prompt.push_str("Start time: ");
-        },
+            c1 = '=';
+            c2 = ' ';
+        }
         2 => {
             prompt.push_str("End time: ");
-        },
+            c1 = ' ';
+            c2 = '=';
+        }
         _ => {}
     }
+    let mut s: String = String::new();
     s.push_str(&prompt);
     s.push_str(&util::time::static_time(8));
-    let mut l = 0;
-    while l < s.len() {
-        print!("=");
-        l += 1;
-    }
+
+    print_divider(s.len(), c1);
     println!("\n{}{}", prompt, util::time::static_time(8));
+    print_divider(s.len(), c2);
+    println!("")
+}
+fn print_divider(len: usize, c: char) {
     let mut l = 0;
-    while l < s.len() {
-        print!("=");
+    while l < len {
+        print!("{}", c);
         l += 1;
     }
-    println!("")
 }
 
 fn main() {
@@ -37,9 +43,8 @@ fn main() {
     //println!("Start time: {}", util::time::static_time(8));
     timestamp(1);
     loop {
-        //println!("=====================\n");
         println!(
-            "PROGRAM MENU\n\
+            "============\nPROGRAM MENU\n============\n\
             1: Guessing game (book)\n\
             2: Guessing game (my hacky bullshit)\n\
             3: Clock (loop)\n\
@@ -73,7 +78,7 @@ fn main() {
     //Sub-modules/funcitons re-exported for cleaner access to functions.
     //See top-level modules for export and path details
     //cncpt::loops::_my_age_static();
-    cncpt::collections::vec_test_2(10);
+    cncpt::collections::vec_test_2(23);
     exmpl::json::json_parsing();
 
     timestamp(2);
