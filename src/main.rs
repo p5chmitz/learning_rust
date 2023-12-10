@@ -4,11 +4,12 @@ mod cncpt;
 mod exmpl;
 mod util;
 
-fn timestamp(g: i32) {
+fn timestamp(v: i32) {
     let mut prompt: String = String::new();
-    let mut c1: char = 'x';
-    let mut c2: char = 'y';
-    match g {
+    let mut c1: char = ' ';
+    let mut c2: char = ' ';
+    let mut s: String = String::new();
+    match v {
         1 => {
             prompt.push_str("Start time: ");
             c1 = '=';
@@ -21,10 +22,8 @@ fn timestamp(g: i32) {
         }
         _ => {}
     }
-    let mut s: String = String::new();
     s.push_str(&prompt);
     s.push_str(&util::time::static_time(8));
-
     print_divider(s.len(), c1);
     println!("\n{}{}", prompt, util::time::static_time(8));
     print_divider(s.len(), c2);
@@ -39,9 +38,8 @@ fn print_divider(len: usize, c: char) {
 }
 
 fn main() {
-    //println!("Im a root crate");
-    //println!("Start time: {}", util::time::static_time(8));
     timestamp(1);
+    println!(" ");
     loop {
         println!(
             "============\nPROGRAM MENU\n============\n\
