@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 use json::{object, JsonValue};
 
 //JSON parsing experiment
