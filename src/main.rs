@@ -1,15 +1,20 @@
+//Sub-modules/funcitons re-exported for cleaner access to functions.
+//See top-level modules for export and path details
+//cncpt::loops::_my_age_static();
+
 use std::io;
 
 mod cncpt;
 mod exmpl;
 mod util;
 
-fn timestamp(v: i32) {
+/**Prints a formatted timestamp*/
+fn timestamp(ver: i32) {
     let mut prompt: String = String::new();
     let mut c1: char = ' ';
     let mut c2: char = ' ';
     let mut s: String = String::new();
-    match v {
+    match ver {
         1 => {
             prompt.push_str("Start time: ");
             c1 = '=';
@@ -63,21 +68,20 @@ fn main() {
             println!("\nERROR: Enter a valid menu option number\n");
             continue;
         }
-        println!("\n=====================\n");
         match input {
             1 => exmpl::guessing_game(),
             2 => exmpl::guessing_game_2(),
             3 => util::time::loop_time(8),
             //4 => break,
-            _ => break,
+            _ => {
+                println!("\n[EXIT]\n");
+                //println!("\n=====================\n");
+                break;
+            }
         }
     }
-
-    //Sub-modules/funcitons re-exported for cleaner access to functions.
-    //See top-level modules for export and path details
-    //cncpt::loops::_my_age_static();
-    cncpt::collections::vec_test_2(23);
-    exmpl::json::json_parsing();
-
+    // cncpt::collections::vec_test_2(23);
+    // exmpl::json::json_parsing();
     timestamp(2);
 }
+
