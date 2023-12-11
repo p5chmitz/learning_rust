@@ -75,7 +75,6 @@ fn main() {
             //4 => break,
             _ => {
                 println!("\n[EXIT]\n");
-                //println!("\n=====================\n");
                 break;
             }
         }
@@ -84,4 +83,3 @@ fn main() {
     // exmpl::json::json_parsing();
     timestamp(2);
 }
-
