@@ -79,7 +79,9 @@ fn main() {
             }
         }
     }
-    // cncpt::collections::vec_test_2(23);
+    //cncpt::collections::vec_test_2(23);
+    cncpt::collections::vec_test_4(23);
     // exmpl::json::json_parsing();
+    //cncpt::collections::vec_test_3();
     timestamp(2);
 }

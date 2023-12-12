@@ -100,7 +100,7 @@ pub fn vec_test_2(i: i32) {
             _ => {}
         }
     }
-    for x in &v {
+    for x in v {
         print!("{x} ");
         match x {
             1 => {
@@ -110,4 +110,31 @@ pub fn vec_test_2(i: i32) {
         }
     }
 }
-
+/**This function illustrates the two ways to get out-of-bounds index values from a vector.
+ Warning, this method panics the program.*/
+pub fn vec_test_3() {
+    let v = vec![1, 2, 3]; //Vector declaration & instantiation
+    let oob1 = v.get(3); //Graceful OOB handling
+    match oob1 {
+        Some(oob1) => println!("{oob1}"),
+        None => println!("Out-of-bounds!"),
+    }
+    let ok = v.get(5); //Same thing works without a match
+    println!("{:?}", v.get(5));
+    let oob2: &i32 = &v[3]; //Direct index reference panics the program
+}
+/**This function takes an i32, creates a vector of that size, and returns the value at
+the halfway point.*/
+pub fn vec_test_4(n: usize) {
+    let mut i = n;
+    let mut v: Vec<usize> = Vec::new();
+    while i >= 1 {
+        v.push(i);
+        i -= 1;
+    }
+    let half = v.get(&n/2);
+    match half {
+        Some(half) => println!("{}", half),
+        None => println!("I guess there wasn't anything available!"),
+    }
+}
