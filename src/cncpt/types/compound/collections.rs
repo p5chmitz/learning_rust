@@ -111,7 +111,7 @@ pub fn vec_test_2(i: i32) {
     }
 }
 /**This function illustrates the two ways to get out-of-bounds index values from a vector.
- Warning, this method panics the program.*/
+Warning, this method panics the program.*/
 pub fn vec_test_3() {
     let v = vec![1, 2, 3]; //Vector declaration & instantiation
     let oob1 = v.get(3); //Graceful OOB handling
@@ -119,7 +119,7 @@ pub fn vec_test_3() {
         Some(oob1) => println!("{oob1}"),
         None => println!("Out-of-bounds!"),
     }
-    let ok = v.get(5); //Same thing works without a match
+    let ok = v.get(5); //Same thing works without a match but needs a formatter
     println!("{:?}", v.get(5));
     let oob2: &i32 = &v[3]; //Direct index reference panics the program
 }
@@ -132,9 +132,36 @@ pub fn vec_test_4(n: usize) {
         v.push(i);
         i -= 1;
     }
-    let half = v.get(&n/2);
+    let half = v.get(&n / 2);
     match half {
         Some(half) => println!("{}", half),
         None => println!("I guess there wasn't anything available!"),
+    }
+}
+/**Creates a vector of usize and accesses it with reference and match methods*/
+pub fn vec_test_5(n: usize) {
+    let mut i = 0;
+    let mut v: Vec<i32> = Vec::new();
+    while i <= n {
+        v.push(i as i32);
+        i += 1;
+    }
+    i = 0;
+    println!("The vector has {} indexes", v.len());
+    while i <= n {
+        if i > n {
+            break
+        };
+        println!("Ref. loop: {}", &v[i]);
+        i += 1;
+    }
+    i = 0;
+    while i <= n {
+        let val = v.get(i);
+        match val {
+            Some(val) => println!("Match loop: {}", val),
+            None => {}
+        }
+        i += 1;
     }
 }
