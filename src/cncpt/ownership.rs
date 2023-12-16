@@ -54,4 +54,3 @@ pub fn ownership_4() {
 fn ownership_4a(s: String) -> String {
     s
 }
-

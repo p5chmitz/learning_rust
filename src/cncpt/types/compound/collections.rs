@@ -61,7 +61,8 @@ pub fn array_3() {
 }
 
 //Vectors
-/**Prints my birthday*/
+/**Creates a Vector with 2 indexes and prints both, resulting in a print statement that lists my
+ * birthday*/
 pub fn vec_test_1() {
     //Requires type annotation because no type is provided for inference
     let mut v: Vec<String> = Vec::new();
@@ -88,13 +89,13 @@ pub fn vec_test_2(i: i32) {
         print!("{x} ");
         match x {
             //Requires a match guard conditional to match against the external variable i
-            //Requires a dereferenced y variable to compare like types (i32)
+            //Requires a de-referenced y variable to compare like types (i32)
             y if *y == i => {
-                println!(": Thats all she wrote!");
+                println!(": That's all she wrote!");
             }
             //Only counts up to 12, but will count down all of the indexes
             12 => {
-                println!(": Thats all you get.");
+                println!(": That's all you get.");
                 break;
             }
             _ => {}
@@ -150,7 +151,7 @@ pub fn vec_test_5(n: usize) {
     println!("The vector has {} indexes", v.len());
     while i <= n {
         if i > n {
-            break
+            break;
         };
         println!("Ref. loop: {}", &v[i]);
         i += 1;
@@ -165,3 +166,26 @@ pub fn vec_test_5(n: usize) {
         i += 1;
     }
 }
+/**Illustrates the proper way to iterate over a vector using a for loop*/
+pub fn vec_test_6(i: usize) {
+    let mut v = vec![i];
+    let mut n = 1;
+    while n <= i {
+        v.push(n * 112);
+        n += 1;
+    }
+    for x in v {
+        println!("{}", x);
+    }
+    //while n <= i {
+    //    v.push(n * 15);
+    //    n += 1;
+    //}
+}
+/**Stores enums as vector types*/
+pub fn vec_test_7() {
+
+}
+
+
+

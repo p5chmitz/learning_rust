@@ -82,7 +82,9 @@ fn main() {
     //cncpt::ownership::move_it();
     //cncpt::ownership::ownership_1();
     //cncpt::ownership::ownership_2();
-    cncpt::ownership::ownership_3();
+    //cncpt::ownership::ownership_3();
+    cncpt::collections::vec_test_6(10);
+    cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
     // exmpl::json::json_parsing();
     //cncpt::collections::vec_test_3();

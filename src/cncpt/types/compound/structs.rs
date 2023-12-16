@@ -10,21 +10,22 @@ struct User {
     _sign_in_count: i32,
 }
 impl User {
+    /**User struct method that prints the name field*/
     fn print_me(&self) {
         println!("{}", self.struct_name)
     }
+    /**Associated function that builds User struct. This associated function uses the "Field Init Shorthand" for self-same fields. This shorthand avoids naming fields twice.*/
+    fn build_user(struct_name: String, email: String, username: String) -> User {
+        User {
+            struct_name,
+            _active: true,
+            username,
+            email,
+            _sign_in_count: 1,
+        } //Implicitly returns User
+    }
 }
 
-//It is also possible to use the "Field Init Shorthand" for self-same fields.
-fn build_user(struct_name: String, email: String, username: String) -> User {
-    User {
-        struct_name,
-        _active: true,
-        username,
-        email,
-        _sign_in_count: 1,
-    } //Implicitly returns User
-}
 //Prints the struct
 fn print_struct_with_name(new_struct_name: String, _user_email: &String, _user_name: &String) {
     println!("Struct: {}", &new_struct_name);
@@ -74,7 +75,7 @@ fn another_main() {
     let new_struct: String = String::from("user3"); //Names struct
     let new_struct_name: String = String::from(&new_struct); //Creates new String from borrowed name
                                                              //Builds new struct with values
-    let new_struct: User = build_user(
+    let new_struct: User = User::build_user(
         String::from(&new_struct_name),
         String::from("dingus@dorkus.com"),
         String::from("dangus"),
