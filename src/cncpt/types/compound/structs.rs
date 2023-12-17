@@ -76,6 +76,18 @@ impl Rectangle {
     }
 }
 
+pub fn struct_demo_1() {
+    let mut user = User::constructor(
+        String::from("0001"),
+        String::from("me@mine.com"),
+        String::from("pschmitz"),
+    );
+    user.print_me();
+    println!("===========");
+    user.is_active(true);
+    user.print_me();
+}
+
 fn main() {
     //================================================
     //The User struct
