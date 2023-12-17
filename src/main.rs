@@ -83,10 +83,20 @@ fn main() {
     //cncpt::ownership::ownership_1();
     //cncpt::ownership::ownership_2();
     //cncpt::ownership::ownership_3();
-    cncpt::collections::vec_test_6(10);
-    cncpt::collections::vec_test_2(23);
+    let mut user = cncpt::structs::User::constructor(
+        String::from("0001"),
+        String::from("me@mine.com"),
+        String::from("pschmitz"),
+    );
+    user.print_me();
+    println!("===========");
+    user.is_active(true);
+    user.print_me();
+    //cncpt::collections::vec_test_6(10);
+    //cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
     // exmpl::json::json_parsing();
     //cncpt::collections::vec_test_3();
     timestamp(2);
 }
+
