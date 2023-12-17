@@ -1,7 +1,9 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
+//============================================
 //Tuples
+
 //Declares a tuple with homogenous scalar types
 pub fn tuple_1() {
     let whatev = (1, 2, 3, 4);
@@ -37,7 +39,9 @@ pub fn tuple_4() {
     println!("{_name} is {_age} years old.");
 }
 
+//============================================
 //Arrays
+
 pub fn array_1() {
     //Be explicit
     let array: [f64; 3] = [32.0, 6.4, 8.0];
@@ -60,7 +64,9 @@ pub fn array_3() {
     )
 }
 
+//============================================
 //Vectors
+
 /**Creates a Vector with 2 indexes and prints both, resulting in a print statement that lists my
  * birthday*/
 pub fn vec_test_1() {
@@ -184,3 +190,4 @@ pub fn vec_test_6(i: usize) {
 }
 /**Stores enums as vector types*/
 pub fn vec_test_7() {}
+
