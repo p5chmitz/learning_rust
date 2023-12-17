@@ -189,5 +189,7 @@ pub fn vec_test_6(i: usize) {
     //}
 }
 /**Stores enums as vector types*/
-pub fn vec_test_7() {}
+pub fn vec_test_7() {
+
+}
 
