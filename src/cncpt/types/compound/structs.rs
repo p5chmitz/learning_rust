@@ -180,6 +180,7 @@ fn main() {
         rect3.area3()
     );
 
+    //================================================
     //Printing the struct via debug trait
     //The struct requires the #[derive(Debug)] annotation for this to work!
     //The # symbol in the format specifier is something like a format prettier
