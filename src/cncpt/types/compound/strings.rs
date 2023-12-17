@@ -1,24 +1,33 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-fn str_type() {
-    let _s: &str = "Peter";
+//=======================================
+//Slices
+
+/**Declares and binds a literal as a slice.
+The bytes are stored in the compiled binary.*/
+pub fn string_slice_1() {
+    let s: &str = "Im a slice in binary!";
+    println!("{}", s);
 }
-//String Slice (not really a type, but a reference to a String index)
-fn slice_type() {
+
+/**Accesses a String vector to print slices*/
+pub fn string_slice_2() {
     let s = String::from("Hello, world!");
-    let _hello = &s[0..5]; //References the first 5 indexes
+    let hello = &s[0..5]; //References the first 5 indexes
     let _hello = &s[1..5]; //Result is same as above
-    let _world = &s[7..12]; //References another 5 indexes
-    println!("{_hello} || {_world}");
+    let world = &s[7..12]; //References another 5 indexes
+    println!("{hello} || {world}");
 
     let _hello_world = &s[..]; //References the whole index range
     println!("{_hello_world}");
 }
 
-//The Slice type
-fn first_word(s: &str) -> &str {
+/**Private part of the function that the book offers 
+ * to illustrate the ownership-less nature of slices. Used with string_clice_4().*/
+fn string_slice_3(s: &str) -> &str {
     let bytes = s.as_bytes();
+    println!("Phrase as bytes: {:?}", &bytes);
     //For loop iterates over the converted bytes looking for the first "space"
     for (i, &item) in bytes.iter().enumerate() {
         //enumerate() returns a tuple with index i
@@ -30,6 +39,41 @@ fn first_word(s: &str) -> &str {
     //if the function doesn't find an empty byte ' ' it returns the whole pie
     &s[..]
 }
+/**Primary function of the book's parser that illustrates the 
+ * onwership-less nature of slices. Works with string_slice_3().*/
+pub fn string_slice_4() {
+    let phrase: String = String::from("Peter is a weirdo");
+    let word: &String = &phrase;
+    println!(
+        "The first word of the phrase \"{}\" is \"{}\"",
+        phrase,
+        string_slice_3(word)
+    );
+}
+
+/**Re-write of the book's str parser with the help of GPT*/
+pub fn string_slice_5() {
+    let phrase = String::from("Schmitz is my name");
+    let bytes = phrase.as_bytes();
+    println!("Phrase as bytes: {:?}", &bytes);
+    let mut word = String::new();
+    //For loop iterates over the converted bytes looking for the first "space"
+    //enumerate() returns a tuple with index i
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            break;
+        }
+        word.push(item as char);
+    }
+    println!(
+        "The first word of the phrase \"{}\" is \"{}\"",
+        phrase, word
+    );
+}
+
+//=======================================
+//String (collections)
+
 
 fn main() {
     //String literals as slices
@@ -47,13 +91,6 @@ fn main() {
     println!("{name}");
 
     //Slices
-    let first_wordle: String = String::from("Peter is a weirdo");
-    let w: &String = &first_wordle;
-    println!(
-        "The first word of the phrase \"{}\" is \"{}\"",
-        first_wordle,
-        first_word(w)
-    );
 
     let s: String = String::from("Hello, world!");
     let _st: &str = &s;

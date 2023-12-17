@@ -155,7 +155,7 @@ fn main() {
         area1(rect1)
     );
 
-    //Instantiates a Rectangle and passes an immutable borrow to print the area 
+    //Instantiates a Rectangle and passes an immutable borrow to print the area
     let rect2 = Rectangle {
         width: 90,
         height: 50,
@@ -204,4 +204,3 @@ fn main() {
     println!("The struct \"rekt\" is: {:#?}", rekt);
     dbg!(rekt);
 }
-

@@ -79,17 +79,16 @@ fn main() {
             }
         }
     }
-    //cncpt::ownership::move_it();
     //cncpt::ownership::ownership_1();
     //cncpt::ownership::ownership_2();
     //cncpt::ownership::ownership_3();
     //cncpt::structs::struct_demo_1();
-
+    cncpt::strings::string_slice_4();
+    cncpt::strings::string_slice_5();
     //cncpt::collections::vec_test_6(10);
     //cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
-    // exmpl::json::json_parsing();
+    //exmpl::json::json_parsing();
     //cncpt::collections::vec_test_3();
     timestamp(2);
 }
-
