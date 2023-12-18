@@ -83,8 +83,12 @@ fn main() {
     //cncpt::ownership::ownership_2();
     //cncpt::ownership::ownership_3();
     //cncpt::structs::struct_demo_1();
-    cncpt::strings::string_slice_4();
-    cncpt::strings::string_slice_5();
+    //cncpt::strings::string_slice_4();
+    //cncpt::strings::string_slice_5();
+    //cncpt::strings::string_wrapper_1();
+    //cncpt::strings::string_wrapper_2();
+    //cncpt::strings::string_wrapper_2(); 
+    cncpt::strings::string_wrapper_3();
     //cncpt::collections::vec_test_6(10);
     //cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
