@@ -73,7 +73,80 @@ pub fn string_slice_5() {
 
 //=======================================
 //String (collections)
+/**Create Strings with literals or variables using the from() method or the to_string() methods*/
+pub fn string_wrapper_1() {
+    //Using the from() method
+    let s = String::from("Hello");
+    let mut sp = String::from(&s);
+    sp.push_str(" World");
+    println!("The \"from()\" method:\n  {}\n  {}", s, sp);
 
+    //Using the to_string() method
+    let data1 = "Im a literal";
+    data1.to_string();
+    let data2 = "Im also a literal".to_string();
+    println!("The \"to_string()\" method:\n  {}\n  {}", data1, data2);
+}
+
+/**Uses the various mechanisms to append and concatenate strings*/
+pub fn string_wrapper_2() {
+    //Using the + operator uses the `add()` method
+    //which requires String base with &str modifications;
+    //The + operator moves values
+    let s: String = String::from("Hello");
+    let s_1 = s.clone();
+    let s2: &str = &String::from(" world"); //The + uses add() which adds &str
+    let concat = s + s2; //Moves s, s2 is already a reference 
+    let concat2 = s_1 + s2; //Required cloned s due to move, s2 is a reference
+    println!("s + s2: {}\ns clone with reused s2: {}", concat, concat2);
+   
+    //Also uses the + operator, but with two String bases, one referenced;
+    //Even though the `add()` method takes only `&str` values, we can supply
+    //a &String and the compiler will coerce it into an &str
+    let s3 = String::from("Hello"); 
+    let s3_1 = s3.clone(); 
+    let s4 = String::from(" animals");
+    let s5 = " wildlings"; //Adds a literal
+    let concat3 = s3 + &s4; //Compiler can coerce String to &str
+    let concat4 = s3_1 + &s5; //Required clone due to move
+    println!("s3 + s4: {}\ns3 clone + s5 literal: {}", concat3, concat4);
+
+    //The push_str() method is used to push &str to mutable String base
+    //I cant seem to create a new variable using just the push_str() method
+    let mut s6 = String::from("Hello");
+    let s7: &str = &String::from(" nerds");
+    s6.push_str(s7);
+    println!("s6 (modified): {}\ns7: {}", s6, s7);
+
+    //The push() method appends a single character to a mutable string
+    let mut s8 = String::from("lo");
+    s8.push('l');
+    println!("s8: {}", s8);
+}
+
+/**Accesses string slices*/
+pub fn string_wrapper_3() {
+    //Access the first 5 bytes of the string
+    //This only works because of the base set of Unicode characters
+    //If the text used 2-byte characters, the program might panic
+    let s = String::from("Peter Schmitz");
+    let given = &s[..5];
+    let family = &s[6..];
+    println!("Full name: {}\nGiven name: {}\nFamily name: {}", &s, given, family);
+    
+   // let hello = "Здравствуйте";
+   // let first_three = &hello[..4];
+   // println!("First three characters: {}", first_three);
+
+    let mut char_vec = Vec::new();
+    let hello = "Здравствуйте";
+    //let hello = "Peter";
+    let i: usize = hello.chars().count();
+    for c in hello.chars() { 
+        char_vec.push(c)
+    }
+    println!("The first three chars of \"{}\" are: {:?}", &hello, &char_vec[..3]);
+}
 
 fn main() {
     //String literals as slices
