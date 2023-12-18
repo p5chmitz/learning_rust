@@ -32,14 +32,14 @@ impl Time {
     }
     //TODO: fix UB with mutable reference offset
     fn set_12h_period(&mut self, offset: &u128) -> String {
-        let mut period: String = String::from(" AM");
+        let mut period: String = String::from("AM");
         if self._current_hour < *offset {
             self._current_hour = (&self._current_hour + 24) - offset;
         } else {
             self._current_hour = &self._current_hour - offset;
         }
         if self._current_hour >= 12 {
-            period = String::from(" PM");
+            period = String::from("PM");
         }
         return period;
     }
@@ -83,7 +83,7 @@ pub fn loop_time(offset: u128) {
         let hour: i32 = Time::set_timezone(&mut time_now);
         let minute: String = time_now.format_minute();
         let second: String = time_now.format_second();
-        print!("\r{}:{}:{}{} ", hour, minute, second, period);
+        print!("\r{}:{}:{} {} ", hour, minute, second, period);
         //println!("{}", time_now.current_year);
         io::stdout().flush().unwrap();
         let wait = Duration::from_millis(1000);
@@ -99,5 +99,5 @@ pub fn static_time(offset: u128) -> String {
     let second: String = time_now.format_second();
     //println!("\r{}:{}:{}{} ", hour, minute, second, period);
     //println!("{}", time_now.current_year);
-    return format!("{}:{}:{}{}", hour, minute, second, period);
+    return format!("{hour}:{minute}:{second} {period}");
 }
