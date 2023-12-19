@@ -255,46 +255,56 @@ pub fn hash_maps_3() {
 pub fn book_test_1() {
     //let mut v = vec![1, 12, 34, 23, 21, 7, 75, 12, 89, 23, 12];
     let mut v = vec![12, 98, 34, 23, 21, 4, 7, 75, 12, 89, 37, 23, 66, 12, 90, 47];
+    //let mut v = vec![];
 
     println!("The vector contains {} elements:\n\t{:?}", v.len(), &v);
     println!("\nAnalytics\n=========");
 
-    //Calculates the mean
-    let mut mean = 0;
-    let mut i = 0;
-    while i < v.len() {
-        mean = mean + &v[i];
-        i += 1;
+    if v.len() != 0 {
+        //Calculates the mean
+        let mut mean = 0;
+        for i in &v {
+            mean += i;
+        }
+        mean /= v.len();
+
+        //let mut i = 0;
+        //while i < v.len() {
+        //    mean = mean + &v[i];
+        //    i += 1;
+        //}
+        //mean = mean / v.len() as i32;
+
+        //Calculates the median
+        v.sort();
+        let median = v[v.len() / 2];
+
+        //Calculates the mode
+        //Takes vector and creates a hash map of unique items and their number of occurences
+        let mut map = HashMap::new();
+        for i in &v {
+            let count = map.entry(i).or_insert(0);
+            *count += 1
+        }
+        //Pushes the hash map back into a vector of tuple values
+        let mut rank: Vec<_> = map.into_iter().collect();
+        //Sorts the new vector by descending value portion of the key:value tuples
+        rank.sort_by(|a, b| b.1.cmp(&a.1));
+
+        //Analytics print statements
+        println!("\tThe mean is: {}", mean);
+        println!("\tThe median is: {}", median);
+        println!("\tThe mode and frequency of occurences is: {:?}", rank[0]);
+
+        //Sorts the vector by descending key portion of the key:value tuple 
+        rank.sort_by(|a, b| b.0.cmp(&a.0));
+        //Prints range by accessing the key portion of the key:value tuple 
+        //as vector[index].tuple_position
+        println!("\tThe range is: {}-{}", rank[rank.len() - 1].0, rank[0].0)
     }
-    mean = mean / v.len() as i32;
-    //println!("The mean is: {}", mean);
-
-    //Calculates the median
-    v.sort();
-    let median = v.len() / 2;
-    //println!("The median is: {}", v[median]);
-
-    //Calculates the mode
-    let mut map = HashMap::new();
-    for i in &v {
-        let count = map.entry(i).or_insert(0);
-        *count += 1
+    else {
+        println!("Cant really do much with a zero-length array.");
     }
-    let mut rank: Vec<_> = map.into_iter().collect();
-    //Sorts by descending value in a key:value pair
-    rank.sort_by(|a, b| b.1.cmp(&a.1));
-
-    //Analytics print statements
-    println!("\tThe mean is: {}", mean);
-    println!("\tThe median is: {}", v[median]);
-    println!("\tThe mode and frequency of occurences is: {:?}", rank[0]);
-
-    //Sorts by descending key in a key:value pair 
-    rank.sort_by(|a, b| b.0.cmp(&a.0));
-    //println!("    The highest number and its occurences is: {:?}", rank[0]);
-    //println!("    The lowest number and its occurences is: {:?}", rank[rank.len() - 1]);
-    println!("\tThe range is: {}-{}", rank[rank.len() - 1].0, rank[0].0)
-
 }
 
 /**Pig Latin generator*/
