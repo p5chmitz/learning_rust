@@ -256,26 +256,18 @@ pub fn book_test_1() {
     //let mut v = vec![1, 12, 34, 23, 21, 7, 75, 12, 89, 23, 12];
     let mut v = vec![12, 98, 34, 23, 21, 4, 7, 75, 12, 89, 37, 23, 66, 12, 90, 47];
     //let mut v = vec![];
+    //let mut v = vec![1, 2, 3];
 
     println!("The vector contains {} elements:\n\t{:?}", v.len(), &v);
     println!("\nAnalytics\n=========");
 
     if v.len() != 0 {
         //Calculates the mean
-        //Original while loop
-        //let mut i = 0;
-        //while i < v.len() {
-        //    mean = mean + &v[i];
-        //    i += 1;
-        //}
-        //mean = mean / v.len() as i32;
-        
-        //More succinct for loop
-        let mut mean = 0;
+        let mut sum = 0;
         for i in &v {
-            mean += i;
+            sum += i;
         }
-        mean /= v.len();
+        let mean = sum / v.len();
 
         //Calculates the median
         v.sort();
@@ -292,11 +284,12 @@ pub fn book_test_1() {
         let mut rank: Vec<_> = map.into_iter().collect();
         //Sorts the new vector by descending value portion of the key:value tuples
         rank.sort_by(|a, b| b.1.cmp(&a.1));
+        let mode: (&usize, i32) = rank[0];
 
         //Analytics print statements
         println!("\tThe mean is: {}", mean);
         println!("\tThe median is: {}", median);
-        println!("\tThe mode and frequency of occurences is: {:?}", rank[0]);
+        println!("\tThe mode and frequency of occurences is: {:?}", mode);
 
         //Sorts the vector by descending key portion of the key:value tuple 
         rank.sort_by(|a, b| b.0.cmp(&a.0));
@@ -313,3 +306,4 @@ pub fn book_test_1() {
 pub fn book_test_2() {
     
 }
+
