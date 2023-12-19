@@ -250,25 +250,29 @@ pub fn hash_maps_3() {
 //============================================
 //Book tests
 
-/**Takes a vector of integers and calculates the mean, median, and mode*/
+/**Takes a vector of integers and calculates the mean, median, and mode;
+ * Listing occurs end of chapter 8 on collections*/
 pub fn book_test_1() {
-    let mut v = vec![1, 12, 34, 23, 21, 7, 75, 12, 89, 23, 12];
-    println!("The vector is: {:?}", &v);
+    //let mut v = vec![1, 12, 34, 23, 21, 7, 75, 12, 89, 23, 12];
+    let mut v = vec![12, 98, 34, 23, 21, 4, 7, 75, 12, 89, 37, 23, 66, 12, 90, 47];
+
+    println!("The vector contains {} elements:\n\t{:?}", v.len(), &v);
+    println!("\nAnalytics\n=========");
+
+    //Calculates the mean
+    let mut mean = 0;
+    let mut i = 0;
+    while i < v.len() {
+        mean = mean + &v[i];
+        i += 1;
+    }
+    mean = mean / v.len() as i32;
+    //println!("The mean is: {}", mean);
 
     //Calculates the median
     v.sort();
     let median = v.len() / 2;
-    println!("The median is: {}", v[median]);
-
-    //Calculates the mean
-    let mut total = 0;
-    let mut i = 0;
-    while i < v.len() {
-        total = total + &v[i];
-        i += 1;
-    }
-    total = total / v.len() as i32;
-    println!("The mean is: {}", total);
+    //println!("The median is: {}", v[median]);
 
     //Calculates the mode
     let mut map = HashMap::new();
@@ -277,11 +281,23 @@ pub fn book_test_1() {
         *count += 1
     }
     let mut rank: Vec<_> = map.into_iter().collect();
+    //Sorts by descending value in a key:value pair
     rank.sort_by(|a, b| b.1.cmp(&a.1));
-    println!("The mode and frequency of occurences is: {:?}", rank[0]);
+
+    //Analytics print statements
+    println!("\tThe mean is: {}", mean);
+    println!("\tThe median is: {}", v[median]);
+    println!("\tThe mode and frequency of occurences is: {:?}", rank[0]);
+
+    //Sorts by descending key in a key:value pair 
+    rank.sort_by(|a, b| b.0.cmp(&a.0));
+    //println!("    The highest number and its occurences is: {:?}", rank[0]);
+    //println!("    The lowest number and its occurences is: {:?}", rank[rank.len() - 1]);
+    println!("\tThe range is: {}-{}", rank[rank.len() - 1].0, rank[0].0)
+
 }
 
-/***/
+/**Pig Latin generator*/
 pub fn book_test_2() {
     
 }
