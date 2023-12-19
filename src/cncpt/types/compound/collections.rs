@@ -262,18 +262,20 @@ pub fn book_test_1() {
 
     if v.len() != 0 {
         //Calculates the mean
-        let mut mean = 0;
-        for i in &v {
-            mean += i;
-        }
-        mean /= v.len();
-
+        //Original while loop
         //let mut i = 0;
         //while i < v.len() {
         //    mean = mean + &v[i];
         //    i += 1;
         //}
         //mean = mean / v.len() as i32;
+        
+        //More succinct for loop
+        let mut mean = 0;
+        for i in &v {
+            mean += i;
+        }
+        mean /= v.len();
 
         //Calculates the median
         v.sort();
