@@ -23,7 +23,7 @@ pub fn string_slice_2() {
     println!("{_hello_world}");
 }
 
-/**Private part of the function that the book offers 
+/**Private part of the function that the book offers
  * to illustrate the ownership-less nature of slices. Used with string_clice_4().*/
 fn string_slice_3(s: &str) -> &str {
     let bytes = s.as_bytes();
@@ -39,7 +39,7 @@ fn string_slice_3(s: &str) -> &str {
     //if the function doesn't find an empty byte ' ' it returns the whole pie
     &s[..]
 }
-/**Primary function of the book's parser that illustrates the 
+/**Primary function of the book's parser that illustrates the
  * onwership-less nature of slices. Works with string_slice_3().*/
 pub fn string_slice_4() {
     let phrase: String = String::from("Peter is a weirdo");
@@ -96,15 +96,15 @@ pub fn string_wrapper_2() {
     let s: String = String::from("Hello");
     let s_1 = s.clone();
     let s2: &str = &String::from(" world"); //The + uses add() which adds &str
-    let concat = s + s2; //Moves s, s2 is already a reference 
+    let concat = s + s2; //Moves s, s2 is already a reference
     let concat2 = s_1 + s2; //Required cloned s due to move, s2 is a reference
     println!("s + s2: {}\ns clone with reused s2: {}", concat, concat2);
-   
+
     //Also uses the + operator, but with two String bases, one referenced;
     //Even though the `add()` method takes only `&str` values, we can supply
     //a &String and the compiler will coerce it into an &str
-    let s3 = String::from("Hello"); 
-    let s3_1 = s3.clone(); 
+    let s3 = String::from("Hello");
+    let s3_1 = s3.clone();
     let s4 = String::from(" animals");
     let s5 = " wildlings"; //Adds a literal
     let concat3 = s3 + &s4; //Compiler can coerce String to &str
@@ -132,20 +132,27 @@ pub fn string_wrapper_3() {
     let s = String::from("Peter Schmitz");
     let given = &s[..5];
     let family = &s[6..];
-    println!("Full name: {}\nGiven name: {}\nFamily name: {}", &s, given, family);
-    
-   // let hello = "Здравствуйте";
-   // let first_three = &hello[..4];
-   // println!("First three characters: {}", first_three);
+    println!(
+        "Full name: {}\nGiven name: {}\nFamily name: {}",
+        &s, given, family
+    );
+
+    // let hello = "Здравствуйте";
+    // let first_three = &hello[..4];
+    // println!("First three characters: {}", first_three);
 
     let mut char_vec = Vec::new();
     let hello = "Здравствуйте";
     //let hello = "Peter";
     let i: usize = hello.chars().count();
-    for c in hello.chars() { 
+    for c in hello.chars() {
         char_vec.push(c)
     }
-    println!("The first three chars of \"{}\" are: {:?}", &hello, &char_vec[..3]);
+    println!(
+        "The first three chars of \"{}\" are: {:?}",
+        &hello,
+        &char_vec[..3]
+    );
 }
 
 fn main() {

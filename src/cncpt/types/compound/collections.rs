@@ -1,6 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
+use std::collections::HashMap;
+
 //============================================
 //Tuples
 
@@ -67,8 +69,8 @@ pub fn array_3() {
 //============================================
 //Vectors
 
-/**Creates a Vector with 2 indexes and prints both, resulting in a print statement that lists my
- * birthday*/
+/**Creates a Vector with 2 indexes and prints both,
+ * resulting in a print statement that lists my birthday*/
 pub fn vec_test_1() {
     //Requires type annotation because no type is provided for inference
     let mut v: Vec<String> = Vec::new();
@@ -81,8 +83,8 @@ pub fn vec_test_1() {
 }
 
 /**Creates a vector of i32 input size.
-The first line of output counts up from the 0 index.
-The second line of output counts back down.*/
+ * The first line of output counts up from the 0 index.
+ * The second line of output counts back down.*/
 pub fn vec_test_2(i: i32) {
     //let mut v: Vec<i32> = Vec::with_capacity(i as usize);
     let mut index = i;
@@ -94,8 +96,10 @@ pub fn vec_test_2(i: i32) {
     for x in v.iter().rev() {
         print!("{x} ");
         match x {
-            //Requires a match guard conditional to match against the external variable i
-            //Requires a de-referenced y variable to compare like types (i32)
+            //Requires a match guard conditional to
+            //match against the external variable i;
+            //Requires a de-referenced y variable
+            //to compare like types (i32);
             y if *y == i => {
                 println!(": That's all she wrote!");
             }
@@ -117,8 +121,9 @@ pub fn vec_test_2(i: i32) {
         }
     }
 }
-/**This function illustrates the two ways to get out-of-bounds index values from a vector.
-Warning, this method panics the program.*/
+/**This function illustrates the two ways to get
+ * out-of-bounds index values from a vector.
+ * Warning, this method panics the program.*/
 pub fn vec_test_3() {
     let v = vec![1, 2, 3]; //Vector declaration & instantiation
     let oob1 = v.get(3); //Graceful OOB handling
@@ -130,8 +135,8 @@ pub fn vec_test_3() {
     println!("{:?}", v.get(5));
     let oob2: &i32 = &v[3]; //Direct index reference panics the program
 }
-/**This function takes an i32, creates a vector of that size, and returns the value at
-the halfway point.*/
+/**This function takes an i32, creates a vector
+ * of that size, and returns the value at the halfway point.*/
 pub fn vec_test_4(n: usize) {
     let mut i = n;
     let mut v: Vec<usize> = Vec::new();
@@ -145,7 +150,8 @@ pub fn vec_test_4(n: usize) {
         None => println!("I guess there wasn't anything available!"),
     }
 }
-/**Creates a vector of usize and accesses it with reference and match methods*/
+/**Creates a vector of usize and accesses
+ * it with reference and match methods*/
 pub fn vec_test_5(n: usize) {
     let mut i = 0;
     let mut v: Vec<i32> = Vec::new();
@@ -188,5 +194,94 @@ pub fn vec_test_6(i: usize) {
     //    n += 1;
     //}
 }
-/**Stores enums as vector types*/
-pub fn vec_test_7() {}
+
+//============================================
+//Hash Maps
+
+/**Creates a hash map of String keys and integer values;
+ * Demonstrates basic insert and check-before-write methods;
+ * Briefly explores copy vs move for hash map ownership*/
+pub fn hash_maps_1() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Democrat"), 37);
+    scores.insert(String::from("Republican"), 48);
+    scores.insert(String::from("Independent"), 12);
+    scores.entry(String::from("Socialist")).or_insert(3);
+
+    let party = String::from("Democrat");
+    //Uses copied() because i32 implements the Copy trait
+    let score = scores.get(&party).copied().unwrap_or(0);
+    println!("The D's got: {}% of the vote.", score);
+
+    //Prints hash map in arbitrary order
+    for (key, value) in &scores {
+        println!("The {} party has {}% of the vote.", key, value);
+    }
+}
+/**Creates a hash map with String key and value pairs;
+ * Explores hash map ownership*/
+pub fn hash_maps_2() {
+    let mut hash = HashMap::new();
+    let k1 = String::from("Democrats");
+    let v1 = String::from("dirty");
+    hash.insert(k1.clone(), v1);
+
+    //Cant use copied() to get value as the previous example
+    //illustrates because String doesn't implement the Copy trait;
+    //Sets None value as "IDK" for return
+    let default = String::from("IDK");
+    let quality = hash.get(&k1).unwrap_or(&default);
+    println!("The {} are described as {}", k1, quality);
+}
+
+/**Book example 8-25 that creates a hash map to count the number
+ * of times a word appears in the supplied text; The split_whitespace()
+ * method returns an iterator over sub-slices used to update the counter*/
+pub fn hash_maps_3() {
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:#?}", map);
+}
+
+//============================================
+//Book tests
+
+/**Takes a vector of integers and calculates the mean, median, and mode*/
+pub fn book_test_1() {
+    let mut v = vec![1, 12, 34, 23, 21, 7, 75, 12, 89, 23, 12];
+    println!("The vector is: {:?}", &v);
+
+    //Calculates the median
+    v.sort();
+    let median = v.len() / 2;
+    println!("The median is: {}", v[median]);
+
+    //Calculates the mean
+    let mut total = 0;
+    let mut i = 0;
+    while i < v.len() {
+        total = total + &v[i];
+        i += 1;
+    }
+    total = total / v.len() as i32;
+    println!("The mean is: {}", total);
+
+    //Calculates the mode
+    let mut map = HashMap::new();
+    for i in &v {
+        let count = map.entry(i).or_insert(0);
+        *count += 1
+    }
+    let mut rank: Vec<_> = map.into_iter().collect();
+    rank.sort_by(|a, b| b.1.cmp(&a.1));
+    println!("The mode and frequency of occurences is: {:?}", rank[0]);
+}
+
+/***/
+pub fn book_test_2() {
+    
+}
