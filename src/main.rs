@@ -51,7 +51,9 @@ fn main() {
             1: Guessing game (book)\n\
             2: Guessing game (my hacky bullshit)\n\
             3: Clock (loop)\n\
-            4: Exit (rando function tests)"
+            4: Vector analyzer\n\
+            5: Pig Latin translator\n\
+            6: Exit (rando function tests)"
         );
         let mut input: String = String::new();
         io::stdin()
@@ -64,7 +66,7 @@ fn main() {
                 continue;
             }
         };
-        if input < 1 || input > 4 {
+        if input < 1 || input > 6 {
             println!("\nERROR: Enter a valid menu option number\n");
             continue;
         }
@@ -72,7 +74,8 @@ fn main() {
             1 => exmpl::guessing_game(),
             2 => exmpl::guessing_game_2(),
             3 => util::time::loop_time(8),
-            //4 => break,
+            4 => cncpt::collections::book_test_1(),
+            5 => cncpt::collections::book_test_2(),
             _ => {
                 println!("\n[EXIT]\n");
                 break;
@@ -92,7 +95,8 @@ fn main() {
     // cncpt::collections::hash_maps_1();
     // cncpt::collections::hash_maps_2();
     // cncpt::collections::hash_maps_3();
-    cncpt::collections::book_test_1();
+    //cncpt::collections::book_test_1();
+    //cncpt::collections::book_test_2();
     //cncpt::collections::vec_test_6(10);
     //cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
