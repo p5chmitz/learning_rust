@@ -1,7 +1,9 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
+use regex::Regex;
 use std::collections::HashMap;
+use std::io::{self, Write};
 
 //============================================
 //Tuples
@@ -258,7 +260,7 @@ pub fn book_test_1() {
     //let mut v = vec![];
     //let mut v = vec![1, 2, 3];
 
-    println!("The vector contains {} elements:\n\t{:?}", v.len(), &v);
+    println!("\nThe vector contains {} elements:\n\t{:?}", v.len(), v);
     println!("\nAnalytics\n=========");
 
     if v.len() != 0 {
@@ -291,19 +293,72 @@ pub fn book_test_1() {
         println!("\tThe median is: {}", median);
         println!("\tThe mode and frequency of occurences is: {:?}", mode);
 
-        //Sorts the vector by descending key portion of the key:value tuple 
+        //Sorts the vector by descending key portion of the key:value tuple
         rank.sort_by(|a, b| b.0.cmp(&a.0));
-        //Prints range by accessing the key portion of the key:value tuple 
+        //Prints range by accessing the key portion of the key:value tuple
         //as vector[index].tuple_position
-        println!("\tThe range is: {}-{}", rank[rank.len() - 1].0, rank[0].0)
-    }
-    else {
+        println!("\tThe range is: {}-{}\n", rank[rank.len() - 1].0, rank[0].0)
+    } else {
         println!("Cant really do much with a zero-length array.");
     }
 }
 
 /**Pig Latin generator*/
+//let s = String::from("Hello, Im a pig latin translator.");
+//let s = String::from("Im a pig latin translator");
+//ello-Hay Im-ay ig-pay atin-lay ranslator-tay
+//elloHay, Imyay ayay igpay atinlay anslatortray.
 pub fn book_test_2() {
-    
+    print!("\nEnter phrase: ");
+    io::stdout().flush().unwrap();
+    let mut s: String = String::new();
+    io::stdin()
+        .read_line(&mut s)
+        .expect("Failure. You're a failure.");
+
+    let mut v = Vec::new();
+    let mut output = String::new();
+    for word in s.split_whitespace() {
+        v.push(word);
+        let first = &word[..1];
+        let rest = &word[1..];
+        let vow = &String::from("hay");
+        let cons = &String::from("ay");
+        let mut new_word: String = String::from(rest) + &first.to_string();
+        let vow_pat = Regex::new(r"[aeiouAEIOU]").unwrap();
+        if vow_pat.is_match(first) {
+            new_word.push_str(vow);
+        } else {
+            new_word.push_str(cons);
+        }
+        //let punc_pat = Regex::new(r"[.,:!]").unwrap();
+        //let punc = String::new();
+        //punc.push_str();
+        //rest.len();
+        //if punc_pat.is_match(rest) {
+        //    new_word.push_str(punc);
+        //}
+
+        output.push_str(&new_word);
+        output.push_str(" ");
+    }
+    println!("Translation: {}\n", output);
 }
 
+/***/
+pub fn book_test_3() {
+    print!("Enter name, e.g. \"Walter Smith\": ");
+    io::stdout().flush().unwrap();
+    let mut employee: String = String::new();
+    io::stdin()
+        .read_line(&mut employee)
+        .expect("Failure. You're a failure.");
+    print!("Enter department, e.g. \"Engineering\": ");
+    io::stdout().flush().unwrap();
+    let mut department: String = String::new();
+    io::stdin()
+        .read_line(&mut department)
+        .expect("Failure. You're a failure.");
+
+    //let map = HashMap::new();
+}
