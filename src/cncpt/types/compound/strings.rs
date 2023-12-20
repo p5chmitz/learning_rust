@@ -23,9 +23,20 @@ pub fn string_slice_2() {
     println!("{_hello_world}");
 }
 
-/**Private part of the function that the book offers
- * to illustrate the ownership-less nature of slices. Used with string_clice_4().*/
-fn string_slice_3(s: &str) -> &str {
+/**Primary function of the book's parser that illustrates the
+ * onwership-less nature of slices. Works with string_slice_3().*/
+pub fn string_slice_3() {
+    let phrase: String = String::from("Peter is a weirdo");
+    let word: &String = &phrase;
+    println!(
+        "The first word of the phrase \"{}\" is \"{}\"",
+        phrase,
+        string_slice_4(word)
+    );
+}
+/**Private (associated) function that the book offers
+ * to illustrate the ownership-less nature of slices. Used with string_slice_4().*/
+fn string_slice_4(s: &str) -> &str {
     let bytes = s.as_bytes();
     println!("Phrase as bytes: {:?}", &bytes);
     //For loop iterates over the converted bytes looking for the first "space"
@@ -38,17 +49,6 @@ fn string_slice_3(s: &str) -> &str {
     }
     //if the function doesn't find an empty byte ' ' it returns the whole pie
     &s[..]
-}
-/**Primary function of the book's parser that illustrates the
- * onwership-less nature of slices. Works with string_slice_3().*/
-pub fn string_slice_4() {
-    let phrase: String = String::from("Peter is a weirdo");
-    let word: &String = &phrase;
-    println!(
-        "The first word of the phrase \"{}\" is \"{}\"",
-        phrase,
-        string_slice_3(word)
-    );
 }
 
 /**Re-write of the book's str parser with the help of GPT*/
@@ -73,6 +73,7 @@ pub fn string_slice_5() {
 
 //=======================================
 //String (collections)
+
 /**Create Strings with literals or variables using the from() method or the to_string() methods*/
 pub fn string_wrapper_1() {
     //Using the from() method
