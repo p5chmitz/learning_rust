@@ -35,7 +35,7 @@ pub fn io_1() {
 pub fn io_2() {
     let contents = std::fs::read_to_string("./files/hello_world.txt")
         .expect("[placeholder text]");
-    println!("The easy way...\n\t{}", contents)
+    println!("The easy way...\n\t{}", contents);
 }
 
 /**Accesses a file with some super hacky bullshit;
@@ -59,6 +59,5 @@ pub fn _io_3() {
         println!("Im a stupid error")
     };
     println!("Option 2:\n\t{}", file_contents);
-
 }
 
