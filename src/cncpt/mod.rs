@@ -1,9 +1,10 @@
 pub mod ctrl_flow;
+pub mod error_handling;
 pub mod functions;
+pub mod io;
 pub mod ownership;
 pub mod types;
 pub mod variables;
-pub mod error_handling;
 
 //Re-exports sub-modules for cleaner access in main.rs
 //Functions in these modules are accessed via cncpt::collecitons::function() or similar
