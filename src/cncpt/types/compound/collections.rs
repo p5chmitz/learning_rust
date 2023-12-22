@@ -322,14 +322,12 @@ pub fn book_test_2() {
         v.push(word);
         let first = &word[..1];
         let rest = &word[1..];
-        let vow = &String::from("hay");
-        let cons = &String::from("ay");
         let mut new_word: String = String::from(rest) + &first.to_string();
         let vow_pat = Regex::new(r"[aeiouAEIOU]").unwrap();
         if vow_pat.is_match(first) {
-            new_word.push_str(vow);
+            new_word.push_str(&String::from("hay"));
         } else {
-            new_word.push_str(cons);
+            new_word.push_str(&String::from("ay"));
         }
         //let punc_pat = Regex::new(r"[.,:!]").unwrap();
         //let punc = String::new();

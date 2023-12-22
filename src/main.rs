@@ -92,14 +92,15 @@ fn main() {
     //cncpt::strings::string_wrapper_2();
     //cncpt::strings::string_wrapper_2();
     //cncpt::strings::string_wrapper_3();
-    // cncpt::collections::hash_maps_1();
-    // cncpt::collections::hash_maps_2();
-    // cncpt::collections::hash_maps_3();
+    //cncpt::collections::hash_maps_1();
+    //cncpt::collections::hash_maps_2();
+    //cncpt::collections::hash_maps_3();
     //cncpt::collections::book_test_1();
     //cncpt::collections::book_test_2();
     //cncpt::collections::vec_test_6(10);
     //cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
+    cncpt::error_handling::error_handling_1();
     //exmpl::json::json_parsing();
     //cncpt::collections::vec_test_3();
     timestamp(2);
