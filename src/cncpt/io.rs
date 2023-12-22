@@ -29,11 +29,20 @@ pub fn io_1() {
     println!("File contents via proper method:\n\t{}", file_contents);
 }
 
+/**Accesses a file the EASY way; This pattern substitutes 
+ * the expect text for the desired file contents instead of 
+ * failing in a meaningful way*/
+pub fn io_2() {
+    let contents = std::fs::read_to_string("./files/hello_world.txt")
+        .expect("[placeholder text]");
+    println!("The easy way...\n\t{}", contents)
+}
+
 /**Accesses a file with some super hacky bullshit;
- * This function includes three variations that use the
+ * This function includes two variations that use the
  * std::fs::read_to_string method;
  * If the file path is incorrect all options will trigger panic*/
-pub fn io_2() {
+pub fn _io_3() {
     println!("Heres some hacky bullshit!\n==========================");
     //Option 1
     let file_contents = match std::fs::read_to_string("./files/hello_world.txt") {
@@ -51,7 +60,5 @@ pub fn io_2() {
     };
     println!("Option 2:\n\t{}", file_contents);
 
-    //Option 3
-    let contents = std::fs::read_to_string("./files/hello_world.txt").expect("Always failing");
-    println!("Option 3:\n\t{}", contents)
 }
+
