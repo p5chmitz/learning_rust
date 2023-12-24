@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 //NOTE: When testing in terminal ensure that run commands
 //are executed from the /src/ dir, otherwise a file not found
 //error may occur.
@@ -8,13 +11,16 @@ use std::{fs::OpenOptions, io::Read};
 pub fn io_1() {
     //Creates String to read contents into
     let mut file_contents = String::new();
+
     //Creates file handle
     //Less verbose version (alias) of OpenOptions
     //let open_file_result = File::open("./files/hello_world.txt");
     let file_handle = OpenOptions::new()
         .read(true)
         .open("./files/hello_world.txt");
-    //Accesses file handle, copies contents to String
+
+    //Nested process to access file handle, copy contents to String
+    //with Result<T, E> return types
     match file_handle {
         Ok(mut file) => {
             println!("Accessing file & reading to String...");
@@ -26,6 +32,8 @@ pub fn io_1() {
         }
         Err(error) => eprintln!("File error: {:#?}", error),
     };
+
+    //Prints the contents of the String
     println!("File contents via proper method:\n\t{}", file_contents);
 }
 

@@ -1,48 +1,67 @@
-use std::{
-    fs::{File, OpenOptions},
-    io::Read,
-};
+#![allow(dead_code)]
+#![allow(unused_variables)]
 
+use std::{
+        fs::File, 
+        io::{
+            Read, 
+            ErrorKind
+        }, 
+        panic};
+
+/**Illustrates simple error handling*/
 pub fn error_handling_1() {
-    //panic!("Failure message");
-    //NOTE: When testing in terminal ensure that run commands
-    //are executed from the /src/ dir, otherwise a file not found
-    //error may occur.
-    let mut file_contents = String::new();
-    let open_file_result = OpenOptions::new()
-        .read(true)
-        .open("./files/hello_world.txt");
-    //Less verbose version (alias) of the previous line(s)
-    //let open_file_result = File::open("./files/hello_world.txt");
-    let file_handler = match open_file_result {
-        Ok(mut file) => match file.read_to_string(&mut file_contents) {
-            Ok(_) => {}
-            Err(err) => eprintln!("Error: {}", err),
-        },
-        Err(error) => panic!("Error: {:?}", error),
+    //Creates an object of type Result<T, E> for the file's title
+    let greeting_result = File::open("./files/hello.txt");
+    
+    //Creates a handler to process the Result object 
+    //and extract either a file or an error 
+    let greeting_result_handler = match greeting_result {
+        Ok(file) => file,
+        Err(error) => panic!("Problem creating the file: {:?}", error),
     };
-    println!("{:?}", file_handler);
-    println!("{}", file_contents);
 }
 
+/**Illustrates matching on different kinds of errors*/
 pub fn error_handling_2() {
-    //Creates String to buffer file contents
-    let mut file_contets = String::new();
-    //Accesses the file (with options)
-    let file = OpenOptions::new()
-        .read(true)
-        .open("./files/hello_world.txt");
-    //Accesses file handle, copies text to String buffer
-    match file {
-        Ok(mut file) => {
-            println!("Opening File...");
-            match file.read_to_string(&mut file_contets) {
-                Ok(_) => println!("Contents copied to String..."),
-                Err(err) => println!("There was a problem: {}", err),
+    //Sets location of test file
+    let title = String::from("./files/hello.txt");
+    //Creates an object of type Result<T, E> for the file's title
+    let greeting_result = File::open(&title);
+    
+    //Creates a handler to pass the file object to a variable to work with 
+    let greeting_result_handler = match greeting_result {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create(&title) {
+                Ok(fc) => fc,
+                Err(e) => panic!("Problem creating the file: {:?}", e),
+            },
+            other_error => {
+                panic!("Problem opening the file: {:?}", other_error);
             }
-        }
-        Err(err) => println!("Its a failure, for sure. {}", err),
+        },
     };
-    //Prints contents of String buffer
-    println!("Printing String contents...\n\t{}", file_contets);
+}
+
+/**rust-lang documentation example of File::open usage*/
+pub fn error_handling_3() -> std::io::Result<()> {
+    let mut file = File::open("hello.txt")?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    assert_eq!(contents, "Hello!");
+    Ok(())
+}
+
+/***/
+pub fn error_handling_4() {
+    //Sets location of test file
+    let title = String::from("./files/hello.txt");
+    //Creates an object of type Result<T, E> for the file's title
+    let greeting_handle = File::open(&title);
+
+    let greeting_file = match greeting_handle {
+        Ok(file) => file,
+        Err(e) => panic!("TESTING: {:?}", e.kind()),
+    };
 }
