@@ -9,7 +9,8 @@ use std::{
         }, 
         panic};
 
-/**Illustrates simple error handling with a method that returns a Result<T, E> type*/
+/**Illustrates simple error handling with a method that returns a Result<T, E> type;
+ * This function is baseically desinged to panic and doesn't really DO anything*/
 pub fn error_handling_1() {
     //Creates an object of type Result<T, E> for the file's title
     let greeting_result = File::open("./files/hello.txt");
@@ -22,7 +23,8 @@ pub fn error_handling_1() {
     };
 }
 
-/**Illustrates matching on different kinds of errors from the same Result<T, E> return*/
+/**Illustrates matching on different kinds of errors from the same Result<T, E> return;
+ * This function doesn't actually DO anything but create a file if one is not found*/
 pub fn error_handling_2() {
     //Sets location of test file
     let title = String::from("./files/hello.txt");
