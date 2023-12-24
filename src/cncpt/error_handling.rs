@@ -9,7 +9,7 @@ use std::{
         }, 
         panic};
 
-/**Illustrates simple error handling*/
+/**Illustrates simple error handling with a method that returns a Result<T, E> type*/
 pub fn error_handling_1() {
     //Creates an object of type Result<T, E> for the file's title
     let greeting_result = File::open("./files/hello.txt");
@@ -22,7 +22,7 @@ pub fn error_handling_1() {
     };
 }
 
-/**Illustrates matching on different kinds of errors*/
+/**Illustrates matching on different kinds of errors from the same Result<T, E> return*/
 pub fn error_handling_2() {
     //Sets location of test file
     let title = String::from("./files/hello.txt");
@@ -32,13 +32,17 @@ pub fn error_handling_2() {
     //Creates a handler to pass the file object to a variable to work with 
     let greeting_result_handler = match greeting_result {
         Ok(file) => file,
+        //Accesses the Error::kind() method
         Err(error) => match error.kind() {
             ErrorKind::NotFound => match File::create(&title) {
                 Ok(fc) => fc,
                 Err(e) => panic!("Problem creating the file: {:?}", e),
             },
+            //Catch-all as named identifier
+            //other_error => panic!("Error: {:?}", other_error),
             other_error => {
-                panic!("Problem opening the file: {:?}", other_error);
+                println!("{:?}", other_error);
+                File::open(" ").expect(" ") 
             }
         },
     };
