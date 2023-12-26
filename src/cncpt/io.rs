@@ -46,12 +46,10 @@ pub fn io_2() {
     println!("The easy way...\n\t{}", contents);
 }
 
-/**Accesses a file with some super hacky bullshit;
- * This function includes two variations that use the
+/**This function includes two variations that use the
  * std::fs::read_to_string method;
  * If the file path is incorrect all options will trigger panic*/
 pub fn _io_3() {
-    println!("Heres some hacky bullshit!\n==========================");
     //Option 1
     let file_contents = match std::fs::read_to_string("./files/hello_world.txt") {
         Ok(file) => file,
