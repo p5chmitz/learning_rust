@@ -101,7 +101,13 @@ fn main() {
     //cncpt::collections::vec_test_2(23);
     //cncpt::collections::vec_test_5(10);
     //cncpt::error_handling::error_handling_1();
-    cncpt::error_handling::error_handling_2();
+    //cncpt::error_handling::error_handling_2();
+    match cncpt::error_handling::error_handling_5() {
+        Ok(result) => println!("{}", result),
+        Err(e) => println!("Error: {}", e),
+
+    }; 
+    //println!("{:?}", s);
     //cncpt::io::io_1();
     //cncpt::io::io_2();
     //exmpl::json::json_parsing();
