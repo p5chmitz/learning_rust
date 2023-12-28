@@ -2,7 +2,7 @@
 #![allow(unused_variables)]
 
 use std::{
-        fs::File, 
+        fs::{File, self}, 
         io::{
             self,
             Read, 
@@ -11,7 +11,7 @@ use std::{
         panic};
 
 /**Illustrates simple error handling with a method that returns a Result<T, E> type;
- * This function is baseically desinged to panic and doesn't really DO anything*/
+ * This function is basically desinged to panic and doesn't really DO anything*/
 pub fn error_handling_1() {
     //Creates an object of type Result<T, E> for the file's title
     let greeting_result = File::open("./files/hello.txt");
@@ -89,15 +89,22 @@ pub fn error_handling_4() -> Result<String, io::Error> {
  * the ? operator to dispatch with the boilerplate of the 
  * match expressions*/
 pub fn error_handling_5() -> Result<String, io::Error> {
-   let mut process_result = File::open("./files/hello_wrld.txt")?;
+   let mut process_result = File::open("./files/hello_world.txt")?;
     let mut contents = String::new();
     process_result.read_to_string(&mut contents)?;
     Ok(contents) 
 }
 
+/**This function does the same thing as error_handling_3 and 
+ * error_handling_4 but does so in a ridiculously short way; 
+ * I cant believe it took so long to get here*/
+pub fn error_handling_6() -> Result<String, io::Error> {
+    fs::read_to_string("./files/hello_word.txt")
+}
+
 /**Error handling with closures; This code does the same thing as error_handling_2() but uses
  * closures instead of match expressions*/
-pub fn error_handling_6() {
+pub fn error_handling_7() {
     let greeting_file = File::open("hello.txt").unwrap_or_else(|error| {
         if error.kind() == ErrorKind::NotFound {
             File::create("hello.txt").unwrap_or_else(|error| {
@@ -110,7 +117,7 @@ pub fn error_handling_6() {
 }
 
 /**rust-lang documentation example of File::open usage*/
-pub fn error_handling_7() -> std::io::Result<()> {
+pub fn error_handling_8() -> std::io::Result<()> {
     let mut file = File::open("hello.txt")?;
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
@@ -119,7 +126,7 @@ pub fn error_handling_7() -> std::io::Result<()> {
 }
 
 /***/
-pub fn error_handling_8() {
+pub fn error_handling_9() {
     //Sets location of test file
     let title = String::from("./files/hello.txt");
     //Creates an object of type Result<T, E> for the file's title
@@ -129,4 +136,19 @@ pub fn error_handling_8() {
         Ok(file) => file,
         Err(e) => panic!("TESTING: {:?}", e.kind()),
     };
+}
+
+/**The most elegant way to read a file's contents in a self-contained
+ * way without panicking*/
+pub fn idk() {
+    let contents = match fs::read_to_string("./fils/hello_world.txt") {
+        Ok(contents) => println!("idk3: {}", contents),
+        Err(e) => println!("Error: {}...{}", e, e.kind()),
+    };
+}
+
+/**Using the ? operator with the Option type*/
+pub fn error_handling_10() -> Option<char> {
+    let s = String::from("Im a phrase");
+    s.lines().next()?.chars().last()
 }
