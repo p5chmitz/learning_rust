@@ -67,6 +67,11 @@ pub fn array_3() {
         array_three[0], array_three[1]
     )
 }
+/**Illustrates two different ways to declare an array*/
+pub fn array_4() {
+    let a = [0i32, 1, 2];
+    let b: [i32; 3] = [0, 1, 2];
+}
 
 //============================================
 //Vectors
