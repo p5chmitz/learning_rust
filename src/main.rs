@@ -82,35 +82,13 @@ fn main() {
             }
         }
     }
-    //cncpt::ownership::ownership_1();
-    //cncpt::ownership::ownership_2();
-    //cncpt::ownership::ownership_3();
-    //cncpt::structs::struct_demo_1();
-    //cncpt::strings::string_slice_4();
-    //cncpt::strings::string_slice_5();
-    //cncpt::strings::string_wrapper_1();
-    //cncpt::strings::string_wrapper_2();
-    //cncpt::strings::string_wrapper_2();
-    //cncpt::strings::string_wrapper_3();
-    //cncpt::collections::hash_maps_1();
-    //cncpt::collections::hash_maps_2();
-    //cncpt::collections::hash_maps_3();
-    //cncpt::collections::book_test_1();
-    //cncpt::collections::book_test_2();
-    //cncpt::collections::vec_test_6(10);
-    //cncpt::collections::vec_test_2(23);
-    //cncpt::collections::vec_test_5(10);
+    
     //cncpt::error_handling::error_handling_1();
     //cncpt::error_handling::error_handling_2();
-    match cncpt::error_handling::error_handling_5() {
-        Ok(result) => println!("{}", result),
-        Err(e) => println!("Error: {}", e),
+    //exmpl::test::calculate(1, 8);
+    cncpt::generics::generics_1();
+    cncpt::generics::generics_2();
 
-    }; 
-    //println!("{:?}", s);
-    //cncpt::io::io_1();
-    //cncpt::io::io_2();
-    //exmpl::json::json_parsing();
-    //cncpt::collections::vec_test_3();
     timestamp(2);
 }
+
