@@ -15,3 +15,4 @@ pub use types::compound::collections;
 pub use types::compound::strings;
 pub use types::compound::structs;
 pub use types::primitives::scalar;
+pub use types::traits;
