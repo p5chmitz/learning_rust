@@ -37,12 +37,11 @@ pub fn io_1() {
     println!("File contents via proper method:\n\t{}", file_contents);
 }
 
-/**Accesses a file the EASY way; This pattern substitutes 
- * the expect text for the desired file contents instead of 
+/**Accesses a file the EASY way; This pattern substitutes
+ * the expect text for the desired file contents instead of
  * failing in a meaningful way*/
 pub fn io_2() {
-    let contents = std::fs::read_to_string("./files/hello_world.txt")
-        .expect("[placeholder text]");
+    let contents = std::fs::read_to_string("./files/hello_world.txt").expect("[placeholder text]");
     println!("The easy way...\n\t{}", contents);
 }
 
@@ -66,4 +65,3 @@ pub fn _io_3() {
     };
     println!("Option 2:\n\t{}", file_contents);
 }
-
