@@ -11,16 +11,16 @@ use std::io::{self, Write};
 //Declares a tuple with homogenous scalar types
 pub fn tuple_1() {
     let whatev = (1, 2, 3, 4);
-    let _e = whatev.3;
-    println!("When the tuple hits just right, {_e}");
+    let e = whatev.3;
+    println!("When the tuple hits just right, {e}");
 }
 //Declares a tuple with mixed scalar types
 pub fn tuple_2() {
     let idk: (i32, f64, u8) = (32, 6.4, 8); //Creates a tuple
-    let (_a, _b, _c) = idk; //access all elements
-    let _d: &f64 = &idk.1; //access specific elements by index
-    println!("The whole tuple: {_a}, {_b}, {_c}");
-    println!("Accessing a tuple index: {_d}");
+    let (a, b, c) = idk; //access all elements
+    let d: &f64 = &idk.1; //access specific elements by index
+    println!("The whole tuple: {a}, {b}, {c}");
+    println!("Accessing a tuple index: {d}");
 }
 //Declares a tuple with mixed scalar and compound types
 pub fn tuple_3() {
@@ -30,17 +30,17 @@ pub fn tuple_3() {
         String::from("peter@email.com"),
         23,
     );
-    let _user_name = user.1;
-    let _email = user.2;
-    println!("Username: {_user_name}");
-    println!("Email: {_email}");
+    let user_name = user.1;
+    let email = user.2;
+    println!("Username: {user_name}");
+    println!("Email: {email}");
 }
 //Declares a tuple with mixed scalar and compound types
 pub fn tuple_4() {
     let x: (String, u8) = (String::from("Peter"), 40);
-    let _name: String = String::from(x.0);
-    let _age: u8 = x.1;
-    println!("{_name} is {_age} years old.");
+    let name: String = String::from(x.0);
+    let age: u8 = x.1;
+    println!("{name} is {age} years old.");
 }
 
 //============================================
@@ -49,14 +49,14 @@ pub fn tuple_4() {
 pub fn array_1() {
     //Be explicit
     let array: [f64; 3] = [32.0, 6.4, 8.0];
-    let _a: &f64 = &array[0]; //access specific elements by index
-    println!("Accessing a tuple index: {_a}");
+    let a: &f64 = &array[0]; //access specific elements by index
+    println!("Accessing a tuple index: {a}");
 }
 pub fn array_2() {
     //Be implicit
     let array_two = [23; 5];
-    let _b: &i32 = &array_two[3];
-    println!("Lets print a hastily initialized array index: {_b}");
+    let b: &i32 = &array_two[3];
+    println!("Lets print a hastily initialized array index: {b}");
 }
 pub fn array_3() {
     let a = String::from("Peter");
