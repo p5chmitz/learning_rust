@@ -82,13 +82,15 @@ fn main() {
             }
         }
     }
-    
+
     //cncpt::error_handling::error_handling_1();
     //cncpt::error_handling::error_handling_2();
     //exmpl::test::calculate(1, 8);
     cncpt::generics::generics_1();
-    cncpt::generics::generics_2();
+    cncpt::generics::generics_3();
+    cncpt::generics::generics_4();
+    cncpt::traits::traits_1();
+    cncpt::generics::traits_1();
 
     timestamp(2);
 }
-
