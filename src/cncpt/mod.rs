@@ -1,6 +1,7 @@
 pub mod ctrl_flow;
 pub mod error_handling;
 pub mod functions;
+pub mod generics;
 pub mod io;
 pub mod ownership;
 pub mod types;
