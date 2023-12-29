@@ -2,22 +2,19 @@
 #![allow(unused_variables)]
 
 use std::{
-        fs::{File, self}, 
-        io::{
-            self,
-            Read, 
-            ErrorKind
-        }, 
-        panic};
+    fs::{self, File},
+    io::{self, ErrorKind, Read},
+    panic,
+};
 
 /**Illustrates simple error handling with a method that returns a Result<T, E> type;
  * This function is basically desinged to panic and doesn't really DO anything*/
 pub fn error_handling_1() {
     //Creates an object of type Result<T, E> for the file's title
     let greeting_result = File::open("./files/hello.txt");
-    
-    //Creates a handler to process the Result object 
-    //and extract either a file or an error 
+
+    //Creates a handler to process the Result object
+    //and extract either a file or an error
     let greeting_result_handler = match greeting_result {
         Ok(file) => file,
         Err(error) => panic!("There was a problem opening the file: {:?}", error),
@@ -31,8 +28,8 @@ pub fn error_handling_2() {
     let title = String::from("./files/hello.txt");
     //Creates an object of type Result<T, E> for the file's title
     let greeting_result = File::open(&title);
-    
-    //Creates a handler to pass the file object to a variable to work with 
+
+    //Creates a handler to pass the file object to a variable to work with
     let greeting_result_handler = match greeting_result {
         Ok(file) => file,
         //Accesses the Error::kind() method
@@ -42,61 +39,60 @@ pub fn error_handling_2() {
                 Err(e) => panic!("Problem creating the file: {:?}", e),
             },
             //Catch-all as named identifier; The match arms must all
-            //return the same type; panic! can return the File type, but 
+            //return the same type; panic! can return the File type, but
             //println doesn't return anything, so this example shows a hack around that
             //other_error => panic!("Error: {:?}", other_error),
             other_error => {
                 println!("{:?}", other_error);
-                File::open(" ").expect(" ") 
+                File::open(" ").expect(" ")
             }
         },
     };
 }
 
 /**Introduces two methods for the Result<T, E> enum implementation
- * with unwrap() and expect(); Both of these methods use the match 
- * mechanism under the hood and panic when they encounter an Err; 
- * Because of this, their use is generally discouraged by the Rust 
- * language documentation; This function does the same thing as 
+ * with unwrap() and expect(); Both of these methods use the match
+ * mechanism under the hood and panic when they encounter an Err;
+ * Because of this, their use is generally discouraged by the Rust
+ * language documentation; This function does the same thing as
  * error_handling_1() but combines the result with the result handler*/
 pub fn error_handling_3() {
     //let greeting_file = File::open("hello.txt").unwrap();
-    let greeting_file = File::open("hello.txt")
-        .expect("hello.txt is required to proceed");
+    let greeting_file = File::open("hello.txt").expect("hello.txt is required to proceed");
 }
 
-/**Uses error propagation to let the calling code handle errors; 
+/**Uses error propagation to let the calling code handle errors;
  * Requires the use std::io::self statement;*/
 pub fn error_handling_4() -> Result<String, io::Error> {
     let process_result = File::open("hello.txt");
     let mut file_handler = match process_result {
         Ok(file) => file,
-        //If an error is encountered the function returns the error 
+        //If an error is encountered the function returns the error
         //instead of panicking
         Err(e) => return Err(e),
     };
     let mut contents = String::new();
     match file_handler.read_to_string(&mut contents) {
         Ok(_) => Ok(contents),
-        //Does the same thing as the previous match expression, 
-        //but we dont need an explicit return keyword Because 
+        //Does the same thing as the previous match expression,
+        //but we dont need an explicit return keyword Because
         //this is the last expression in the function
         Err(e) => Err(e),
     }
 }
 
-/**This function does the same as error_handling_4() but uses 
- * the ? operator to dispatch with the boilerplate of the 
+/**This function does the same as error_handling_4() but uses
+ * the ? operator to dispatch with the boilerplate of the
  * match expressions*/
 pub fn error_handling_5() -> Result<String, io::Error> {
-   let mut process_result = File::open("./files/hello_world.txt")?;
+    let mut process_result = File::open("./files/hello_world.txt")?;
     let mut contents = String::new();
     process_result.read_to_string(&mut contents)?;
-    Ok(contents) 
+    Ok(contents)
 }
 
-/**This function does the same thing as error_handling_3 and 
- * error_handling_4 but does so in a ridiculously short way; 
+/**This function does the same thing as error_handling_3 and
+ * error_handling_4 but does so in a ridiculously short way;
  * I cant believe it took so long to get here*/
 pub fn error_handling_6() -> Result<String, io::Error> {
     fs::read_to_string("./files/hello_word.txt")
