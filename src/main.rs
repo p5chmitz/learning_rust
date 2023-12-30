@@ -89,7 +89,6 @@ fn main() {
     cncpt::generics::generics_1();
     cncpt::generics::generics_3();
     cncpt::generics::generics_4();
-    cncpt::traits::traits_1();
     cncpt::generics::traits_1();
 
     timestamp(2);

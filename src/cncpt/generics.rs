@@ -124,7 +124,7 @@ pub fn traits_1() {
         reply: false,
         retweet: true,
     };
-    let tweet_summary = tweet.summarize();
+    let tweet_summary = tweet.default();
     println!("News article summary: {}\nTweet summary: {}", news_summary, tweet_summary);
 }
 

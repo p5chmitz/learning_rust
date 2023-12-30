@@ -1,12 +1,3 @@
-/**The trait is Summary, each behavior of the trait is represented by an "incomplete" function that
- * is ultimately defined by the implementing type; Any type with the Summary trait will have access
- * to the functions defined within the trait block*/
-pub trait Summary {
-    fn default(&self) -> String {
-        String::from("(Placeholder text)")
-    }
-    fn summarize(&self) -> String;
-}
 
 //===================================
 // News article
@@ -19,7 +10,7 @@ pub struct NewsArticle {
     pub content: String,
 }
 //Implements the Summary trait for the NewsArticle type
-impl Summary for NewsArticle {
+impl crate::cncpt::traits::Summary for NewsArticle {
     fn summarize(&self) -> String {
         format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
@@ -36,7 +27,7 @@ pub struct Tweet {
     pub retweet: bool,
 }
 //Implements the Summary trait for the Tweet type
-impl Summary for Tweet {
+impl crate::cncpt::traits::Summary for Tweet {
     fn summarize(&self) -> String {
         format!("{}: {}", self.username, self.content)
     }
