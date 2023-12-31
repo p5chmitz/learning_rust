@@ -5,6 +5,7 @@ pub trait Summary {
     fn default(&self) -> String {
         String::from("(Placeholder text)")
     }
+    //fn compare(&self) -> {}
     fn summarize(&self) -> String;
 }
 
@@ -75,4 +76,7 @@ pub fn traits_2(item: &impl Summary) {
  * the generic function parameter*/
 pub fn traits_3<T: Summary>(item: &T) {
     println!("More breaking news! {}", item.summarize());
+    println!("The thing we thought: {}", item.default());
 }
+
+
