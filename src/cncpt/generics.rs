@@ -1,7 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use crate::cncpt::types::traits::{Summary, NewsArticle, Tweet};
+//Use statement necessary for calling code on trait examples
+//use crate::cncpt::types::traits::{Summary, NewsArticle, Tweet};
 
 //============================================
 //Generics as functions
@@ -103,28 +104,5 @@ pub fn generics_4() {
     let p6 = p4.mixup(p5);
     println!("Combo: {:?}", p6);
 
-}
-
-//===================================
-// Traits!
-
-pub fn traits_1() {
-    //Instantiates a news article to summarize
-    let news_article = NewsArticle {
-        headline: String::from("The oppression of indiginous communities"),
-        location: String::from("North Dakota"),
-        author: String::from("Peter Schmitz"),
-        content: String::from("This is gonna be super long bro Im not entirely sure you're ready for this yet"),
-    };
-    let news_summary = news_article.summarize();
-    //Instantiates a tweet to summaryze
-    let tweet = Tweet {
-        username: String::from("pschmitz"),
-        content: String::from("This is a tweet so its gonna be a bit shorter than a news article. Its mostly jokes."),
-        reply: false,
-        retweet: true,
-    };
-    let tweet_summary = tweet.default();
-    println!("News article summary: {}\nTweet summary: {}", news_summary, tweet_summary);
 }
 

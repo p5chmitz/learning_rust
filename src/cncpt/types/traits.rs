@@ -42,3 +42,37 @@ impl Summary for Tweet {
     }
 }
 
+//===================================
+// Calling code
+
+/**Creates two structs that implement summarize() and default() traits, prints them*/
+pub fn traits_1() {
+    //Instantiates a news article to summarize
+    let news_article = NewsArticle {
+        headline: String::from("The oppression of indiginous communities"),
+        location: String::from("North Dakota"),
+        author: String::from("Peter Schmitz"),
+        content: String::from("This is gonna be super long bro Im not entirely sure you're ready for this yet"),
+    };
+    let news_summary = news_article.summarize();
+    //Instantiates a tweet to summaryze
+    let tweet = Tweet {
+        username: String::from("pschmitz"),
+        content: String::from("This is a tweet so its gonna be a bit shorter than a news article. Its mostly jokes."),
+        reply: false,
+        retweet: true,
+    };
+    let tweet_summary = tweet.default();
+    println!("News article summary: {}\nTweet summary: {}", news_summary, tweet_summary);
+}
+
+/**Illustrates traits as function parameters*/
+pub fn traits_2(item: &impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
+
+/**Does the same thing as traits_2() but without the syntax sugar; This form more clearly defines
+ * the generic function parameter*/
+pub fn traits_3<T: Summary>(item: &T) {
+    println!("More breaking news! {}", item.summarize());
+}
