@@ -1,7 +1,6 @@
 pub mod ctrl_flow;
 pub mod error_handling;
 pub mod functions;
-pub mod generics;
 pub mod io;
 pub mod ownership;
 pub mod types;
@@ -16,3 +15,4 @@ pub use types::compound::strings;
 pub use types::compound::structs;
 pub use types::primitives::scalar;
 pub use types::traits;
+pub use types::generics;
