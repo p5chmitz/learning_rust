@@ -9,17 +9,36 @@
 
 /**Calling function to illustrate generic function generics_2(); Creates two vectors of different base types and passes them to a function that finds the largest item in the collection;*/
 pub fn generics_1() {
-    let list_1 = vec![34, 50, 25, 100, 65];
-    let processed_1 = generics_2(&list_1);
-    println!("The largest via abstraction (and vectors) is {}", processed_1);
-    //let list_2 = vec!['d', 'c', 'a', 'b'];
-    //let processed_2 = generics_2(&list_2);
-    //println!("The largest via abstraction (and arrays) is {}", processed_2);
+    let list_1 = vec![34, 50, 25, 12, 65];
+    let processed_1 = generics_5(&list_1);
+    println!(
+        "The largest via abstraction (and vectors) is {}",
+        processed_1
+    );
+    let list_2 = vec!['d', 'c', 'a', 'b', 'z'];
+    let processed_2 = generics_5(&list_2);
+    println!(
+        "The largest via abstraction (and arrays) is {}",
+        processed_2
+    );
 }
 
-/**WARNING: This is a dumb fucking example that doesn't work with generics as written; Defines a function as a generic type; The function takes a reference to a collection and iterates over it to find and return a reference to the largest value in the collection;*/
-//pub fn generics_2<T>(list: &[T]) -> &T {
+/**Not actually generic; This function takes a reference to a collection and iterates over it to find and return a reference to the largest value in the collection;*/
 pub fn generics_2(list: &[i32]) -> &i32 {
+    let mut largest = &list[0];
+    for item in list {
+        //Requires trait definition to work
+        if item > largest {
+            largest = item;
+        }
+    }
+    return largest;
+}
+/**This function does the same thing as generics_2() but is defined with generic parameters and a type checker to ensure that only types with the PartialOrd trait are accepted;*/
+pub fn generics_5<T>(list: &[T]) -> &T
+where
+    T: std::cmp::PartialOrd,
+{
     let mut largest = &list[0];
     for item in list {
         //Requires trait definition to work
@@ -39,6 +58,11 @@ pub fn generics_2(list: &[i32]) -> &i32 {
 struct Point<T> {
     x: T,
     y: T,
+}
+impl Point<i32> {
+    fn get_x(&self) -> &i32 {
+        &self.x
+    }
 }
 impl<T> Point<T> {
     /**Returns the x field of the struct instance*/
@@ -77,7 +101,7 @@ struct BookPoint<X1, Y1> {
 //The implementation block mirrors the struct
 impl<X1, Y1> BookPoint<X1, Y1> {
     //The method is a generic that defines two new generics X2 and Y2
-    //The method takes 
+    //The method takes
     fn mixup<X2, Y2>(self, other: BookPoint<X2, Y2>) -> BookPoint<X1, Y2> {
         BookPoint {
             x: self.x,
@@ -90,7 +114,6 @@ impl<X1, Y1> BookPoint<X1, Y1> {
             y: other.y,
         }
     }
-
 }
 pub fn generics_4() {
     let p1 = BookPoint { x: 5, y: 10.4 };
@@ -99,9 +122,10 @@ pub fn generics_4() {
     println!("Combo: {:?}", p3);
     //println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
     let p4 = BookPoint { x: 69, y: 42.0 };
-    let p5 = BookPoint { x: "holler", y: 'P' };
+    let p5 = BookPoint {
+        x: "holler",
+        y: 'P',
+    };
     let p6 = p4.mixup(p5);
     println!("Combo: {:?}", p6);
-
 }
-
