@@ -3,6 +3,7 @@
 //cncpt::loops::_my_age_static();
 
 use std::io;
+use cncpt::traits::{Tweet, NewsArticle};
 
 mod cncpt;
 mod exmpl;
@@ -87,10 +88,8 @@ fn main() {
     //cncpt::error_handling::error_handling_2();
     //exmpl::test::calculate(1, 8);
     cncpt::generics::generics_1();
-    cncpt::generics::generics_3();
-    cncpt::generics::generics_4();
     cncpt::traits::traits_1();
-    let tweet = cncpt::traits::Tweet {
+    let tweet = Tweet {
         username: String::from("pschmitz"),
         content: String::from("Twitter is mostly just depressed millenial jokes"),
         reply: false,
@@ -99,6 +98,10 @@ fn main() {
 
     cncpt::traits::traits_2(&tweet);
     cncpt::traits::traits_3(&tweet);
+    let s = String::from("hello, world!");
+    let s1 = 23;
+    cncpt::traits::traits_4(&s);
+    cncpt::traits::traits_4(&s1);
 
     timestamp(2);
 }

@@ -1,5 +1,5 @@
 pub mod compound;
-pub mod primitives;
-pub mod traits;
-pub mod trait_implementations;
 pub mod generics;
+pub mod primitives;
+pub mod trait_implementations;
+pub mod traits;
