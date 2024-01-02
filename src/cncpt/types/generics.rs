@@ -3,27 +3,28 @@
 
 //Use statement necessary for calling code on trait examples
 //use crate::cncpt::types::traits::{Summary, NewsArticle, Tweet};
+use crate::util::time;
 
 //============================================
-//Generics as functions
+// Intro to generics
 
-/**Calling function to illustrate generic function generics_2(); Creates two vectors of different base types and passes them to a function that finds the largest item in the collection;*/
+/**Calling function to illustrate the role of generics; Creates two vectors of different base types and passes them to a function that finds the largest item in the collection; One function is concrete through-and-through, the other has generic parameters and a where clause to only accept orderable sets*/
 pub fn generics_1() {
     let list_1 = vec![34, 50, 25, 12, 65];
-    let processed_1 = generics_5(&list_1);
+    let processed_1 = generics_2(&list_1);
     println!(
         "The largest via abstraction (and vectors) is {}",
         processed_1
     );
     let list_2 = vec!['d', 'c', 'a', 'b', 'z'];
-    let processed_2 = generics_5(&list_2);
+    let processed_2 = generics_3(&list_2);
     println!(
         "The largest via abstraction (and arrays) is {}",
         processed_2
     );
 }
 
-/**Not actually generic; This function takes a reference to a collection and iterates over it to find and return a reference to the largest value in the collection;*/
+/**This function takes a reference to a collection and iterates over it to find and return a reference to the largest value in the collection; Concrete example to show where we could use generics if we wanted to expand functionality*/
 pub fn generics_2(list: &[i32]) -> &i32 {
     let mut largest = &list[0];
     for item in list {
@@ -34,8 +35,8 @@ pub fn generics_2(list: &[i32]) -> &i32 {
     }
     return largest;
 }
-/**This function does the same thing as generics_2() but is defined with generic parameters and a type checker to ensure that only types with the PartialOrd trait are accepted;*/
-pub fn generics_5<T>(list: &[T]) -> &T
+/**This function does the same thing as generics_2() but is defined with generic parameters and a where clause that acts as a type checker to ensure that only types with the PartialOrd trait are accepted;*/
+pub fn generics_3<T>(list: &[T]) -> &T
 where
     T: std::cmp::PartialOrd,
 {
@@ -50,20 +51,22 @@ where
 }
 
 //============================================
-//Generics as structs
+// Defining generics structs
 
-/**Defines a generic struct over type T with two fields of the same type (T); When instantiated,
+/**Defines a generic struct over type T; The struct has two fields of the same type (T); When instantiated,
  * both struct fields must be of the same concrete type*/
 #[derive(Debug)]
 struct Point<T> {
     x: T,
     y: T,
 }
+//Illustrates how to implement a concrete method; Not used
 impl Point<i32> {
     fn get_x(&self) -> &i32 {
         &self.x
     }
 }
+//Implements a generic set of methods
 impl<T> Point<T> {
     /**Returns the x field of the struct instance*/
     fn x_getter(&self) -> &T {
@@ -79,9 +82,8 @@ impl<T> Point<T> {
         }
     }
 }
-
 /**Calling function to illustrate generic type Point<T> and its methods, which consist of a simple getter and a generic method mixup<P>(); Concrete values of two different scalar types used for generic struct*/
-pub fn generics_3() {
+pub fn generics_4() {
     let p = Point { x: 5, y: 10 };
     println!("p.x = {}", p.x_getter());
     let first = Point { x: 12, y: 23 };
@@ -115,7 +117,7 @@ impl<X1, Y1> BookPoint<X1, Y1> {
         }
     }
 }
-pub fn generics_4() {
+pub fn generics_5() {
     let p1 = BookPoint { x: 5, y: 10.4 };
     let p2 = BookPoint { x: "Hello", y: 'c' };
     let p3 = p1.mixup(p2);
@@ -129,3 +131,113 @@ pub fn generics_4() {
     let p6 = p4.mixup(p5);
     println!("Combo: {:?}", p6);
 }
+
+//===================================
+// Trait declaration
+
+/**The trait is Metadata, each behavior of the trait is represented by an "incomplete" function that
+ * is ultimately defined by the implementing type; Any type with the Metadata trait will have access
+ * to the functions defined within the trait block*/
+pub trait Metadata {
+    fn default(&self) -> String {
+        format!(
+            "\n\tAuthor: {}\n\tTime: {}",
+            &self.author(),
+            time::static_time(8)
+        )
+    }
+    fn author(&self) -> String;
+    fn summarize(&self) -> String;
+}
+
+//===================================
+// News article
+
+/**Struct NewsArticle implements the Metadata trait*/
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+//Implements the Metadata trait for the NewsArticle type
+impl Metadata for NewsArticle {
+    fn author(&self) -> String {
+        String::from(&self.author)
+    }
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+
+//===================================
+// Tweet
+
+/**Struct Tweet implements the Metadata trait*/
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+//Implements the Metadata trait for the Tweet type
+impl Metadata for Tweet {
+    fn author(&self) -> String {
+        String::from(&self.username)
+    }
+    fn summarize(&self) -> String {
+        format!("\n\t{}: {}", self.username, self.content)
+    }
+}
+
+//===================================
+// Calling code
+
+/**Creates two structs that implement summarize() and default() traits, prints them*/
+pub fn generics_6() {
+    //Instantiates a news article to summarize
+    let news_article = NewsArticle {
+        headline: String::from("The oppression of indiginous communities"),
+        location: String::from("North Dakota"),
+        author: String::from("Peter Schmitz"),
+        content: String::from(
+            "This is gonna be super long bro Im not entirely sure you're ready for this yet",
+        ),
+    };
+    let news_default = news_article.default();
+    let news_summary = news_article.summarize();
+    //Instantiates a tweet to summarize
+    let tweet = Tweet {
+        username: String::from("pschmitz"),
+        content: String::from(
+            "This is a tweet so its gonna be a bit shorter than a news article. Its mostly jokes.",
+        ),
+        reply: false,
+        retweet: true,
+    };
+    let tweet_default = tweet.default();
+    let tweet_summary = tweet.summarize();
+    println!(
+        "News article default: {}\nNews article summary: {}\nTweet default: {}\nTweet summary: {}",
+        news_default, news_summary, tweet_default, tweet_summary
+    );
+}
+
+/**Illustrates (my custom) trait as a function parameters*/
+pub fn generics_7(item: &impl Metadata) {
+    println!("Breaking Twitter news! {}", item.summarize());
+}
+/**Does the same thing as generics_7() but without the syntax sugar; This form more clearly defines
+ * the generic function parameter*/
+pub fn generics_8<T: Metadata>(item: &T) {
+    format!("TESTING More breaking news! {}", item.summarize());
+    println!("The thing we thought: {}", item.default());
+}
+//Test for where clause on generic parameter
+pub fn generics_9<S>(s: &S)
+where
+    S: std::fmt::Display,
+{
+    println!("Generic types without trait-bound syntax: {}", s)
+}
+

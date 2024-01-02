@@ -2,7 +2,7 @@
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
 
-use cncpt::traits::{NewsArticle, Tweet};
+use cncpt::generics::{NewsArticle, Tweet};
 use std::io;
 
 mod cncpt;
@@ -88,20 +88,17 @@ fn main() {
     //cncpt::error_handling::error_handling_2();
     //exmpl::test::calculate(1, 8);
     cncpt::generics::generics_1();
-    cncpt::traits::traits_1();
+    cncpt::generics::generics_6();
     let tweet = Tweet {
         username: String::from("pschmitz"),
         content: String::from("Twitter is mostly just depressed millenial jokes"),
         reply: false,
         retweet: true,
     };
-
-    cncpt::traits::traits_2(&tweet);
-    cncpt::traits::traits_3(&tweet);
-    let s = String::from("hello, world!");
-    let s1 = 23;
-    cncpt::traits::traits_4(&s);
-    cncpt::traits::traits_4(&s1);
+    cncpt::generics::generics_7(&tweet);
+    cncpt::generics::generics_8(&tweet);
+    let s = String::from("Hello, Peter");
+    cncpt::generics::generics_9(&s);
 
     timestamp(2);
 }
