@@ -2,8 +2,8 @@
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
 
+use cncpt::traits::{NewsArticle, Tweet};
 use std::io;
-use cncpt::traits::{Tweet, NewsArticle};
 
 mod cncpt;
 mod exmpl;

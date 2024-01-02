@@ -5,7 +5,11 @@ use crate::util::time;
  * to the functions defined within the trait block*/
 pub trait Metadata {
     fn default(&self) -> String {
-        format!("\n\tAuthor: {}\n\tTime: {}", &self.author(), time::static_time(8))
+        format!(
+            "\n\tAuthor: {}\n\tTime: {}",
+            &self.author(),
+            time::static_time(8)
+        )
     }
     fn author(&self) -> String;
     fn summarize(&self) -> String;
@@ -67,7 +71,7 @@ pub fn traits_1() {
     };
     let news_default = news_article.default();
     let news_summary = news_article.summarize();
-    //Instantiates a tweet to summaryze
+    //Instantiates a tweet to summarize
     let tweet = Tweet {
         username: String::from("pschmitz"),
         content: String::from(
@@ -92,12 +96,13 @@ pub fn traits_2(item: &impl Metadata) {
 /**Does the same thing as traits_2() but without the syntax sugar; This form more clearly defines
  * the generic function parameter*/
 pub fn traits_3<T: Metadata>(item: &T) {
-    println!("More breaking news! {}", item.summarize());
+    format!("TESTING More breaking news! {}", item.summarize());
     println!("The thing we thought: {}", item.default());
 }
 pub fn traits_4<S>(s: &S)
 where
     S: std::fmt::Display,
 {
-    println!("Generic types without trait bound syntax: {}", s)
+    println!("Generic types without trait-bound syntax: {}", s)
 }
+
