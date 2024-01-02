@@ -240,4 +240,3 @@ where
 {
     println!("Generic types without trait-bound syntax: {}", s)
 }
-
