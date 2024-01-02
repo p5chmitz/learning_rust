@@ -51,7 +51,7 @@ where
 }
 
 //============================================
-// Defining generics structs
+// Defining generic structs (the Point example)
 
 /**Defines a generic struct over type T; The struct has two fields of the same type (T); When instantiated,
  * both struct fields must be of the same concrete type*/
@@ -133,7 +133,7 @@ pub fn generics_5() {
 }
 
 //===================================
-// Trait declaration
+// Trait declaration (the Tweet and NewsArticle examples)
 
 /**The trait is Metadata, each behavior of the trait is represented by an "incomplete" function that
  * is ultimately defined by the implementing type; Any type with the Metadata trait will have access
@@ -223,18 +223,33 @@ pub fn generics_6() {
     );
 }
 
-/**Illustrates (my custom) trait as a function parameters*/
+//========================================
+// Using traits to write functions that accept many types
+
+/**Illustrates the "impl trait" syntax as a function parameters; This parameter accepts any type that implements the specified trait; In the body we can call any methods defined on the parameter trait, in this case our previously-defined Metadata trait; Attempting to pass any types that do not implement Metadata will cause compiler errors*/
 pub fn generics_7(item: &impl Metadata) {
     println!("Breaking Twitter news! {}", item.summarize());
 }
-/**Does the same thing as generics_7() but without the syntax sugar; This form more clearly defines
- * the generic function parameter*/
-pub fn generics_8<T: Metadata>(item: &T) {
-    format!("TESTING More breaking news! {}", item.summarize());
-    println!("The thing we thought: {}", item.default());
+/**Takes two elements of potentially different types, both of which that implement Metadata; For
+ * example, we can pass a Tweet and a NewsArticle to this function*/
+pub fn generics_8(a: &impl Metadata, b: &impl Metadata) {
+    println!("Breaking Twitter news! {}", a.summarize());
+    println!("Breaking Twitter news! {}", b.default());
 }
+
+/**Illustrates the trait bound syntax; Does the same thing as generics_7() but without the syntax sugar; This form more clearly defines the generic function parameter*/
+pub fn generics_9<T: Metadata>(item: &T) {
+    println!("Written with trait bound syntax: {}", item.default());
+}
+/**Takes two elements OF THE SAME TYPE that both implement the Metadata trait; For example, we
+ * cannot pass a Tweet and NewsArticle type to this function, they both have to be one or the other*/
+pub fn generics_10<T: Metadata>(a: &T, b: &T) {
+    println!("The thing we thought: {}", a.default());
+    println!("The thing we thought: {}", b.default());
+}
+
 //Test for where clause on generic parameter
-pub fn generics_9<S>(s: &S)
+pub fn generics_11<S>(s: &S)
 where
     S: std::fmt::Display,
 {

@@ -95,10 +95,22 @@ fn main() {
         reply: false,
         retweet: true,
     };
+        let news_article = NewsArticle {
+        headline: String::from("The oppression of indiginous communities"),
+        location: String::from("North Dakota"),
+        author: String::from("Peter Schmitz"),
+        content: String::from(
+            "This is gonna be super long bro Im not entirely sure you're ready for this yet",
+        ),
+    };
+
     cncpt::generics::generics_7(&tweet);
-    cncpt::generics::generics_8(&tweet);
+    cncpt::generics::generics_8(&tweet, &news_article);
+    cncpt::generics::generics_8(&tweet, &tweet);
+
+    //calling function for trait-bound syntax function
     let s = String::from("Hello, Peter");
-    cncpt::generics::generics_9(&s);
+    cncpt::generics::generics_11(&s);
 
     timestamp(2);
 }
