@@ -2,7 +2,7 @@
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
 
-use cncpt::generics::{NewsArticle, Tweet};
+use cncpt::generics::{PrintMe, NewsArticle, Tweet};
 use std::io;
 
 mod cncpt;
@@ -95,7 +95,7 @@ fn main() {
         reply: false,
         retweet: true,
     };
-        let news_article = NewsArticle {
+    let news_article = NewsArticle {
         headline: String::from("The oppression of indiginous communities"),
         location: String::from("North Dakota"),
         author: String::from("Peter Schmitz"),
@@ -111,6 +111,41 @@ fn main() {
     //calling function for trait-bound syntax function
     let s = String::from("Hello, Peter");
     cncpt::generics::generics_11(&s);
+
+    let p = cncpt::generics::Pair { a: 12, b: 23 };
+    println!(
+        "External trait on generic local type with trait bound syntax
+\tThe sum of {} and {} is {}.",
+        &p.a,
+        &p.b,
+        p.add()
+    );
+    println!(
+        "External trait on generic local type with where clause
+\tThe sum of {} and {} is {}.",
+        &p.a,
+        &p.b,
+        p.addington()
+    );
+
+    let a = 12;
+    let b = 23;
+    println!(
+        "Generic parameters in independent function with trait bound syntax
+\tThe sum of {} and {} is {}", &a, &b, cncpt::generics::addotron_1(a, b));
+    println!(
+        "Generic parameters in independent function with where clause 
+\tThe sum of {} and {} is {}.",
+        &a,
+        &b,
+        cncpt::generics::addotron_2(a, b)
+    );
+    let pair = cncpt::generics::Pair {
+        a: "12",
+        b: "23",
+    };
+    println!("Wow, Im an idiot: {}", &pair.printme());
+    //cncpt::generics::whatever(&pair, &pair);
 
     timestamp(2);
 }

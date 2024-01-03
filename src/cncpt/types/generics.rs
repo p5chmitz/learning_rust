@@ -255,3 +255,67 @@ where
 {
     println!("Generic types without trait-bound syntax: {}", s)
 }
+
+//========================================
+// Implementing traits on local types
+
+//Local (generic) type declaration with two generic fields
+#[derive(Debug)]
+pub struct Pair<T> {
+    pub a: T,
+    pub b: T,
+}
+//Local trait declaration with one generic method
+pub trait PrintMe {
+    fn printme(&self) -> String; 
+}
+//Implementing local trait on generic type with impl trait syntax
+impl<T: ToString> PrintMe for Pair<T> {
+    fn printme(&self) -> String {
+        let one = self.a.to_string();
+        let two = self.b.to_string();
+        let mut rtn_string = String::new();
+        rtn_string.push_str(&one);
+        rtn_string.push_str(&two);
+        rtn_string
+    }
+}
+
+//Conditional implementations
+
+//Implementing external trait on generic type with trait bound syntax
+impl<T: std::ops::Add<Output = T> + Copy> Pair<T> {
+    pub fn add(&self) -> T {
+        self.a + self.b
+    }
+    //More methods!
+}
+//External trait on generic type with where clause
+impl<T> Pair<T> {
+    pub fn addington(&self) -> T
+    where
+        T: std::ops::Add<Output = T> + Copy,
+    {
+        self.a + self.b
+    }
+    //More methods!
+}
+
+//==========================================
+// Using generic parameters in functions
+
+//Conditional generic function parameters with trait bound syntax
+pub fn addotron_1<Q: std::ops::Add<Output = Q>>(a: Q, b: Q) -> Q {
+    a + b
+}
+//Conditional generic function parameters with where clause
+pub fn addotron_2<T>(a: T, b: T) -> T
+where
+    T: std::ops::Add<Output = T>,
+{
+    a + b
+}
+
+pub fn whatever(a: impl PrintMe + std::fmt::Debug, b: impl PrintMe + std::fmt::Debug) {
+    println!("{:?} {:?}", a, b)
+}
