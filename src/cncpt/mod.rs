@@ -2,6 +2,7 @@ pub mod ctrl_flow;
 pub mod error_handling;
 pub mod functions;
 pub mod io;
+pub mod lifetimes;
 pub mod ownership;
 pub mod types;
 pub mod variables;
