@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
+//#[cfg(test)]
 
 //Use statement necessary for calling code on trait examples
 //use crate::cncpt::types::traits::{Summary, NewsArticle, Tweet};
@@ -267,7 +268,7 @@ pub struct Pair<T> {
 }
 //Local trait declaration with one generic method
 pub trait PrintMe {
-    fn printme(&self) -> String; 
+    fn printme(&self) -> String;
 }
 //Implementing local trait on generic type with impl trait syntax
 impl<T: ToString> PrintMe for Pair<T> {
@@ -318,4 +319,11 @@ where
 
 pub fn whatever(a: impl PrintMe + std::fmt::Debug, b: impl PrintMe + std::fmt::Debug) {
     println!("{:?} {:?}", a, b)
+}
+
+//Example tests!!!
+#[test]
+fn testing_addotron_2() {
+    let result = addotron_2(2, 3);
+    assert_eq!(result, 5);
 }
