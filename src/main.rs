@@ -2,8 +2,8 @@
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
 
-use cncpt::generics::{PrintMe, NewsArticle, Tweet};
-use std::io;
+use cncpt::generics::{NewsArticle, PrintMe, Tweet};
+use std::io::{self, Write};
 
 mod cncpt;
 mod exmpl;
@@ -132,7 +132,11 @@ fn main() {
     let b = 23;
     println!(
         "Generic parameters in independent function with trait bound syntax
-\tThe sum of {} and {} is {}", &a, &b, cncpt::generics::addotron_1(a, b));
+\tThe sum of {} and {} is {}",
+        &a,
+        &b,
+        cncpt::generics::addotron_1(a, b)
+    );
     println!(
         "Generic parameters in independent function with where clause 
 \tThe sum of {} and {} is {}.",
@@ -140,12 +144,12 @@ fn main() {
         &b,
         cncpt::generics::addotron_2(a, b)
     );
-    let pair = cncpt::generics::Pair {
-        a: "12",
-        b: "23",
-    };
+    let pair = cncpt::generics::Pair { a: "12", b: "23" };
     println!("Wow, Im an idiot: {}", &pair.printme());
     //cncpt::generics::whatever(&pair, &pair);
+    //cncpt::lifetimes::lifetimes_2();
+    //cncpt::lifetimes::caller();
+    cncpt::functions::squares_test();
 
     timestamp(2);
 }
