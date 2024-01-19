@@ -9,7 +9,7 @@ use crate::util::time;
 //============================================
 // Intro to generics
 
-/**Calling function to illustrate the role of generics; Creates two vectors of different base types and passes them to a function that finds the largest item in the collection; One function is concrete through-and-through, the other has generic parameters and a where clause to only accept orderable sets*/
+/** Calling function to illustrate the role of generics; Creates two vectors of different base types and passes them to a function that finds the largest item in the collection; One function is concrete through-and-through, the other has generic parameters and a where clause to only accept orderable sets*/
 pub fn generics_1() {
     let list_1 = vec![34, 50, 25, 12, 65];
     let processed_1 = generics_2(&list_1);
@@ -25,7 +25,7 @@ pub fn generics_1() {
     );
 }
 
-/**This function takes a reference to a collection and iterates over it to find and return a reference to the largest value in the collection; Concrete example to show where we could use generics if we wanted to expand functionality*/
+/** This function takes a reference to a collection and iterates over it to find and return a reference to the largest value in the collection; Concrete example to show where we could use generics if we wanted to expand functionality*/
 pub fn generics_2(list: &[i32]) -> &i32 {
     let mut largest = &list[0];
     for item in list {
@@ -36,7 +36,7 @@ pub fn generics_2(list: &[i32]) -> &i32 {
     }
     return largest;
 }
-/**This function does the same thing as generics_2() but is defined with generic parameters and a where clause that acts as a type checker to ensure that only types with the PartialOrd trait are accepted;*/
+/** This function does the same thing as generics_2() but is defined with generic parameters and a where clause that acts as a type checker to ensure that only types with the PartialOrd trait are accepted;*/
 pub fn generics_3<T>(list: &[T]) -> &T
 where
     T: std::cmp::PartialOrd,
@@ -54,7 +54,7 @@ where
 //============================================
 // Defining generic structs (the Point example)
 
-/**Defines a generic struct over type T; The struct has two fields of the same type (T); When instantiated,
+/** Defines a generic struct over type T; The struct has two fields of the same type (T); When instantiated,
  * both struct fields must be of the same concrete type*/
 #[derive(Debug)]
 struct Point<T> {
@@ -267,6 +267,8 @@ pub struct Pair<T> {
     pub b: T,
 }
 //Local trait declaration with one generic method
+// Apparently this is REALLY local, as in not accessible from elsewhere in the crate outside of
+// main.rs and here.
 pub trait PrintMe {
     fn printme(&self) -> String;
 }
