@@ -1,11 +1,11 @@
 pub mod ctrl_flow;
 pub mod error_handling;
-pub mod functions;
 pub mod io;
 pub mod lifetimes;
 pub mod ownership;
 pub mod types;
 pub mod variables;
+pub mod test_framework;
 
 //Re-exports sub-modules for cleaner access in main.rs
 //Functions in these modules are accessed via cncpt::collecitons::function() or similar
@@ -16,3 +16,4 @@ pub use types::compound::strings;
 pub use types::compound::structs;
 pub use types::generics;
 pub use types::primitives::scalar;
+pub use test_framework::function_tests;
