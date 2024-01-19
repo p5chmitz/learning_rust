@@ -13,6 +13,32 @@ pub mod ifs {
             println!("upper third");
         }
     }
+    pub fn if_statements_1(n: f64) -> String {
+        let mut result = String::new();
+        if n <= 0.0 || n >= 1.0 {
+            result.push_str("Out of range; 0.0..1.0");
+            return result;
+        }
+        if n <0.0 || n >1.0 {
+            panic!("Must be between 0-1")
+        }
+        if n < 0.33 {
+            result.push_str("lower third");
+            return result;
+        } else if (0.33 < n) && (n < 0.66) {
+            result.push_str("middle third");
+            return result;
+        } else {
+            result.push_str("upper third");
+            return result;
+        }
+    }
+
+    #[test]
+    fn if_statements_test() {
+        let answer = String::from(if_statements_1(1.34));
+        assert_eq!("middle third", answer);
+    }
 
     /**Takes a float64 and returns a String range*/
     fn so_many_times(n: f64) -> String {
