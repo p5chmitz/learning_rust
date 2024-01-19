@@ -1,1 +1,4 @@
+# Ignores project fluff (Thanks Jet Brains)
 /target
+.idea/workspace.xml
+
