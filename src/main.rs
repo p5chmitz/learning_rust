@@ -3,10 +3,12 @@
 //cncpt::loops::_my_age_static();
 
 use cncpt::generics::{NewsArticle, PrintMe, Tweet};
-use std::io::{self, Write};
+use std::io;
+//use std::io::{self, Write};
 
 mod cncpt;
 mod exmpl;
+mod sandbox;
 mod util;
 
 /**Prints a formatted timestamp*/
@@ -84,72 +86,8 @@ fn main() {
         }
     }
 
-    //cncpt::error_handling::error_handling_1();
-    //cncpt::error_handling::error_handling_2();
-    //exmpl::test::calculate(1, 8);
-    cncpt::generics::generics_1();
-    cncpt::generics::generics_6();
-    let tweet = Tweet {
-        username: String::from("pschmitz"),
-        content: String::from("Twitter is mostly just depressed millenial jokes"),
-        reply: false,
-        retweet: true,
-    };
-    let news_article = NewsArticle {
-        headline: String::from("The oppression of indiginous communities"),
-        location: String::from("North Dakota"),
-        author: String::from("Peter Schmitz"),
-        content: String::from(
-            "This is gonna be super long bro Im not entirely sure you're ready for this yet",
-        ),
-    };
-
-    cncpt::generics::generics_7(&tweet);
-    cncpt::generics::generics_8(&tweet, &news_article);
-    cncpt::generics::generics_8(&tweet, &tweet);
-
-    //calling function for trait-bound syntax function
-    let s = String::from("Hello, Peter");
-    cncpt::generics::generics_11(&s);
-
-    let p = cncpt::generics::Pair { a: 12, b: 23 };
-    println!(
-        "External trait on generic local type with trait bound syntax
-\tThe sum of {} and {} is {}.",
-        &p.a,
-        &p.b,
-        p.add()
-    );
-    println!(
-        "External trait on generic local type with where clause
-\tThe sum of {} and {} is {}.",
-        &p.a,
-        &p.b,
-        p.addington()
-    );
-
-    let a = 12;
-    let b = 23;
-    println!(
-        "Generic parameters in independent function with trait bound syntax
-\tThe sum of {} and {} is {}",
-        &a,
-        &b,
-        cncpt::generics::addotron_1(a, b)
-    );
-    println!(
-        "Generic parameters in independent function with where clause 
-\tThe sum of {} and {} is {}.",
-        &a,
-        &b,
-        cncpt::generics::addotron_2(a, b)
-    );
-    let pair = cncpt::generics::Pair { a: "12", b: "23" };
-    println!("Wow, Im an idiot: {}", &pair.printme());
-    //cncpt::generics::whatever(&pair, &pair);
-    //cncpt::lifetimes::lifetimes_2();
-    //cncpt::lifetimes::caller();
-    cncpt::functions::squares_test();
+    //cncpt::test_framework::function_tests();
+    cncpt::test_framework::function_tests_1();
 
     timestamp(2);
 }
