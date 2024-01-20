@@ -3,6 +3,8 @@
 #![allow(unused_imports)]
 
 use std::ops::Neg;
+use crate::sandbox::experiments;
+
 #[cfg(test)]
 
 
@@ -43,7 +45,8 @@ pub fn hex_digit_finder(mut n: i32) -> Vec<String> {
 // Function tests
 pub fn function_tests_1(){
      let y = 42069;
-    println!("{} converted to hex is {:?}", y, hex_digit_finder(y));
+    println!("{} converted to hex place values is {:?}", y, hex_digit_finder(y));
+    println!("{} converted to a hex string is {}", y, experiments::number_to_hex(y));
 }
 pub fn function_tests() {
 
