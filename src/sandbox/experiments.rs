@@ -61,61 +61,31 @@ pub fn hex_digit_finder(mut n: i32) -> Vec<String> {
     return v_new;
 }
 
-pub fn hex_digit_finder_1(mut n: i32) -> Vec<i32> {
-    let mut r: i32;
-    let mut q: i32;
-    let mut v: Vec<i32> = Vec::new();
+/** Converts unsigned 8-bit integers to binary */
+pub fn int_to_bin(mut n: u8) -> String {
+    let mut r: u8;
+    let mut q: u8;
+    let mut s  = String::new();
     while n > 0 {
-        if n <= 16 {
-            v.push(n);
+        if n <= 2 {
+            s.push_str(&n.to_string());
             break;
         }
-        q = n / 16;
-        r = n % 16;
-        v.push(r);
+        q = n / 2;
+        r = n % 2;
+        s.push_str(&r.to_string());
         n = q;
-    }
-    let mut v_index = v.len();
-    let mut v_new: Vec<i32> = Vec::new();
-    while v_index > 0 {
-        let x = v.get(v_index - 1);
-        match x {
-            Some(x) => v_new.push(x.to_owned()),
-            None => (),
-        }
-        v_index -= 1;
-    }
-    return v_new;
-}
-
-/** Converts a vector of hex digits to a hex string */
-pub fn hex_to_string(v: Vec<i32>) -> String {
-    let mut ch: i32;
-    let mut s = String::from("0x");
-    let mut counter = 0;
-    while counter < v.len() {
-        ch = v[counter].clone();
-        if ch as i32 >= 10 {
-            s.push(
-                char::from_digit(ch as u32, 16)
-                    .unwrap()
-                    .to_ascii_uppercase(),
-            );
-        } else {
-            s.push_str(&ch.to_string());
-        }
-        counter += 1;
     }
     return s;
 }
 
 /** Converts an i32 to a hex string */
-pub fn number_to_hex(mut n: i32) -> String {
+pub fn int_to_hex(mut n: i32) -> String {
     let mut v: Vec<i32> = Vec::new();
     let mut q: i32;
     let mut r: i32;
     while n > 0 {
-        if n <= 16 {
+        if n < 16 {
             v.push(n);
             break;
         }
@@ -138,3 +108,10 @@ pub fn number_to_hex(mut n: i32) -> String {
     }
     return s;
 }
+
+//Converts a hex string to a number value */
+//pub fn hex_to_int(s: String) -> i32 {
+//    
+//
+//    return i;
+//}
