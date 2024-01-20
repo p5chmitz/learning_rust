@@ -2,7 +2,7 @@
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
 
-use cncpt::generics::{NewsArticle, PrintMe, Tweet};
+use cncpt::generics::Tweet;
 use std::io;
 //use std::io::{self, Write};
 
