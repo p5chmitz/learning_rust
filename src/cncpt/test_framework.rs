@@ -14,39 +14,18 @@ pub fn test_1() {
     assert_eq!(result, 4);
 }
 
-pub fn hex_digit_finder(mut n: i32) -> Vec<String> {
-    let mut r: i32;
-    let mut q: i32;
-    let mut v: Vec<String> = Vec::new();
-    while n > 0 {
-        if n <= 16 {
-            v.push(n.to_string());
-            break
-        }
-        q = n / 16;
-        r = n % 16;
-        v.push(r.to_string());
-        n = q;
-    }
-    let mut v_index = v.len();
-    let mut v_new: Vec<String> = Vec::new();
-    while v_index > 0 {
-        let x = v.get(v_index - 1);
-        match x {
-            Some(x) => v_new.push(x.to_owned()),
-            None => (), 
-        }
-        v_index -= 1;
-    }
-    return v_new;
-}
-
 ///////////////////////////////////////////////
 // Function tests
 pub fn function_tests_1(){
-     let y = 42069;
-    println!("{} converted to hex place values is {:?}", y, hex_digit_finder(y));
-    println!("{} converted to a hex string is {}", y, experiments::number_to_hex(y));
+    let y = 1223;
+    println!("{} converted to hex place values is {:?}", y, experiments::hex_digit_finder(y));
+    //println!("{} converted to a hex string is {}", y, experiments::number_to_hex(y));
+    let v = vec![1223, 69, 420, 187];
+    for i in v {
+        println!("{} converted to a hex string is {}", i, experiments::int_to_hex(i));
+    }
+    let b: u8 = 169;
+    println!("{} converted to a binary string is {}", b, experiments::int_to_bin(b));
 }
 pub fn function_tests() {
 
