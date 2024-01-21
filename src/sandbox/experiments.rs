@@ -98,7 +98,7 @@ pub fn int_to_hex(mut n: i32) -> String {
     return s;
 }
 
-/** Converts binary string to an integer string */
+/** Converts binary to an integer */
 pub fn bin_to_str(s: &String) -> u32 {
     let v: Vec<char> = s.chars().collect();
     let mut t: u32 = 0;
@@ -111,7 +111,7 @@ pub fn bin_to_str(s: &String) -> u32 {
 }
 
 //TODO: Make this work 
-//Converts a hex string to a decimal number value */
+//Converts a hex value to a decimal number value */
 pub fn hex_to_int(s: String) -> String {
     let mut v: Vec<char> = Vec::new();
     for i in s.chars() {
