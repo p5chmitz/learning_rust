@@ -1,6 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
+use regex::Regex;
+
 /** Test for a YouTube video that refactors C code*/
 pub fn calculate(mut bottom: i32, top: i32) {
     let mut sum = 0;
@@ -33,53 +35,40 @@ pub fn squares_test() {
     }
 }
 
-/** Converts an i32 to a vector of hex digits */
-pub fn hex_digit_finder(mut n: i32) -> Vec<String> {
-    let mut r: i32;
+/** Converts unsigned integers up to 32-bits in size to binary */
+pub fn int_to_bin(mut i: i32) -> String {
     let mut q: i32;
-    let mut v: Vec<String> = Vec::new();
-    while n > 0 {
-        if n <= 16 {
-            v.push(n.to_string());
+    let mut r: i32;
+    let mut s = String::new();
+    let mut c = 1;
+    // Primary logic outputs bits in reverse order
+    while i > 0 {
+        if i < 2 {
+            s.push_str(&i.to_string());
             break;
         }
-        q = n / 16;
-        r = n % 16;
-        v.push(r.to_string());
-        n = q;
-    }
-    let mut v_index = v.len();
-    let mut v_new: Vec<String> = Vec::new();
-    while v_index > 0 {
-        let x = v.get(v_index - 1);
-        match x {
-            Some(x) => v_new.push(x.to_owned()),
-            None => (),
+        r = i % 2;
+        if i % 2 > 0 {
+            s.push_str("1");
+        } else {
+            s.push_str("0");
         }
-        v_index -= 1;
+        if c % 4 == 0 {
+            s.push_str(" ");
+        }
+        c += 1;
+        i = (i - r) / 2;
     }
-    return v_new;
+    // Reverses the original output to proper order
+    //TODO: Rewrite this to push to an array of 0s to provide leading padding to output
+    let mut ns = String::new();
+    for i in s.chars().rev() {
+        ns.push_str(&i.to_string());
+    }
+    return ns;
 }
 
-/** Converts unsigned 8-bit integers to binary */
-pub fn int_to_bin(mut n: u8) -> String {
-    let mut r: u8;
-    let mut q: u8;
-    let mut s  = String::new();
-    while n > 0 {
-        if n <= 2 {
-            s.push_str(&n.to_string());
-            break;
-        }
-        q = n / 2;
-        r = n % 2;
-        s.push_str(&r.to_string());
-        n = q;
-    }
-    return s;
-}
-
-/** Converts an i32 to a hex string */
+/** Converts unsigned integers up to 32-bits in size to a hex string */
 pub fn int_to_hex(mut n: i32) -> String {
     let mut v: Vec<i32> = Vec::new();
     let mut q: i32;
@@ -109,9 +98,18 @@ pub fn int_to_hex(mut n: i32) -> String {
     return s;
 }
 
-//Converts a hex string to a number value */
-//pub fn hex_to_int(s: String) -> i32 {
-//    
-//
-//    return i;
-//}
+//TODO: Make this work 
+//Converts a hex string to a decimal number value */
+pub fn hex_to_int(s: String) -> String {
+    let mut v: Vec<char> = Vec::new();
+    for i in s.chars() {
+        v.push(i);
+    }
+    let mut s = String::new();
+    for i in v.iter() {
+        if Regex::new(r"^[0-9]+$").unwrap().is_match(&*i.to_string()) {
+           s.push_str(&*i.to_string()); 
+        }
+    }    
+    return s;
+}

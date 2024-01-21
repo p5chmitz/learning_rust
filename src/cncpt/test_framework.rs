@@ -17,16 +17,21 @@ pub fn test_1() {
 ///////////////////////////////////////////////
 // Function tests
 pub fn function_tests_1(){
+    // Calling code for utility functions
+    // Converts Hex to an array representing each hex place value
     let y = 1223;
-    println!("{} converted to hex place values is {:?}", y, experiments::hex_digit_finder(y));
+    println!("{} to hex place values is: {:?}", y, experiments::hex_digit_finder(y));
     //println!("{} converted to a hex string is {}", y, experiments::number_to_hex(y));
-    let v = vec![1223, 69, 420, 187];
+    let v = vec![1223, 69, 420, 187]; 
     for i in v {
-        println!("{} converted to a hex string is {}", i, experiments::int_to_hex(i));
+        println!("{} to hex: {}", i, experiments::int_to_hex(i));
     }
-    let b: u8 = 169;
-    println!("{} converted to a binary string is {}", b, experiments::int_to_bin(b));
+    let b: i32 = 12;
+    println!("{} to binary: {}", b, experiments::int_to_bin(b));
+    let hex = String::from("1F8");
+    println!("{}", experiments::hex_to_int(hex));
 }
+
 pub fn function_tests() {
 
     println!("{}", crate::cncpt::ctrl_flow::ifs::if_statements_1(0.23));
