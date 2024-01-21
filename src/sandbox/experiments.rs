@@ -98,6 +98,18 @@ pub fn int_to_hex(mut n: i32) -> String {
     return s;
 }
 
+/** Converts binary string to an integer string */
+pub fn bin_to_str(s: &String) -> u32 {
+    let v: Vec<char> = s.chars().collect();
+    let mut t: u32 = 0;
+    for (i, val) in v.iter().rev().enumerate() {
+        if val.to_digit(10).unwrap() == 1 {
+            t = t + (2u32.pow(i as u32));
+        }
+    }
+    return t;
+}
+
 //TODO: Make this work 
 //Converts a hex string to a decimal number value */
 pub fn hex_to_int(s: String) -> String {
