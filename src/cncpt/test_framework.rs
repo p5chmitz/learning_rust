@@ -2,12 +2,10 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-use std::ops::Neg;
 use crate::sandbox::experiments;
+use std::ops::Neg;
 
 #[cfg(test)]
-
-
 #[test]
 pub fn test_1() {
     let result: i32 = 2 + 2;
@@ -16,26 +14,39 @@ pub fn test_1() {
 
 ///////////////////////////////////////////////
 // Function tests
-pub fn function_tests_1(){
-    // Calling code for utility functions
-    //println!("{} converted to a hex string is {}", y, experiments::number_to_hex(y));
-    let v = vec![1223, 69, 420, 187]; 
+pub fn function_tests_1() {
+    // Converts decimal to hex
+    let v = vec![1223, 69, 420, 187];
     for i in v {
         println!("{} to hex: {}", i, experiments::int_to_hex(i));
     }
+
+    // Converts decimal to binary
     let b: i32 = 666;
-    //println!("{} to binary: {}", b, experiments::int_to_bin(b));
+    println!("{} to binary: {}", b, experiments::int_to_bin(b));
+
+    // Converts hex to decimal
     let hex = String::from("1F8");
-    //println!("{}", experiments::hex_to_int(hex));
+    println!("{}", experiments::hex_to_int(hex));
+
+    // Converts binary to decimal
     let example = String::from("0101100101");
     println!("{} as u32: {}", &example, experiments::bin_to_str(&example));
     let example = String::from("1010011010");
     println!("{} as u32: {}", &example, experiments::bin_to_str(&example));
-    
+
+    // Converts string to binary
+    let s = String::from("Hello");
+    println!("{:?}", experiments::string_to_val(&s));
+    let s = String::from("I will have your soul!");
+    println!(
+        "\"{}\" to binary: \n\t{}",
+        &s,
+        experiments::int_to_bin_vec_2(experiments::string_to_val(&s))
+    );
 }
 
 pub fn function_tests() {
-
     println!("{}", crate::cncpt::ctrl_flow::ifs::if_statements_1(0.23));
     super::generics::generics_1();
     super::generics::generics_6();
@@ -96,5 +107,4 @@ pub fn function_tests() {
     );
     let pair = crate::cncpt::generics::Pair { a: "12", b: "23" };
     //println!("Wow, Im an idiot: {}", &pair.printme());
-
 }
