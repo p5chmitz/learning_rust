@@ -16,34 +16,43 @@ pub fn test_1() {
 // Function tests
 pub fn function_tests_1() {
     // Converts decimal to hex
+    println!("\nConverts decimal to hex");
     let v = vec![1223, 69, 420, 187];
     for i in v {
         println!("{} to hex: {}", i, experiments::int_to_hex(i));
     }
 
+    // Converts hex to decimal
+    println!("\nConverts hex to decimal");
+    let hex = String::from("1F8f");
+    println!("{} to decimal: {:?}", &hex, experiments::hex_to_int(&hex));
+    println!("{} to decimal: {:?}", &hex, experiments::hex_to_int_2(&hex));
+
     // Converts decimal to binary
+    println!("\nConverts decimal to binary");
     let b: i32 = 666;
     println!("{} to binary: {}", b, experiments::int_to_bin(b));
 
-    // Converts hex to decimal
-    let hex = String::from("1F8");
-    println!("{}", experiments::hex_to_int(hex));
-
     // Converts binary to decimal
+    println!("\nConverts binary to decimal");
     let example = String::from("0101100101");
     println!("{} as u32: {}", &example, experiments::bin_to_str(&example));
     let example = String::from("1010011010");
     println!("{} as u32: {}", &example, experiments::bin_to_str(&example));
 
     // Converts string to binary
+    println!("\nConverts string to binary");
     let s = String::from("Hello");
     println!("{:?}", experiments::string_to_val(&s));
-    let s = String::from("I will have your soul!");
+    let s = String::from("Murder");
     println!(
         "\"{}\" to binary: \n\t{}",
         &s,
         experiments::int_to_bin_vec_2(experiments::string_to_val(&s))
     );
+
+    let s = String::from("a8b3d");
+    println!("{} to binary {}", &s, experiments::int_to_bin(experiments::hex_to_int_2(&s) as i32));
 }
 
 pub fn function_tests() {
