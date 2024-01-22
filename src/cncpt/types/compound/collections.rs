@@ -8,13 +8,13 @@ use std::io::{self, Write};
 //============================================
 //Tuples
 
-//Declares a tuple with homogenous scalar types
+// Declares a tuple with homogenous scalar types
 pub fn tuple_1() {
     let whatev = (1, 2, 3, 4);
     let e = whatev.3;
     println!("When the tuple hits just right, {e}");
 }
-//Declares a tuple with mixed scalar types
+// Declares a tuple with mixed scalar types
 pub fn tuple_2() {
     let idk: (i32, f64, u8) = (32, 6.4, 8); //Creates a tuple
     let (a, b, c) = idk; //access all elements
@@ -22,7 +22,7 @@ pub fn tuple_2() {
     println!("The whole tuple: {a}, {b}, {c}");
     println!("Accessing a tuple index: {d}");
 }
-//Declares a tuple with mixed scalar and compound types
+// Declares a tuple with mixed scalar and compound types
 pub fn tuple_3() {
     let user: (bool, String, String, u64) = (
         true,
@@ -35,7 +35,7 @@ pub fn tuple_3() {
     println!("Username: {user_name}");
     println!("Email: {email}");
 }
-//Declares a tuple with mixed scalar and compound types
+// Declares a tuple with mixed scalar and compound types
 pub fn tuple_4() {
     let x: (String, u8) = (String::from("Peter"), 40);
     let name: String = String::from(x.0);
@@ -67,7 +67,7 @@ pub fn array_3() {
         array_three[0], array_three[1]
     )
 }
-/**Illustrates two different ways to declare an array*/
+/** Illustrates two different ways to declare an array*/
 pub fn array_4() {
     let a = [0i32, 1, 2];
     let b: [i32; 3] = [0, 1, 2];
@@ -76,7 +76,7 @@ pub fn array_4() {
 //============================================
 //Vectors
 
-/**Creates a Vector with 2 indexes and prints both,
+/** Creates a Vector with 2 indexes and prints both,
  * resulting in a print statement that lists my birthday*/
 pub fn vec_test_1() {
     //Requires type annotation because no type is provided for inference
@@ -89,7 +89,7 @@ pub fn vec_test_1() {
     //println!("My birthday is: {}", v.get(n).unwrap());
 }
 
-/**Creates a vector of i32 input size.
+/** Creates a vector of i32 input size.
  * The first line of output counts up from the 0 index.
  * The second line of output counts back down.*/
 pub fn vec_test_2(i: i32) {
@@ -128,7 +128,7 @@ pub fn vec_test_2(i: i32) {
         }
     }
 }
-/**This function illustrates the two ways to get
+/** This function illustrates the two ways to get
  * out-of-bounds index values from a vector.
  * Warning, this method panics the program.*/
 pub fn vec_test_3() {
@@ -142,7 +142,7 @@ pub fn vec_test_3() {
     println!("{:?}", v.get(5));
     let oob2: &i32 = &v[3]; //Direct index reference panics the program
 }
-/**This function takes an i32, creates a vector
+/** This function takes an i32, creates a vector
  * of that size, and returns the value at the halfway point.*/
 pub fn vec_test_4(n: usize) {
     let mut i = n;
@@ -157,7 +157,7 @@ pub fn vec_test_4(n: usize) {
         None => println!("I guess there wasn't anything available!"),
     }
 }
-/**Creates a vector of usize and accesses
+/** Creates a vector of usize and accesses
  * it with reference and match methods*/
 pub fn vec_test_5(n: usize) {
     let mut i = 0;
@@ -185,7 +185,7 @@ pub fn vec_test_5(n: usize) {
         i += 1;
     }
 }
-/**Illustrates the proper way to iterate over a vector using a for loop*/
+/** The proper way to iterate over a vector using a for loop */
 pub fn vec_test_6(i: usize) {
     let mut v = vec![i];
     let mut n = 1;
@@ -205,9 +205,9 @@ pub fn vec_test_6(i: usize) {
 //============================================
 //Hash Maps
 
-/**Creates a hash map of String keys and integer values;
+/** Creates a hash map of String keys and integer values;
  * Demonstrates basic insert and check-before-write methods;
- * Briefly explores copy vs move for hash map ownership*/
+ * Briefly explores copy vs move for hash map ownership */
 pub fn hash_maps_1() {
     let mut scores = HashMap::new();
     scores.insert(String::from("Democrat"), 37);
@@ -225,25 +225,25 @@ pub fn hash_maps_1() {
         println!("The {} party has {}% of the vote.", key, value);
     }
 }
-/**Creates a hash map with String key and value pairs;
- * Explores hash map ownership*/
+/** Creates a hash map with String key and value pairs;
+ * Explores hash map ownership */
 pub fn hash_maps_2() {
     let mut hash = HashMap::new();
     let k1 = String::from("Democrats");
     let v1 = String::from("dirty");
     hash.insert(k1.clone(), v1);
 
-    //Cant use copied() to get value as the previous example
-    //illustrates because String doesn't implement the Copy trait;
-    //Sets None value as "IDK" for return
+    // Cant use copied() to get value as the previous example
+    // illustrates because String doesn't implement the Copy trait;
+    // Sets None value as "IDK" for return
     let default = String::from("IDK");
     let quality = hash.get(&k1).unwrap_or(&default);
     println!("The {} are described as {}", k1, quality);
 }
 
-/**Book example 8-25 that creates a hash map to count the number
- * of times a word appears in the supplied text; The split_whitespace()
- * method returns an iterator over sub-slices used to update the counter*/
+/** Book example 8-25 that creates a hash map to count the number
+of times a word appears in the supplied text; The split_whitespace()
+method returns an iterator over sub-slices used to update the counter */
 pub fn hash_maps_3() {
     let text = "hello world wonderful world";
     let mut map = HashMap::new();
@@ -257,8 +257,8 @@ pub fn hash_maps_3() {
 //============================================
 //Book tests
 
-/**Takes a vector of integers and calculates the mean, median, and mode;
- * Listing occurs end of chapter 8 on collections*/
+/** Takes a vector of integers and calculates the mean, median, and mode;
+Listing occurs end of chapter 8 on collections */
 pub fn book_test_1() {
     //let mut v = vec![1, 12, 34, 23, 21, 7, 75, 12, 89, 23, 12];
     let mut v = vec![12, 98, 34, 23, 21, 4, 7, 75, 12, 89, 37, 23, 66, 12, 90, 47];
@@ -308,7 +308,7 @@ pub fn book_test_1() {
     }
 }
 
-/**Pig Latin generator*/
+/** Pig Latin generator */
 //let s = String::from("Hello, Im a pig latin translator.");
 //let s = String::from("Im a pig latin translator");
 //ello-Hay Im-ay ig-pay atin-lay ranslator-tay
