@@ -208,14 +208,10 @@ pub fn bin_to_str(s: &String) -> u32 {
 // Precondition: "1F8"
 // Should result in: [1, 15, 8]
 pub fn hex_to_int(s: &String) -> Vec<u32> {
-    let sv: Vec<u32> = s.chars()
-        .map(|x| x.to_digit(16).unwrap_or(0))
-        .collect();
+    let sv: Vec<u32> = s.chars().map(|x| x.to_digit(16).unwrap_or(0)).collect();
     let mut nv: Vec<u32> = Vec::new();
     for i in s.chars() {
-        if Regex::new(r"^[0-9]+$")
-                .unwrap()
-                .is_match(&i.to_string()) {
+        if Regex::new(r"^[0-9]+$").unwrap().is_match(&i.to_string()) {
             nv.push(i.to_digit(10).unwrap());
         } else {
             nv.push(i.to_digit(16).unwrap());
@@ -224,15 +220,12 @@ pub fn hex_to_int(s: &String) -> Vec<u32> {
     return nv;
 }
 
-/** Converts a hex string into a decimal value */ 
+/** Converts a hex string into a decimal value */
 pub fn hex_to_int_2(s: &String) -> u32 {
-    let sv: Vec<u32> = s.chars()
-        .map(|x| x.to_digit(16).unwrap())
-        .collect();
+    let sv: Vec<u32> = s.chars().map(|x| x.to_digit(16).unwrap()).collect();
     let mut t: u32 = 0;
     for (index, value) in sv.iter().rev().enumerate() {
         t += value * 16u32.pow(index as u32);
     }
     return t;
 }
-

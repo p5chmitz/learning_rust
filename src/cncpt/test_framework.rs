@@ -52,7 +52,11 @@ pub fn function_tests_1() {
     );
 
     let s = String::from("a8b3d");
-    println!("{} to binary {}", &s, experiments::int_to_bin(experiments::hex_to_int_2(&s) as i32));
+    println!(
+        "{} to binary {}",
+        &s,
+        experiments::int_to_bin(experiments::hex_to_int_2(&s) as i32)
+    );
 }
 
 pub fn function_tests() {
