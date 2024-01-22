@@ -78,7 +78,7 @@ pub fn string_to_val(s: &String) -> Vec<i32> {
     return out;
 }
 
-/** Converts a vector of 32-bit values and converts them to binary */
+/** Converts a vector of 32-bit values to binary */
 pub fn int_to_bin_vec_1(v: Vec<i32>) -> String {
     let mut q: i32;
     let mut r: i32;
@@ -119,7 +119,7 @@ pub fn int_to_bin_vec_1(v: Vec<i32>) -> String {
     return ns;
 }
 
-/** Takes a vector of char values, converts them to byte vectors,
+/** Converts a vector of i32 values to byte vectors,
 and pushes each byte value to string; The char type is
 4-bytes which is why this takes a vector of i32 */
 pub fn int_to_bin_vec_2(v: Vec<i32>) -> String {
@@ -204,18 +204,35 @@ pub fn bin_to_str(s: &String) -> u32 {
     return t;
 }
 
-//TODO: Make this work
-//Converts a hex value to a decimal number value */
-pub fn hex_to_int(s: String) -> String {
-    let mut v: Vec<char> = Vec::new();
+// Converts a hex value to a decimal number value */
+// Precondition: "1F8"
+// Should result in: [1, 15, 8]
+pub fn hex_to_int(s: &String) -> Vec<u32> {
+    let sv: Vec<u32> = s.chars()
+        .map(|x| x.to_digit(16).unwrap_or(0))
+        .collect();
+    let mut nv: Vec<u32> = Vec::new();
     for i in s.chars() {
-        v.push(i);
-    }
-    let mut s = String::new();
-    for i in v.iter() {
-        if Regex::new(r"^[0-9]+$").unwrap().is_match(&*i.to_string()) {
-            s.push_str(&*i.to_string());
+        if Regex::new(r"^[0-9]+$")
+                .unwrap()
+                .is_match(&i.to_string()) {
+            nv.push(i.to_digit(10).unwrap());
+        } else {
+            nv.push(i.to_digit(16).unwrap());
         }
     }
-    return s;
+    return nv;
 }
+
+/** Converts a hex string into a decimal value */ 
+pub fn hex_to_int_2(s: &String) -> u32 {
+    let sv: Vec<u32> = s.chars()
+        .map(|x| x.to_digit(16).unwrap())
+        .collect();
+    let mut t: u32 = 0;
+    for (index, value) in sv.iter().rev().enumerate() {
+        t += value * 16u32.pow(index as u32);
+    }
+    return t;
+}
+
