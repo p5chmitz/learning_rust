@@ -19,7 +19,7 @@ pub mod ifs {
             result.push_str("Out of range; 0.0..1.0");
             return result;
         }
-        if n <0.0 || n >1.0 {
+        if n < 0.0 || n > 1.0 {
             panic!("Must be between 0-1")
         }
         if n < 0.33 {
