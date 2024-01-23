@@ -222,9 +222,9 @@ pub fn hex_to_int(s: &String) -> Vec<u32> {
 
 /** Converts a hex string into a decimal value */
 pub fn hex_to_int_2(s: &String) -> u32 {
-    let sv: Vec<u32> = s.chars().map(|x| x.to_digit(16).unwrap()).collect();
+    let v: Vec<u32> = s.chars().map(|x| x.to_digit(16).unwrap()).collect();
     let mut t: u32 = 0;
-    for (index, value) in sv.iter().rev().enumerate() {
+    for (index, value) in v.iter().rev().enumerate() {
         t += value * 16u32.pow(index as u32);
     }
     return t;
