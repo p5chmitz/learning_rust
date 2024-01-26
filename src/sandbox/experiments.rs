@@ -3,6 +3,36 @@
 
 use regex::Regex;
 
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn int_to_bin_test() {
+        let result = super::int_to_bin(23);
+        let expected = String::from("1 0111");
+        assert_eq!(result, expected);
+        println!("Expected:\n\t{}\nResult\n\t{}", expected, result);
+    }
+
+    #[test]
+    fn string_to_val_test() {
+        let s = String::from("Hello, luv");
+        let result = super::string_to_val(&s);
+        let expected = vec![72, 101, 108, 108, 111, 44, 32, 108, 117, 118];
+        assert_eq!(result, expected);
+        println!("Expected:\n\t{:?}\nResult:\n\t{:?}", expected, result);
+    }
+
+    #[test]
+    fn int_to_bin_vec_test() {
+        let v = vec![112, 101, 110, 105, 115];
+        let result = super::int_to_bin_vec_2(v);
+        let expected = String::from("01110000 01100101 01101110 01101001 01110011 ");
+        assert_eq!(result, expected);
+        println!("Expected:\n\t{}\nResult\n\t{}", expected, result);
+    }
+
+}
+
 /** Test for a YouTube video that refactors C code*/
 pub fn calculate(mut bottom: i32, top: i32) {
     let mut sum = 0;
