@@ -36,7 +36,7 @@ pub mod ifs {
 
     #[test]
     fn if_statements_test() {
-        let answer = String::from(if_statements_1(1.34));
+        let answer = String::from(if_statements_1(0.34));
         assert_eq!("middle third", answer);
     }
 
