@@ -89,5 +89,11 @@ fn main() {
     //cncpt::test_framework::function_tests();
     cncpt::test_framework::function_tests_1();
 
+    let mut s: String = String::new();
+    s.push_str("lol");
+    let rn = cncpt::closures::printinator();
+    println!("{}", cncpt::closures::closures_1(&s)
+        .unwrap_or_else(|| &rn));
+
     timestamp(2);
 }
