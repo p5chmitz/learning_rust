@@ -17,3 +17,4 @@ pub use types::compound::strings;
 pub use types::compound::structs;
 pub use types::generics;
 pub use types::primitives::scalar;
+pub use types::closures;
