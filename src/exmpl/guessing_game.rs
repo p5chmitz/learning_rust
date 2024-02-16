@@ -96,7 +96,7 @@ pub fn guessing_game_3() {
                 continue;
             }
         };
-        Guess::new(guess);
+        //Guess::range_check(guess);
 
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("{} is too smol", guess),
@@ -109,17 +109,96 @@ pub fn guessing_game_3() {
     }
 }
 
+pub fn guessing_game_4() {
+    println!("Guess the integer!");
+    let secret_number: i32 = rand::thread_rng().gen_range(1..=100);
+    loop {
+        print!("Try me: ");
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap(); 
+
+        let mut _val: (bool, i32) = (true, 0);
+        _val = Guess::validate(&input);
+        if _val.0 == true {
+            _val = Guess::range_check(_val.0, _val.1);
+        };
+        if _val.0 == true {
+           if Guess::compare(_val.1, secret_number) == true {
+               break
+           }
+        }
+    }
+}
+
+
+/** Struct */
 pub struct Guess {
     value: i32,
 }
 impl Guess {
-    pub fn new(value: i32) -> Guess {
-        if value < 1 || value > 100 {
-            panic!("Guess value must be between 1 and 100, got {}", value)
-        }
-        Guess { value }
+    pub fn validate(v: &str) -> (bool, i32) {  
+        let mut b = true;
+        let num: i32 = match v.trim().parse() {
+            Ok(n) => n,
+            Err(_) => {
+                println!("Does {:?} look like an integer to you?", v.trim());
+                b = false;
+                0
+            }
+        }; 
+        (b, num)
     }
-    pub fn value(&self) -> i32 {
-        self.value
+    pub fn range_check(b: bool, value: i32) -> (bool, i32) {
+        let mut b = b;
+        if value < 1 || value > 100 {
+            println!("Number must be between 1 and 100, got {}", value);
+            b = false;
+        } 
+        (b, value) 
+    }
+    pub fn compare(v: i32, n: i32) -> bool {
+        let mut b: bool = false;
+        let result = String::new();
+        match v.cmp(&n) {
+            Ordering::Less => println!("{} is too smol", v),
+            Ordering::Greater => println!("{} is too larg", v),
+            Ordering::Equal => {
+                println!("You guessed it!");
+                b = true;
+            },
+        }
+        return b;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn guessing_game_validations() {
+        let value = String::from("Peter");
+        let fn_rtn = Guess::validate(&value);
+        assert_eq!(fn_rtn, (false, 0));
+    }
+    #[test]
+    fn guessing_game_range_check() {
+        let fn_rtn = Guess::range_check(true, -1);
+        assert_eq!(fn_rtn, (false, -1));
+        let fn_rtn = Guess::range_check(true, 101);
+        assert_eq!(fn_rtn, (false, 101));
+        let fn_rtn = Guess::range_check(true, -0);
+        assert_eq!(fn_rtn, (false, -0));
+        let fn_rtn = Guess::range_check(true, 23);
+        assert_eq!(fn_rtn, (true, 23));
+    }
+    #[test]
+    fn guessing_game_compare() {
+        let fn_rtn = Guess::compare(23, 23);
+        assert_eq!(fn_rtn, (true));
+        let fn_rtn = Guess::compare(-0, -0);
+        assert_eq!(fn_rtn, (true));
     }
 }
