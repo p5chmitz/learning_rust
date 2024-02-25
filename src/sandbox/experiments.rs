@@ -259,3 +259,14 @@ pub fn hex_to_int_2(s: &String) -> u32 {
     }
     return t;
 }
+
+/** Converts hex to 128-bit decimal value */
+fn hex_to_int_3(s: String) -> u128 {
+    let v: Vec<u128> = s.chars().map(|x| x.to_digit(16).unwrap() as u128).collect();
+    let mut t: u128 = 0;
+    for (index, value) in v.iter().rev().enumerate() {
+        t += value * 16u128.pow(index as u32);
+    }
+    t
+}
+
