@@ -132,4 +132,10 @@ fn first() {
     rectangles.sort_by_key(|r| r.width);
     println!("{:#?}", rectangles);
 
+    let s: String = String::from("Hello");
+    let mut s: String = String::from("World");
+    println!("S: {}", s);
+    s.push_str(" ");
+    println!("S: {}", s);
+
 }
