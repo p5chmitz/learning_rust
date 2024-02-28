@@ -183,4 +183,18 @@ pub mod loops {
     }
 }
 
-fn _main() {}
+#[test]
+fn iterators_1() {
+    let v = vec![1, 2, 3];
+    let t: i32 = v.iter().sum();
+    assert_eq!(t, 6);
+}
+#[test]
+fn iterators_2() {
+    let mut v: Vec<i32> = vec![1, 2, 3];
+    for i in v.iter_mut() {
+        *i *= *i
+    }
+    assert_eq!(v, [1, 4, 9])
+}
+
