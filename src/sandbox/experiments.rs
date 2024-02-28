@@ -227,11 +227,46 @@ pub fn bin_to_str(s: &String) -> u32 {
     let v: Vec<char> = s.chars().collect();
     let mut t: u32 = 0;
     for (i, val) in v.iter().rev().enumerate() {
-        if val.to_digit(10).unwrap() == 1 {
-            t = t + (2u32.pow(i as u32));
+        match val.to_digit(10) {
+            Some(x) => {
+                if x == 1 {
+                    t = t + (2u32.pow(i as u32));
+                }
+            },
+            None => {
+                panic!("Error: char \"{}\" at index {} is not valid binary digit", val, (v.len() - i));
+            },
         }
     }
-    return t;
+    t
+
+    // Original
+    //let v: Vec<char> = s.chars().collect();
+    //let mut t: u32 = 0;
+    //for (i, val) in v.iter().rev().enumerate() {
+    //    if val.to_digit(10).unwrap() == 1 {
+    //        t = t + (2u32.pow(i as u32));
+    //    }
+    //}
+    //t
+
+    // Perhaps a more beautiful implmentation, 
+    // but does not panic if the String contains
+    // a non 1/0 digit
+    //let mut t = 0;
+    //for (i, val) in s.chars().rev().enumerate() {
+    //    if val == '1' {
+    //        t |= 1 << i;
+    //    }
+    //}
+    //t
+}
+
+#[test]
+#[should_panic()]
+fn bin_to_str_test() {
+    let s = String::from("1001100x0111");
+    assert_ne!(bin_to_str(&s), 1223);
 }
 
 // Converts a hex value to a decimal number value */
