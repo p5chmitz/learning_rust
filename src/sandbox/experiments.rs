@@ -30,7 +30,6 @@ mod tests {
         assert_eq!(result, expected);
         println!("Expected:\n\t{}\nResult\n\t{}", expected, result);
     }
-
 }
 
 /** Test for a YouTube video that refactors C code*/
@@ -107,6 +106,14 @@ pub fn string_to_val(s: &String) -> Vec<i32> {
     }
     return out;
 }
+
+/** Converts a string to u8 values using iterators instead of a for loop */
+pub fn string_to_val_2(s: &String) -> Vec<u8> {
+    let v: Vec<char> = s.chars().collect();
+    let out: Vec<u8> = v.into_iter().map(|x| x as u8).collect();
+    out
+}
+
 
 /** Converts a vector of 32-bit values to binary */
 pub fn int_to_bin_vec_1(v: Vec<i32>) -> String {
@@ -232,10 +239,14 @@ pub fn bin_to_str(s: &String) -> u32 {
                 if x == 1 {
                     t = t + (2u32.pow(i as u32));
                 }
-            },
+            }
             None => {
-                panic!("Error: char \"{}\" at index {} is not valid binary digit", val, (v.len() - i));
-            },
+                println!(
+                    "Error: char \"{}\" at index {} is not valid binary digit",
+                    val,
+                    (v.len() - i)
+                );
+            }
         }
     }
     t
@@ -250,7 +261,7 @@ pub fn bin_to_str(s: &String) -> u32 {
     //}
     //t
 
-    // Perhaps a more beautiful implmentation, 
+    // Perhaps a more beautiful implmentation,
     // but does not panic if the String contains
     // a non 1/0 digit
     //let mut t = 0;
@@ -304,4 +315,3 @@ fn hex_to_int_3(s: String) -> u128 {
     }
     t
 }
-
