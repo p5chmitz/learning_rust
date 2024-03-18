@@ -2,6 +2,7 @@
 #![allow(unused_variables)]
 
 use json::{object, JsonValue};
+use serde_json::{json, Value};
 
 //JSON parsing experiment
 pub fn json_parsing() {
@@ -35,4 +36,15 @@ pub fn json_parsing() {
         "For the instantiated object, the nested key \"nestedTwo\" value is: \"{}\"",
         (instantiated["object"]["nestedTwo"])
     );
+}
+
+fn enrollmentREquestBuilder(crdNumber: &str) -> Vec<u8> {
+    let enrollment = json!({
+        "type": "REGISTRATION_INDIVIDUAL",
+        "principalApprover": {
+            "crdNumber": crdNumber,
+        }
+    });
+    let json_string = serde_json::to_string(&enrollment).unwrap();
+    json_string.into_bytes()
 }
