@@ -117,7 +117,7 @@ pub fn guessing_game_4() {
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
-        io::stdin().read_line(&mut input).unwrap(); 
+        io::stdin().read_line(&mut input).unwrap();
 
         let mut _val: (bool, i32) = (true, 0);
         _val = Guess::validate(&input);
@@ -125,20 +125,19 @@ pub fn guessing_game_4() {
             _val = Guess::range_check(_val.0, _val.1);
         };
         if _val.0 == true {
-           if Guess::compare(_val.1, secret_number) == true {
-               break
-           }
+            if Guess::compare(_val.1, secret_number) == true {
+                break;
+            }
         }
     }
 }
-
 
 /** Struct */
 pub struct Guess {
     value: i32,
 }
 impl Guess {
-    pub fn validate(v: &str) -> (bool, i32) {  
+    pub fn validate(v: &str) -> (bool, i32) {
         let mut b = true;
         let num: i32 = match v.trim().parse() {
             Ok(n) => n,
@@ -147,7 +146,7 @@ impl Guess {
                 b = false;
                 0
             }
-        }; 
+        };
         (b, num)
     }
     pub fn range_check(b: bool, value: i32) -> (bool, i32) {
@@ -155,8 +154,8 @@ impl Guess {
         if value < 1 || value > 100 {
             println!("Number must be between 1 and 100, got {}", value);
             b = false;
-        } 
-        (b, value) 
+        }
+        (b, value)
     }
     pub fn compare(v: i32, n: i32) -> bool {
         let mut b: bool = false;
@@ -167,7 +166,7 @@ impl Guess {
             Ordering::Equal => {
                 println!("You guessed it!");
                 b = true;
-            },
+            }
         }
         return b;
     }

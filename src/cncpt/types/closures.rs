@@ -1,16 +1,14 @@
-    use std::thread;
+use std::thread;
 
 use std::{collections::HashMap, io::Write};
 
-
-
 pub fn closures_1(s: &str) -> Option<&str> {
-   if s.is_empty() {
+    if s.is_empty() {
         None
-   } else {
+    } else {
         Some(s)
-   } 
-} 
+    }
+}
 
 pub fn printinator() -> String {
     let s = String::from("Aint nothin here!");
@@ -31,10 +29,16 @@ struct List {
 impl List {
     fn builder() -> List {
         List {
-            stuff: vec![Category::Electronics, Category::Music, Category::Books, Category::Books, Category::Clothing]
+            stuff: vec![
+                Category::Electronics,
+                Category::Music,
+                Category::Books,
+                Category::Books,
+                Category::Clothing,
+            ],
         }
     }
-    // The only proper closure here 
+    // The only proper closure here
     fn option(&self, pref: Option<Category>) -> Category {
         pref.unwrap_or_else(|| self.most())
     }
@@ -69,8 +73,7 @@ impl List {
         if c > mostest {
             c = mostest;
             return Category::Clothing;
-        }
-        else {
+        } else {
             return Category::Electronics;
         }
     }
@@ -91,7 +94,10 @@ fn first() {
     let most = store.most();
     println!("Store inventory: {:?}", store);
     println!("The most is: {:?}", most);
-    println!("I have no preference so Im getting: {:?}", store.option(None));
+    println!(
+        "I have no preference so Im getting: {:?}",
+        store.option(None)
+    );
 
     // Calls a List method
     let result_3 = store.most();
@@ -100,7 +106,7 @@ fn first() {
     let result_2 = || store.most();
     println!("Result 2: {:?}", result_2());
 
-    // The closure captures its environment so we dont need 
+    // The closure captures its environment so we dont need
     // to pass x to the closure when calling it
     let x = 10;
     let closure_1 = |x| testing(x);
@@ -125,9 +131,18 @@ fn first() {
     println!("Sorted vec: {:?}", t);
 
     let mut rectangles = [
-        Rectangle { width: 10, height: 1 },
-        Rectangle { width: 3, height: 5 },
-        Rectangle { width: 7, height: 12 },
+        Rectangle {
+            width: 10,
+            height: 1,
+        },
+        Rectangle {
+            width: 3,
+            height: 5,
+        },
+        Rectangle {
+            width: 7,
+            height: 12,
+        },
     ];
     rectangles.sort_by_key(|r| r.width);
     println!("{:#?}", rectangles);
@@ -137,5 +152,4 @@ fn first() {
     println!("S: {}", s);
     s.push_str(" ");
     println!("S: {}", s);
-
 }

@@ -28,7 +28,9 @@ fn timestamp(ver: i32) {
             c1 = ' ';
             c2 = '=';
         }
-        _ => {println!("Error!")}
+        _ => {
+            println!("Error!")
+        }
     }
     s.push_str(&prompt);
     s.push_str(&util::time::static_time(8));
@@ -92,8 +94,7 @@ fn main() {
     let mut s: String = String::new();
     s.push_str("lol");
     let rn = cncpt::closures::printinator();
-    println!("{}", cncpt::closures::closures_1(&s)
-        .unwrap_or_else(|| &rn));
+    println!("{}", cncpt::closures::closures_1(&s).unwrap_or_else(|| &rn));
 
     timestamp(2);
 }
