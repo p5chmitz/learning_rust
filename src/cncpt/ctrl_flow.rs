@@ -184,17 +184,71 @@ pub mod loops {
 }
 
 #[test]
+// Illustrates creating an iterator object as v_iter,
+// then the function consumes the object with an iterator adapter sum()
 fn iterators_1() {
     let v = vec![1, 2, 3];
-    let t: i32 = v.iter().sum();
-    assert_eq!(t, 6);
+    let v_iter = v.iter();
+    let v_cons: i32 = v_iter.sum();
+    assert_eq!(v_cons, 6);
 }
+
 #[test]
+// Illustrates iter_mut() to mutate elements of a vector in place
 fn iterators_2() {
-    let mut v: Vec<i32> = vec![1, 2, 3];
+    let mut v = vec![1, 2, 3];
     for i in v.iter_mut() {
         *i *= *i
     }
     assert_eq!(v, [1, 4, 9])
+}
+
+#[test]
+// Illustrates two ways of iterating over and mutating the values of a vector;
+//
+// The first approach uses the for loop to iterate over dereferenced
+// values using the iter_mut() adapter; The resultant object is consumed by
+// the for loop;
+//
+// The second approach does the same thing but uses the iter() and
+// map() adapters; The map() adapter takes a closure which does the same thing
+// as the for loop in the previous approach; The resultant object is
+// then consumed with the consuming adapter collect(),
+fn iterators_3() {
+    let v = vec![1i32, 2, 3];
+
+    let mut v1 = v.clone();
+    for i in v1.iter_mut() {
+        *i *= *i
+    }
+    assert_eq!(v1, [1, 4, 9]);
+
+    let v2 = v.clone();
+    let v_sq: Vec<i32> = v2.iter().map(|x| x * x).collect();
+    assert_eq!(v_sq, [1, 4, 9])
+}
+
+#[test]
+fn iterators_4() {
+    let v1: Vec<i32> = vec![1, 2, 3];
+    let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
+    assert_eq!(v2, vec![2, 3, 4]);
+}
+
+#[test]
+fn iterators_5() {
+    let v1: Vec<i32> = vec![1, 2, 3];
+    let v2: Vec<i32> = v1.iter().map(|x| x + 1).collect(); // Using the + oerator in the expression implicitly de-references x to match the owned literal
+    let v2: Vec<i32> = v1.iter().map(|&x| x).collect(); // Implicitly dereferences x
+    let v2: Vec<i32> = v1.iter().map(|x| *x).collect(); // Explicitly dereferences x
+    let v2: Vec<&i32> = v1.iter().map(|x| x).collect();
+    //let v2: Vec<i32> = v1.into_iter().map(|x| x).collect();
+    let v2: Vec<i32> = v1.into_iter().map(|x| x + 1).collect();
+
+    //let v_1 = v1.iter(); // Creates an iterator over &i32 values
+    //let v_2 = v_1.map(|x| x);
+    //let v_3: Vec<i32> = v_2.collect();
+
+    assert_eq!(v2, vec![2, 3, 4]);
 }
 
