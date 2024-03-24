@@ -96,5 +96,17 @@ fn main() {
     let rn = cncpt::closures::printinator();
     println!("{}", cncpt::closures::closures_1(&s).unwrap_or_else(|| &rn));
 
+    //cncpt::io::_io_3();
+    let file = match cncpt::error_handling::error_handling_6() {
+        Ok(file) => file,
+        Err(e) => format!("{}", e),
+    };
+    println!("File contents: {}", file);
+    let file = cncpt::error_handling::error_handling_6().unwrap_or_else(|e| format!("Error: {}", e));
+    println!("File contents: {}", file);
+    cncpt::error_handling::error_handling_11();
+    cncpt::error_handling::error_handling_12();
+
+
     timestamp(2);
 }
