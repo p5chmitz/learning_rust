@@ -5,7 +5,7 @@
 //are executed from the /src/ dir, otherwise a file not found
 //error may occur.
 
-use std::{fs::OpenOptions, io::Read};
+use std::{fs::OpenOptions, io::Read, error::Error};
 
 /**Accesses a file with proper error handling via classic OpenOptions method*/
 pub fn io_1() {
@@ -40,6 +40,7 @@ pub fn io_1() {
 /**Accesses a file the EASY way; This pattern substitutes
  * the expect text for the desired file contents instead of
  * failing in a meaningful way*/
+// This shit panics
 pub fn io_2() {
     let contents = std::fs::read_to_string("./files/hello_world.txt").expect("[placeholder text]");
     println!("The easy way...\n\t{}", contents);
@@ -52,7 +53,7 @@ pub fn _io_3() {
     //Option 1
     let file_contents = match std::fs::read_to_string("./files/hello_world.txt") {
         Ok(file) => file,
-        Err(_) => String::from("Your shits all fucked up"),
+        Err(e) => format!("Error: {}", e),
     };
     println!("Option 1:\n\t{}", file_contents);
 
