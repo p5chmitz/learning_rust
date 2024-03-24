@@ -1,11 +1,14 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
+#![warn(unused_assignments)]
 
 use std::{
     fs::{self, File},
     io::{self, ErrorKind, Read},
     panic,
 };
+
+// These functions panic!!!!!!
 
 /**Illustrates simple error handling with a method that returns a Result<T, E> type;
  * This function is basically desinged to panic and doesn't really DO anything*/
@@ -56,6 +59,7 @@ pub fn error_handling_2() {
  * Because of this, their use is generally discouraged by the Rust
  * language documentation; This function does the same thing as
  * error_handling_1() but combines the result with the result handler*/
+// This shit panics
 pub fn error_handling_3() {
     //let greeting_file = File::open("hello.txt").unwrap();
     let greeting_file = File::open("hello.txt").expect("hello.txt is required to proceed");
@@ -91,12 +95,6 @@ pub fn error_handling_5() -> Result<String, io::Error> {
     Ok(contents)
 }
 
-/**This function does the same thing as error_handling_3 and
- * error_handling_4 but does so in a ridiculously short way;
- * I cant believe it took so long to get here*/
-pub fn error_handling_6() -> Result<String, io::Error> {
-    fs::read_to_string("./files/hello_word.txt")
-}
 
 /**Error handling with closures; This code does the same thing as error_handling_2() but uses
  * closures instead of match expressions*/
@@ -147,4 +145,46 @@ pub fn idk() {
 pub fn error_handling_10() -> Option<char> {
     let s = String::from("Im a phrase");
     s.lines().next()?.chars().last()
+}
+
+// These functions DONT panic!!!!!!
+
+/**This function does the same thing as error_handling_3 and
+ * error_handling_4 but does so in a ridiculously short way;
+ * I cant believe it took so long to get here.
+ * This function must be implemented with a Result match type.*/
+pub fn error_handling_6() -> Result<String, io::Error> {
+    fs::read_to_string("./files/hello_word.txt")
+}
+
+pub fn error_handling_11() {
+    //Option 1
+    let file_contents = match std::fs::read_to_string("./files/hello_world.txt") {
+        Ok(file) => file,
+        Err(e) => format!("Error: {}", e),
+    };
+    println!("error_handling_11() (with trailing print):\n\t{}\n", file_contents);
+
+    //Option 2
+    let file_contents = match std::fs::read_to_string("./files/hello_world.txt") {
+        Ok(file) => file,
+        Err(e) => {
+            let error_message = format!("Error: {}", e);
+            println!("error_handling_11() (with integrated print & early return): \n\t{}\n", error_message);
+            return
+        },
+    };
+    println!("Unreachable with an error");
+}
+
+pub fn error_handling_12() {
+    let mut file_contents = String::new();
+    if let Ok(file) = std::fs::read_to_string("./files/hello_world.txt") {
+        //file_contents.push_str(&file) //Requires allocation and copying, which may be slower
+        file_contents = file;
+    } else {
+        println!("error_handling_12() (using if let Ok syntax): \n\tError: [cannot access error message]\n");
+        return
+    };
+    println!("Unreachable with an error:\n\t{}", file_contents);
 }
