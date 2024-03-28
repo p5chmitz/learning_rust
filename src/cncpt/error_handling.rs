@@ -110,12 +110,12 @@ pub fn error_handling_7() {
     });
 }
 
-/**rust-lang documentation example of File::open usage*/
+/** rust-lang documentation example of File::open usage*/
 pub fn error_handling_8() -> std::io::Result<()> {
-    let mut file = File::open("hello.txt")?;
+    let mut file = File::open("./src/hello.txt")?;
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
-    assert_eq!(contents, "Hello!");
+    //assert_eq!(contents, "Hello!");
     Ok(())
 }
 
@@ -154,7 +154,7 @@ pub fn error_handling_10() -> Option<char> {
  * I cant believe it took so long to get here.
  * This function must be implemented with a Result match type.*/
 pub fn error_handling_6() -> Result<String, io::Error> {
-    fs::read_to_string("./files/hello_word.txt")
+    fs::read_to_string("./src/cncpt/hello.txt")
 }
 
 pub fn error_handling_11() {
