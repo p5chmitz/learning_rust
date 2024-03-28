@@ -3,7 +3,10 @@
 //cncpt::loops::_my_age_static();
 
 use cncpt::generics::Tweet;
+use cncpt::types::smart_pointers::Cons::{Cons, Nil};
 use std::io;
+
+use crate::cncpt::error_handling::{error_handling_6, error_handling_8};
 //use std::io::{self, Write};
 
 mod cncpt;
@@ -91,21 +94,52 @@ fn main() {
     //cncpt::test_framework::function_tests();
     cncpt::test_framework::function_tests_1();
 
+    // Closures
     let mut s: String = String::new();
     s.push_str("lol");
     let rn = cncpt::closures::printinator();
     println!("{}", cncpt::closures::closures_1(&s).unwrap_or_else(|| &rn));
 
-    //cncpt::io::_io_3();
-    let file = match cncpt::error_handling::error_handling_6() {
+    // Error handling
+    let file = match error_handling_6() {
         Ok(file) => file,
-        Err(e) => format!("{}", e),
+        Err(e) => format!("Error: {}", e),
     };
     println!("File contents: {}", file);
-    let file = cncpt::error_handling::error_handling_6().unwrap_or_else(|e| format!("Error: {}", e));
+
+    let file = error_handling_6().unwrap_or_else(|e| format!("Error handling 6: {}", e));
     println!("File contents: {}", file);
+
+    error_handling_8().unwrap_or_else(|e| eprintln!("Error handling 8: {}", e));
+    if let Ok(()) = error_handling_8() {
+        println!("Its all good")
+    } else {
+        println!("We have terrible news about your file...")
+    };
+
     cncpt::error_handling::error_handling_11();
     cncpt::error_handling::error_handling_12();
+
+    //match cncpt::error_handling::error_handling_8() {
+    //    Ok(()) => println!("It works!"),
+    //    Err(ref e) => eprintln!("Error: {}", e),
+    //};
+
+    //if let Ok(()) = cncpt::error_handling::error_handling_8() {
+    //    println!("Success!")
+    //} else {
+    //    println!("An error occurred...")
+    //}
+
+    let file = std::fs::read_to_string("./src/cncpt/hello.txt").unwrap();
+    println!("Read from main: {}", file);
+
+    // SMART POINTERS
+    cncpt::types::smart_pointers::smart_pointers_1();    
+    //let list = cncpt::types::smart_pointers::Cons(1, (2, (3, Nil)));
+    let list = cncpt::types::smart_pointers::Cons::Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    println!("The cons list: {:#?}", list);
+    
 
 
     timestamp(2);
