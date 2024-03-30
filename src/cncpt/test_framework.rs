@@ -36,9 +36,9 @@ pub fn function_tests_1() {
     // Converts binary to decimal
     println!("\nConverts binary to decimal");
     let example = String::from("0101100101");
-    println!("{} as u32: {}", &example, experiments::bin_to_str(&example));
+    println!("{} as u32: {}", &example, experiments::bin_to_int(&example));
     let example = String::from("1010011010");
-    println!("{} as u32: {}", &example, experiments::bin_to_str(&example));
+    println!("{} as u32: {}", &example, experiments::bin_to_int(&example));
 
     // Converts string to binary
     println!("\nConverts string to binary");
