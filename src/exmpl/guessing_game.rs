@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-#![allow(unused_variables)]
+//#![allow(unused_variables)]
 
 use rand::Rng;
 use std::cmp::*;
@@ -8,8 +8,42 @@ use std::io::{self, Write};
 //use std::io;
 //use std::io::Write;
 
-/**The book's recommended way (with some additions)*/
+
+/** The book's way */
 pub fn guessing_game() {
+    println!("Guess the number!");
+
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+
+    loop {
+        println!("Please input your guess.");
+
+        let mut guess = String::new();
+
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line");
+
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+
+        println!("You guessed: {guess}");
+
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
+        }
+    }
+}
+
+/** Same thing with some additions */
+pub fn guessing_game_2() {
     println!("Guess the number!");
     let secret_number: i32 = rand::thread_rng().gen_range(1..=100);
     loop {
@@ -41,7 +75,7 @@ pub fn guessing_game() {
 }
 
 /**My super hacky refactor attempt; This code adds a range validator and if statements instead of pattern matching with the compare method*/
-pub fn guessing_game_2() {
+pub fn guessing_game_3() {
     println!("Guess the number!");
     let secret_number: i32 = rand::thread_rng().gen_range(1..=100);
     loop {
@@ -77,7 +111,7 @@ pub fn guessing_game_2() {
 
 /**Validates guess with custom type which can reduce tedium of checking range for every instance
  * this logic is required; Program panicks if the range is not an integer between 1-100*/
-pub fn guessing_game_3() {
+pub fn guessing_game_4() {
     println!("Guess the number!");
     let secret_number: i32 = rand::thread_rng().gen_range(1..=100);
     loop {
@@ -109,9 +143,10 @@ pub fn guessing_game_3() {
     }
 }
 
-pub fn guessing_game_4() {
+/* Refactors with a struct/methods **/
+pub fn guessing_game_5() {
     println!("Guess the integer!");
-    let secret_number: i32 = rand::thread_rng().gen_range(1..=100);
+    let secret_number: u8 = rand::thread_rng().gen_range(1..=100);
     loop {
         print!("Try me: ");
         io::stdout().flush().unwrap();
@@ -119,37 +154,35 @@ pub fn guessing_game_4() {
         let mut input = String::new();
         io::stdin().read_line(&mut input).unwrap();
 
-        let mut _val: (bool, i32) = (true, 0);
-        _val = Guess::validate(&input);
-        if _val.0 == true {
-            _val = Guess::range_check(_val.0, _val.1);
+        let mut val: (bool, u8) = (true, 0);
+        val = Guess::validate(&input);
+        if val.0 == true {
+            val = Guess::range_check(val.0, val.1);
         };
-        if _val.0 == true {
-            if Guess::compare(_val.1, secret_number) == true {
+        if val.0 == true {
+            if Guess::compare(val.1, secret_number) == true {
                 break;
             }
         }
     }
 }
-
-/** Struct */
 pub struct Guess {
     value: i32,
 }
 impl Guess {
-    pub fn validate(v: &str) -> (bool, i32) {
+    pub fn validate(v: &str) -> (bool, u8) {
         let mut b = true;
-        let num: i32 = match v.trim().parse() {
+        let num: u8 = match v.trim().parse() {
             Ok(n) => n,
             Err(_) => {
-                println!("Does {:?} look like an integer to you?", v.trim());
+                println!("Does {:?} look like an unsigned 8-bit integer to you?", v.trim());
                 b = false;
                 0
             }
         };
         (b, num)
     }
-    pub fn range_check(b: bool, value: i32) -> (bool, i32) {
+    pub fn range_check(b: bool, value: u8) -> (bool, u8) {
         let mut b = b;
         if value < 1 || value > 100 {
             println!("Number must be between 1 and 100, got {}", value);
@@ -157,7 +190,7 @@ impl Guess {
         }
         (b, value)
     }
-    pub fn compare(v: i32, n: i32) -> bool {
+    pub fn compare(v: u8, n: u8) -> bool {
         let mut b: bool = false;
         let result = String::new();
         match v.cmp(&n) {
@@ -184,20 +217,14 @@ mod tests {
     }
     #[test]
     fn guessing_game_range_check() {
-        let fn_rtn = Guess::range_check(true, -1);
-        assert_eq!(fn_rtn, (false, -1));
         let fn_rtn = Guess::range_check(true, 101);
         assert_eq!(fn_rtn, (false, 101));
-        let fn_rtn = Guess::range_check(true, -0);
-        assert_eq!(fn_rtn, (false, -0));
         let fn_rtn = Guess::range_check(true, 23);
         assert_eq!(fn_rtn, (true, 23));
     }
     #[test]
     fn guessing_game_compare() {
         let fn_rtn = Guess::compare(23, 23);
-        assert_eq!(fn_rtn, (true));
-        let fn_rtn = Guess::compare(-0, -0);
         assert_eq!(fn_rtn, (true));
     }
 }
