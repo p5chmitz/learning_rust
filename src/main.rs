@@ -80,7 +80,7 @@ fn main() {
         }
         match input {
             1 => exmpl::guessing_game(),
-            2 => exmpl::guessing_game::guessing_game_4(),
+            2 => exmpl::guessing_game::guessing_game_5(),
             3 => util::time::loop_time(8),
             4 => cncpt::collections::book_test_1(),
             5 => cncpt::collections::book_test_2(),
@@ -137,8 +137,8 @@ fn main() {
     // SMART POINTERS
     cncpt::types::smart_pointers::smart_pointers_1();    
     //let list = cncpt::types::smart_pointers::Cons(1, (2, (3, Nil)));
-    let list = cncpt::types::smart_pointers::Cons::Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
-    println!("The cons list: {:#?}", list);
+    //let list = cncpt::types::smart_pointers::Cons::Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    //println!("The cons list: {:#?}", list);
     
 
 
