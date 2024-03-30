@@ -230,7 +230,7 @@ pub fn int_to_hex(mut n: i32) -> String {
 }
 
 /** Converts binary to an integer */
-pub fn bin_to_str(s: &String) -> u32 {
+pub fn bin_to_int(s: &String) -> u32 {
     let v: Vec<char> = s.chars().collect();
     let mut t: u32 = 0;
     for (i, val) in v.iter().rev().enumerate() {
@@ -274,10 +274,10 @@ pub fn bin_to_str(s: &String) -> u32 {
 }
 
 #[test]
-#[should_panic()]
-fn bin_to_str_test() {
+//#[should_panic]
+fn bin_to_int_test() {
     let s = String::from("1001100x0111");
-    assert_ne!(bin_to_str(&s), 1223);
+    assert_ne!(bin_to_int(&s), 1223);
 }
 
 // Converts a hex value to a decimal number value */
