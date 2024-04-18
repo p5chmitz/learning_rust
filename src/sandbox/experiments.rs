@@ -114,7 +114,6 @@ pub fn string_to_val_2(s: &String) -> Vec<u8> {
     out
 }
 
-
 /** Converts a vector of 32-bit values to binary */
 pub fn int_to_bin_vec_1(v: Vec<i32>) -> String {
     let mut q: i32;

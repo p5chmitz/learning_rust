@@ -1,3 +1,4 @@
+#![allow(unused_assignments)]
 #![allow(dead_code)]
 //#![allow(unused_variables)]
 
@@ -7,7 +8,6 @@ use std::io::{self, Write};
 //use std::{io, io::Write, cmp::Ordering};
 //use std::io;
 //use std::io::Write;
-
 
 /** The book's way */
 pub fn guessing_game() {
@@ -175,7 +175,10 @@ impl Guess {
         let num: u8 = match v.trim().parse() {
             Ok(n) => n,
             Err(_) => {
-                println!("Does {:?} look like an unsigned 8-bit integer to you?", v.trim());
+                println!(
+                    "Does {:?} look like an unsigned 8-bit integer to you?",
+                    v.trim()
+                );
                 b = false;
                 0
             }

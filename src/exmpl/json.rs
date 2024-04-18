@@ -2,7 +2,7 @@
 #![allow(unused_variables)]
 
 use json::{object, JsonValue};
-use serde_json::{json, Value};
+use serde_json::json;
 
 //JSON parsing experiment
 pub fn json_parsing() {
@@ -38,11 +38,11 @@ pub fn json_parsing() {
     );
 }
 
-fn enrollmentREquestBuilder(crdNumber: &str) -> Vec<u8> {
+fn enrollment_request_builder(crd_number: &str) -> Vec<u8> {
     let enrollment = json!({
         "type": "REGISTRATION_INDIVIDUAL",
         "principalApprover": {
-            "crdNumber": crdNumber,
+            "crdNumber": crd_number,
         }
     });
     let json_string = serde_json::to_string(&enrollment).unwrap();

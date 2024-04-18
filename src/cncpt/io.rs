@@ -5,7 +5,7 @@
 //are executed from the /src/ dir, otherwise a file not found
 //error may occur.
 
-use std::{fs::OpenOptions, io::Read, error::Error};
+use std::{fs::OpenOptions, io::Read};
 
 /**Accesses a file with proper error handling via classic OpenOptions method*/
 pub fn io_1() {

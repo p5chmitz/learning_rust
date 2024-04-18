@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-#![warn(unused_assignments)]
+#![allow(unused_assignments)]
 
 use std::{
     fs::{self, File},
@@ -95,7 +95,6 @@ pub fn error_handling_5() -> Result<String, io::Error> {
     Ok(contents)
 }
 
-
 /**Error handling with closures; This code does the same thing as error_handling_2() but uses
  * closures instead of match expressions*/
 pub fn error_handling_7() {
@@ -163,16 +162,22 @@ pub fn error_handling_11() {
         Ok(file) => file,
         Err(e) => format!("Error: {}", e),
     };
-    println!("error_handling_11() (with trailing print):\n\t{}\n", file_contents);
+    println!(
+        "error_handling_11() (with trailing print):\n\t{}\n",
+        file_contents
+    );
 
     //Option 2
     let file_contents = match std::fs::read_to_string("./files/hello_world.txt") {
         Ok(file) => file,
         Err(e) => {
             let error_message = format!("Error: {}", e);
-            println!("error_handling_11() (with integrated print & early return): \n\t{}\n", error_message);
-            return
-        },
+            println!(
+                "error_handling_11() (with integrated print & early return): \n\t{}\n",
+                error_message
+            );
+            return;
+        }
     };
     println!("Unreachable with an error");
 }
@@ -184,7 +189,7 @@ pub fn error_handling_12() {
         file_contents = file;
     } else {
         println!("error_handling_12() (using if let Ok syntax): \n\tError: [cannot access error message]\n");
-        return
+        return;
     };
     println!("Unreachable with an error:\n\t{}", file_contents);
 }

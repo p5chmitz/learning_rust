@@ -1,9 +1,14 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+//#![allow(unused_imports)]
+
+//#![allow(dead_code)]
 //Sub-modules/funcitons re-exported for cleaner access to functions.
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
 
 use cncpt::generics::Tweet;
-use cncpt::types::smart_pointers::Cons::{Cons, Nil};
+//use cncpt::types::smart_pointers::Cons::{Cons, Nil};
 use std::io;
 
 use crate::cncpt::error_handling::{error_handling_6, error_handling_8};
@@ -135,12 +140,34 @@ fn main() {
     println!("Read from main: {}", file);
 
     // SMART POINTERS
-    cncpt::types::smart_pointers::smart_pointers_1();    
+    cncpt::types::smart_pointers::smart_pointers_1();
     //let list = cncpt::types::smart_pointers::Cons(1, (2, (3, Nil)));
     //let list = cncpt::types::smart_pointers::Cons::Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
     //println!("The cons list: {:#?}", list);
-    
+    println!("");
 
+    let index_val: usize = 1000000;
+    let mut pred: u128 = 0;
+    let mut curr: u128 = 1;
+    for _ in 1..index_val {
+        let next = curr.wrapping_add(pred);
+        pred = curr;
+        curr = next;
+    }
+    println!("The Fibonacci number at index {} is {}", index_val, curr);
+
+    let i = 100;
+    let mut n: u128 = 1;
+    let mut p: u128 = 0;
+    let mut c = 1;
+    while c < i {
+        n = p + n;
+        p = n - p;
+        c += 1;
+    }
+    println!("The fib num at {i} is {n}");
+
+    cncpt::types::smart_pointers::ref_counter();
 
     timestamp(2);
 }

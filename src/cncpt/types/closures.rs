@@ -1,6 +1,6 @@
-use std::thread;
-
-use std::{collections::HashMap, io::Write};
+#![allow(unused_assignments)]
+//use std::thread;
+//use std::{collections::HashMap, io::Write};
 
 pub fn closures_1(s: &str) -> Option<&str> {
     if s.is_empty() {
@@ -116,7 +116,7 @@ fn first() {
     // Forces ownership move to a new thread
     let list = vec![1, 2, 3];
     println!("Before defining closure: {:?}", list);
-    thread::spawn(move || println!("From thread: {:?}", list))
+    std::thread::spawn(move || println!("From thread: {:?}", list))
         .join()
         .unwrap();
 
