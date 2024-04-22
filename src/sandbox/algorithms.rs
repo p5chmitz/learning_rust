@@ -18,4 +18,3 @@ pub fn insertion_sort_1() {
     insertion_sort(&mut v);
     assert_eq!(v, ["e", "e", "p", "r", "t"]);
 }
-

@@ -168,6 +168,9 @@ fn main() {
     println!("The fib num at {i} is {n}");
 
     cncpt::types::smart_pointers::ref_counter();
+    exmpl::json::parsing_json_1();
+
+    exmpl::json::idk_anymore();
 
     timestamp(2);
 }
