@@ -170,7 +170,9 @@ fn main() {
     cncpt::types::smart_pointers::ref_counter();
     exmpl::json::parsing_json_1();
 
-    exmpl::json::idk_anymore();
+    cncpt::ctrl_flow::match_like::idk_anymore();
+    cncpt::ctrl_flow::match_like::calling_function();
+    cncpt::ctrl_flow::if_let::if_let_1(3);
 
     timestamp(2);
 }
