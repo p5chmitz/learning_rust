@@ -251,3 +251,93 @@ fn iterators_5() {
 
     assert_eq!(v2, vec![2, 3, 4]);
 }
+
+pub mod match_like {
+    //Matches against the None and Some enums of the Option<T> type
+    fn plus_one(x: Option<i32>) -> Option<i32> {
+        match x {
+            None => None,
+            Some(i) => Some(i + 1), //Executes code based on a particular enum match
+        }
+    }
+    pub fn idk_anymore() {
+        let five: Option<i32> = Some(5); //Binds a variable with data in an Option<i32> type
+        let none: Option<i32> = None;
+        plus_one(five);
+        plus_one(Some(11));
+        plus_one(none);
+        plus_one(None);
+
+        let answer: String = match plus_one(five) {
+            Some(a) => format!("The answer is: {a}"),
+            None => format!("Sorry, I didn't find anything"),
+        };
+        println!("{answer}");
+    }
+
+    use std::io::{self, Error, ErrorKind::InvalidInput};
+    fn divide(x: isize, y: isize) -> Result<isize, io::Error> {
+        if x == 0 {
+            Err(Error::new(InvalidInput, "Dividend cannot be zero"))
+        } else if y == 0 {
+            Err(Error::new(InvalidInput, "Divisor cannot be zero"))
+        } else {
+            Ok(x / y)
+        }
+    }
+
+    fn divide_by(x: isize, y: isize) -> Result<isize, &'static str> {
+        if x == 0 {
+            Err("Dividend cannot be zero")
+        } else if y == 0 {
+            Err("Divisor cannot be zero")
+        } else {
+            Ok(x / y)
+        }
+    }
+
+    pub fn calling_function() {
+        let x = 8;
+        let y = 3;
+        let answer = match divide_by(x, y) {
+            Ok(a) => a,
+            Err(e) => {
+                println!("Error: {e}");
+                0
+            }
+        };
+        println!("{} / {} = {}", x, y, answer.to_string());
+    }
+}
+
+pub mod if_let {
+
+    pub fn if_let_1(n: isize) {
+        if let (0..=3) = n {
+            println!("The value is in range")
+        } else {
+            println!("The value is not in range")
+        }
+    }
+
+    pub fn if_let_2() {}
+
+    enum Message {
+        Contents(String),
+        Timestamp(String),
+    }
+    
+    pub fn if_let() {
+        
+        // Creates a message
+        let s: String = String::from("A rising tide lifts all the homies");
+    
+        // Instantiates an enum m and binds the string to the Contents variant
+        let m = Message::Contents(s);
+    
+        // Uses if let to access the Contents value for the m Message object
+        if let Message::Contents(result) = m {
+            println!("The message is: {result}")
+        }
+    }
+}
