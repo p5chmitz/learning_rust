@@ -20,18 +20,18 @@ impl IpAddrKind {
 }
 
 enum Message {
-    _Quit,
-    _Move { _x: i32, _y: i32 },
-    Write(String),
-    _ChangeColor(i32, i32, i32),
+    Quit,
+    Move { _x: i32, _y: i32 },
+    Contents(String),
+    ChangeColor(i32, i32, i32),
 }
 impl Message {
     fn _set_move(_x: i32, _y: i32) -> Message {
-        Message::_Move { _x, _y }
+        Message::Move { _x, _y }
     }
     fn print_message(m: &Message) {
         match m {
-            Message::Write(_a) => {
+            Message::Contents(_a) => {
                 println!("    auto-print method: {_a}")
             }
             _ => (),
@@ -40,7 +40,7 @@ impl Message {
     fn get_message(m: &Message) -> String {
         let mut s: String = String::new();
         match m {
-            Message::Write(a) => {
+            Message::Contents(a) => {
                 s = a.to_string();
             }
             _ => (),
@@ -113,16 +113,16 @@ fn main() {
     //Creates enum instances
     //Prints specific fields from Message using three different techniques
     println!("1) Printing an element from an enum variant with multiple techniques");
-    let m: Message = Message::Write(String::from("A rising tide lifts all the homies!"));
+    let m: Message = Message::Contents(String::from("A rising tide lifts all the homies!"));
     println!("    The message is: {}", Message::get_message(&m));
     Message::print_message(&m);
     //Uses the if let syntax!
-    if let Message::Write(_homies) = m {
-        println!("    If let syntax message: {_homies}");
+    if let Message::Contents(homies) = m {
+        println!("    If let syntax message: {homies}");
     }
 
     //Writes to enum variant directly and prints variant
-    let _mv: Message = Message::_Move { _x: 12, _y: 23 };
+    let _mv: Message = Message::Move { _x: 12, _y: 23 };
     //println!("mva: {:#?}", mv);
 
     //No such thing as null in Rust
