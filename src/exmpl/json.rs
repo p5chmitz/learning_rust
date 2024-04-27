@@ -1,46 +1,45 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::io::Write;
+use std::{fmt::format, io::Write};
 
-//use json::{object, JsonValue};
+use json::{object, JsonValue};
 use serde::{Deserialize, Serialize};
-use serde_json::{json, ser::PrettyFormatter, Result};
+use serde_json::{json, ser::PrettyFormatter, Value};
 
-//JSON parsing experiment
 // This example uses json which hasn't been updated since 2020
-//pub fn json_parsing() {
-//    let parsed: JsonValue = json::parse(
-//        r#"
-//        {
-//            "key": "12/23/1983",
-//            "anotherKey": "value",
-//            "object": {
-//                "nestedOne": "one",
-//                "nestedTwo": "two"
-//            }
-//        }
-//        "#,
-//    )
-//    .unwrap();
-//    let instantiated = object! {
-//        "key": "12/23/1983",
-//        "anotherKey": "value",
-//        "object": {
-//            "nestedOne": "one",
-//            "nestedTwo": "two"
-//        }
-//    };
-//    println!("The \"key's\" value is: \"{}\"", parsed["key"]);
-//    println!(
-//        "For the parsed object, the nested key \"nestedOne\" value is: \"{}\"",
-//        (parsed["object"]["nestedOne"])
-//    );
-//    println!(
-//        "For the instantiated object, the nested key \"nestedTwo\" value is: \"{}\"",
-//        (instantiated["object"]["nestedTwo"])
-//    );
-//}
+pub fn json_parsing() {
+    let parsed: JsonValue = json::parse(
+        r#"
+        {
+            "key": "12/23/1983",
+            "anotherKey": "value",
+            "object": {
+                "nestedOne": "one",
+                "nestedTwo": "two"
+            }
+        }
+        "#,
+    )
+    .unwrap();
+    let instantiated = object! {
+        "key": "12/23/1983",
+        "anotherKey": "value",
+        "object": {
+            "nestedOne": "one",
+            "nestedTwo": "two"
+        }
+    };
+    println!("The \"key's\" value is: \"{}\"", parsed["key"]);
+    println!(
+        "For the parsed object, the nested key \"nestedOne\" value is: \"{}\"",
+        (parsed["object"]["nestedOne"])
+    );
+    println!(
+        "For the instantiated object, the nested key \"nestedTwo\" value is: \"{}\"",
+        (instantiated["object"]["nestedTwo"])
+    );
+}
 
 // Custom type to serialize/deserialize
 #[derive(Serialize, Deserialize, Debug)]
@@ -178,30 +177,15 @@ fn enrollment_request_builder(name: &str, applicant_id: &str) -> Vec<u8> {
     return json_string.into_bytes();
 }
 
-/** Takes unordered Value object serializes it to a specified order */
+/** Takes raw JSON and pretty-formats it with specified ordering */
 pub fn pretty_format_with_ordering(raw_json: &str) -> String {
-    // Creates serde_json::Value object for manipulation (a tale in three acts)
-    //
-    // This requires an "empty" return value; kinda gross
-    //let parsed_json = match serde_json::from_str(raw_json) {
-    //    Ok(obj) => obj,
-    //    Err(e) => {
-    //        println!("Error creating JSON object: {}", e);
-    //        serde_json::Value::Null
-    //    }
-    //};
-    //// The infamous turbofish type annotation is required; what a mess!
-    //if let Ok(parsed_json) = serde_json::from_str::<serde_json::Value>(raw_json) {
-    //} else {
-    //    println!("Error deserializing JSON string");
-    //}
-    // Doesn't panic, is compact, but still requires a null object expression
+    // Parse the raw JSON string into a serde_json::Value
     let parsed_json: serde_json::Value = serde_json::from_str(raw_json).unwrap_or_else(|e| {
-        println!("Error deserializing JSON: {e}");
+        println!("Error deserializing raw JSON: {e}");
         serde_json::Value::Null
     });
 
-    // Creates ordered key vector
+    // Define the order of the output JSON object (does not have to be exhaustive)
     let keys_order = vec![
         "document",
         "title",
@@ -211,49 +195,61 @@ pub fn pretty_format_with_ordering(raw_json: &str) -> String {
         "properties",
     ];
 
-    if let serde_json::Value::Object(parsed_map) = parsed_json {
-        // IDK?
+    if let Some(parsed_map) = parsed_json.as_object() {
+        // Creates the serialized data string to return
         let mut ordered_json_str = String::from("{\n");
 
-        // Creates a set of ordering keys for quick lookup
+        // Creates a vector to store all keys found in raw JSON
+        let mut all_keys: Vec<String> = Vec::new();
+
+        // Pushes keys found in the ordered list
+        for key in &keys_order {
+            if parsed_map.contains_key(*key) {
+                all_keys.push(key.to_string());
+            }
+        }
+
+        // Creates a HashSet of the keys for quick lookup
         let keys_order_set: std::collections::HashSet<&str> = keys_order.iter().cloned().collect();
 
-        // Filter and collect specified keys in parsed_map
-        let mut all_keys: Vec<&String> = parsed_map
-            .keys()
-            .filter(|k| keys_order_set.contains(k.as_str()))
-            .collect();
+        // Checks for keys not found in the user-defined list and
+        // pushes any remaining keys ensuring all keys are serialized
+        for key in parsed_map.keys() {
+            if !keys_order_set.contains(key.as_str()) {
+                all_keys.push(key.to_string());
+            }
+        }
 
-        // Sort the filtered keys according to their order in keys_order
-        all_keys.sort_by_key(|k| keys_order.iter().position(|&order| order == k.as_str()));
-
-        // Append remaining keys not specified in keys_order array
-        all_keys.extend(
-            parsed_map
-                .keys()
-                .filter(|k| !keys_order_set.contains(k.as_str())),
-        );
-
+        // Iterates through all key-value pairs and pushes serialized data to UTF-8 output string
+        // This loop specifies three-space indenting in three places; if you change one, change all
+        // of them
         for (i, key) in all_keys.iter().enumerate() {
-            if let Some(value) = parsed_map.get(*key) {
-                let mut buffer = Vec::new();
-                let formatter = serde_json::ser::PrettyFormatter::with_indent(b"   ");
-                let mut serliazer =
-                    serde_json::ser::Serializer::with_formatter(&mut buffer, formatter);
-                value
-                    .serialize(&mut serliazer)
-                    .expect("Error serializing value");
+            if let Some(value) = parsed_map.get(key) {
+                let serialize_value = |value: &Value| -> String {
+                    let mut buffer = Vec::new();
+                    // Formats additive indentation for each level of nested object
+                    let formatter = serde_json::ser::PrettyFormatter::with_indent(b"   ");
+                    let mut serliazer =
+                        serde_json::ser::Serializer::with_formatter(&mut buffer, formatter);
+                    value.serialize(&mut serliazer).unwrap_or_else(|e| {
+                        println!("Error serializing value: {}", e);
+                    });
 
-                let value_str =
-                    String::from_utf8(buffer).expect("Error converting buffer to String");
+                    String::from_utf8(buffer)
+                        .unwrap_or_else(|e| format!("Error converting buffer to String: {}", e))
+                };
 
+                // Adds a comma before every key-value pair except the first one
                 if i > 0 {
                     ordered_json_str.push_str(",\n");
                 }
+
+                // Adds indentation formatting for top-level key-value/object pairs;
+                // The first gap is for top-level keys, the replace() gap is for objects
                 ordered_json_str.push_str(&format!(
                     "   \"{}\': {}",
                     key,
-                    value_str.replace("\n", "\n   ")
+                    serialize_value(value).replace("\n", "\n   ")
                 ));
             }
         }
@@ -263,26 +259,4 @@ pub fn pretty_format_with_ordering(raw_json: &str) -> String {
     } else {
         String::from("Expected top-level JSON object")
     }
-}
-
-//Matches against the None and Some enums of the Option<T> type
-fn plus_one(x: Option<i32>) -> Option<i32> {
-    match x {
-        None => None,
-        Some(i) => Some(i + 1), //Executes code based on a particular enum match
-    }
-}
-pub fn idk_anymore() {
-    let five: Option<i32> = Some(5); //Binds a variable with data in an Option<i32> type
-    let none: Option<i32> = None;
-    plus_one(five);
-    plus_one(Some(11));
-    plus_one(none);
-    plus_one(None);
-
-    let answer: String = match plus_one(five) {
-        Some(a) => format!("The answer is: {a}"),
-        None => format!("Sorry, I didn't find anything"),
-    };
-    println!("{answer}");
 }
