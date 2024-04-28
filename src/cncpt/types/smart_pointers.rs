@@ -1,6 +1,9 @@
 #![allow(dead_code)]
 #![allow(unused)]
 
+// The Box<T> type
+//////////////////
+
 // Instantiates a Box
 pub fn smart_pointers_1() {
     let b = Box::new(5);
@@ -32,28 +35,15 @@ pub fn smart_pointers_2() {
     let binary = (1, 2);
 }
 
-fn caller() {
-    let n = String::from("Peter");
-    hello(&(*n)[..]);
-}
-
-fn hello(name: &str) {
-    println!("Hello, {name}")
-}
-
-// Defines a custom smart pointer
+// Defines a custom smart pointer like Box<T>
 use std::ops::Deref;
-
 struct MyBox<T>(T);
-
-// Implements the MyBox type
 impl<T> MyBox<T> {
     fn new(x: T) -> MyBox<T> {
         MyBox(x)
     }
 }
-
-// Implements external traits for the type with required method(s)
+// Implements the external Deref trait
 impl<T> Deref for MyBox<T> {
     type Target = T;
 
@@ -61,6 +51,9 @@ impl<T> Deref for MyBox<T> {
         &self.0
     }
 }
+
+// The Rc<T> type
+/////////////////
 
 use std::rc::Rc;
 pub fn ref_counter() {
@@ -85,21 +78,25 @@ pub fn ref_counter() {
     );
 }
 
-/* Does a bunch of shit **/
+
+// Interior mutability and the RefCel<T> type
+/////////////////////////////////////////////
+
+// Creates a LimitTracker using a defined Messenger trait
+// to illustrate a use case for interior mutability
 pub trait Messenger {
     fn send(&self, msg: &str);
 }
-
 pub struct LimitTracker<'a, T: Messenger> {
     messenger: &'a T,
     value: usize,
     max: usize,
 }
-
 impl<'a, T> LimitTracker<'a, T>
 where
     T: Messenger,
 {
+    // Creates new LimitTracker object
     pub fn new(messenger: &'a T, max: usize) -> LimitTracker<'a, T> {
         LimitTracker {
             messenger,
@@ -124,6 +121,9 @@ where
         }
     }
 }
+
+// The RefCell<T> type
+//////////////////////
 
 #[cfg(test)]
 mod tests {
