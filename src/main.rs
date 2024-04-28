@@ -174,5 +174,7 @@ fn main() {
     cncpt::ctrl_flow::match_like::calling_function();
     cncpt::ctrl_flow::if_let::if_let_1(3);
 
+    cncpt::types::smart_pointers::caller();
+
     timestamp(2);
 }
