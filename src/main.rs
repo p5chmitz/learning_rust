@@ -2,7 +2,6 @@
 #![allow(unused_variables)]
 //#![allow(unused_imports)]
 
-//#![allow(dead_code)]
 //Sub-modules/funcitons re-exported for cleaner access to functions.
 //See top-level modules for export and path details
 //cncpt::loops::_my_age_static();
@@ -66,12 +65,14 @@ fn main() {
             3: Clock (loop)\n\
             4: Vector analyzer\n\
             5: Pig Latin translator\n\
-            6: Exit (rando function tests)"
+            6: Random data conversion routines\n\
+            7: Closures test\n\
+            8: Exit (rando function tests)"
         );
         let mut input: String = String::new();
         io::stdin()
             .read_line(&mut input)
-            .expect("Failure. You're a failure.");
+            .expect("Seriously, how did you fuck up this bad?");
         let input: i32 = match input.trim().parse() {
             Ok(num) => num,
             Err(_) => {
@@ -79,7 +80,7 @@ fn main() {
                 continue;
             }
         };
-        if input < 1 || input > 6 {
+        if input < 1 || input > 8 {
             println!("\nERROR: Enter a valid menu option number\n");
             continue;
         }
@@ -89,21 +90,14 @@ fn main() {
             3 => util::time::loop_time(8),
             4 => cncpt::collections::book_test_1(),
             5 => cncpt::collections::book_test_2(),
+            6 => sandbox::data_conversions::data_conversion_driver(),
+            7 => cncpt::closures::closures_driver(),
             _ => {
                 println!("\n[EXIT]\n");
                 break;
             }
         }
     }
-
-    //cncpt::test_framework::function_tests();
-    cncpt::test_framework::function_tests_1();
-
-    // Closures
-    let mut s: String = String::new();
-    s.push_str("lol");
-    let rn = cncpt::closures::printinator();
-    println!("{}", cncpt::closures::closures_1(&s).unwrap_or_else(|| &rn));
 
     // Error handling
     let file = match error_handling_6() {
@@ -125,18 +119,8 @@ fn main() {
     cncpt::error_handling::error_handling_11();
     cncpt::error_handling::error_handling_12();
 
-    //match cncpt::error_handling::error_handling_8() {
-    //    Ok(()) => println!("It works!"),
-    //    Err(ref e) => eprintln!("Error: {}", e),
-    //};
-
-    //if let Ok(()) = cncpt::error_handling::error_handling_8() {
-    //    println!("Success!")
-    //} else {
-    //    println!("An error occurred...")
-    //}
-
-    let file = std::fs::read_to_string("./src/cncpt/hello.txt").unwrap();
+    let file =
+        std::fs::read_to_string("./src/cncpt/hello.txt").unwrap_or_else(|e| format!("Fuck: {}", e));
     println!("Read from main: {}", file);
 
     // SMART POINTERS
@@ -146,7 +130,7 @@ fn main() {
     //println!("The cons list: {:#?}", list);
     println!("");
 
-    let index_val: usize = 1000000;
+    let index_val: usize = 10;
     let mut pred: u128 = 0;
     let mut curr: u128 = 1;
     for _ in 1..index_val {
@@ -156,7 +140,7 @@ fn main() {
     }
     println!("The Fibonacci number at index {} is {}", index_val, curr);
 
-    let i = 100;
+    let i = 5;
     let mut n: u128 = 1;
     let mut p: u128 = 0;
     let mut c = 1;
@@ -174,7 +158,22 @@ fn main() {
     cncpt::ctrl_flow::match_like::calling_function();
     cncpt::ctrl_flow::if_let::if_let_1(3);
 
-    cncpt::types::smart_pointers::caller();
+    //cncpt::types::smart_pointers::testing();
+
+    cncpt::types::compound::collections::array_7();
+
+    exmpl::data_structures::linked_lists::singly_linked_list();
+    exmpl::data_structures::linked_lists::rectangle();
+
+    as_byte_array();
 
     timestamp(2);
+}
+
+fn as_byte_array() {
+    let w = "Peter".to_string();
+    println!("{:?}", w.as_bytes());
+    assert_eq!(65, "A".as_bytes()[0]);
+    assert_eq!(65, 0x41);
+    assert_eq!(65, 'A' as i32);
 }

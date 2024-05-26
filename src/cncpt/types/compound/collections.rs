@@ -13,6 +13,10 @@ pub fn tuple_1() {
     let whatev = (1, 2, 3, 4);
     let e = whatev.3;
     println!("When the tuple hits just right, {e}");
+
+    let oneary = (1,); // Tuple with one element
+                       //let oneary_again = (1); // Not a tuple, unnecessary use of ()
+    let binary = (1, 2); // Tuple with two elements
 }
 // Declares a tuple with mixed scalar types
 pub fn tuple_2() {
@@ -69,8 +73,213 @@ pub fn array_3() {
 }
 /** Illustrates two different ways to declare an array*/
 pub fn array_4() {
-    let a = [0i32, 1, 2];
+    let a = [0i32, 1, 2]; // The first entry is a value and its type
     let b: [i32; 3] = [0, 1, 2];
+}
+/** Illustrates iterating over arrays in two different ways */
+pub fn array_5() {
+    // Uses idiomatic iterator object to write consecutive values to each index in the array
+    let mut a_x: [i32; 10] = [0; 10];
+    let mut c = 0;
+    for i in a_x.iter_mut() {
+        *i = c;
+        c += 1;
+    }
+
+    // Uses direct indexing to write consecutive values to each index in the array
+    // May be more efficient (but less idiomatic) than using iterators
+    let mut a_y: [i32; 10] = [0; 10];
+    for i in 0..a_y.len() {
+        a_y[i] = i as i32;
+    }
+
+    println!("{:?}\n{:?}", a_x, a_y);
+    println!("{}", a_y[5]);
+}
+
+/** Mirrors Java examples */
+pub fn array_6() {
+    #[derive(Default)]
+    struct GameEntry {
+        name: String,
+        score: Option<usize>,
+    }
+    impl Clone for GameEntry {
+        fn clone(&self) -> GameEntry {
+            GameEntry {
+                name: self.name.clone(),
+                score: self.score,
+            }
+        }
+    }
+    impl GameEntry {
+        // Constructs a new GameEntry object
+        pub fn build(name: String, score: usize) -> GameEntry {
+            GameEntry {
+                name,
+                score: Some(score),
+            }
+        }
+
+        // Formats GameEntry objects for output
+        pub fn format(&self) -> (String, String) {
+            let name = self.name.clone();
+            let score = self.score.map_or("".to_string(), |s| s.to_string());
+            (name, score)
+        }
+        // For users more familiar with imperative paradigms
+        //pub fn format(&self) -> (String, String) {
+        //    let name = self.name.clone();
+        //    let score = match &self.score {
+        //        Some(s) => s.to_string(),
+        //        None => return (*name, "".to_string()),
+        //    };
+        //    (*name, score)
+        //}
+
+        // Takes a podium array and a new entry, evaluates the entry
+        // and inserts the element accordingly
+        //
+        // Neat but uses raw pointer manipulation in an unsafe block
+        // Requires: use std::ptr
+        //pub fn add(mut podium: Box<[GameEntry]>, new_entry: GameEntry) -> Box<[GameEntry]> {
+        //    let mut insert_index = None;
+        //    for i in 0..podium.len() {
+        //        if podium[i].score.is_none() || podium[i].score < new_entry.score {
+        //            insert_index = Some(i);
+        //            break;
+        //        }
+        //    }
+
+        //    // Requires raw pointer operations within an unsafe block
+        //    if let Some(index) = insert_index {
+        //        for j in (index..podium.len() - 1).rev() {
+        //            unsafe {
+        //                let ptr1 = &mut podium[j] as *mut GameEntry;
+        //                let ptr2 = &mut podium[j + 1] as *mut GameEntry;
+        //                ptr::swap(ptr1, ptr2);
+        //            }
+        //        }
+        //        podium[index] = new_entry;
+        //    }
+        //    podium
+        //}
+        pub fn add(mut podium: [GameEntry; 3], new_entry: GameEntry) -> [GameEntry; 3] {
+            // Evaluates the existing array and finds appropriate insertion index
+            let mut insert_index = None;
+            for i in 0..podium.len() {
+                if podium[i].score.is_none() || podium[i].score < new_entry.score {
+                    insert_index = Some(i);
+                    break;
+                }
+            }
+            // Shift elements to the right of the insertion index to make room
+            // for the new entry; Requires Clone implementation on GameEntry struct
+            if let Some(index) = insert_index {
+                for j in (index..podium.len() - 1).rev() {
+                    podium[j + 1] = podium[j].clone();
+                }
+                podium[index] = new_entry;
+            }
+            podium
+        }
+        // Takes a podium array and an index, removes the entry at the index
+        // and shifts all remaining elements up by one index
+        pub fn remove(mut podium: [GameEntry; 3], cheater: usize) -> [GameEntry; 3] {
+            for i in cheater..podium.len() - 1 {
+                podium[i] = podium[i + 1].clone();
+            }
+            podium[podium.len() - 1] = Default::default();
+            podium
+        }
+    }
+
+    // Requires the #[derive(Default)] trait for the GameEntry struct
+    let mut podium: [GameEntry; 3] = Default::default();
+
+    // Sample data to build GameEntry objects
+    let names_vec: Vec<String> = vec![
+        "Peter".to_string(),
+        "Dingus".to_string(),
+        "Brain".to_string(),
+        "Bobson".to_string(),
+    ];
+    let scores_vec: Vec<usize> = vec![1223, 34, 616, 42069];
+
+    // Creates a vector of GameEntry objects from sample data
+    let mut entries: Vec<GameEntry> = Default::default();
+    for i in 0..names_vec.len() {
+        let entry: GameEntry = GameEntry::build(names_vec[i].clone(), scores_vec[i]);
+        entries.push(entry);
+    }
+
+    // Adds each entry in the sample data vector to the podium and prints results
+    for i in 0..entries.len() {
+        podium = GameEntry::add(*Box::new(podium.clone()), entries[i].to_owned());
+        println!("Add {}", &entries[i].name);
+        for (c, entry) in podium.iter().enumerate() {
+            let entry = entry.format();
+            println!("{:>2}: {:<8} {:>6}", c + 1, entry.0, entry.1)
+        }
+        println!("");
+    }
+
+    // Removes an entry because Bobson isn't real
+    let r = vec![0, 1, 0];
+    for i in 0..r.len() {
+        podium = GameEntry::remove(podium, r[i]);
+        println!("Remove score at index: {}", r[i]);
+        for (c, entry) in podium.iter().enumerate() {
+            let entry = entry.format();
+            println!("{:>2}: {:<8} {:>6}", c + 1, entry.0, entry.1)
+        }
+        println!("");
+    }
+}
+
+/** Simple cryptography function */
+pub fn array_7() {
+    // Creates encoder, decoder arrays, and applies rotation for the cipher
+    let mut encoder: [char; 26] = ['A'; 26];
+    let mut decoder: [char; 26] = ['A'; 26];
+    let rotation = 3;
+    for i in 0..26 {
+        encoder[i] = char::from((65 + (i + rotation) % 26) as u8);
+        decoder[i] = char::from((65 + (26 + i - rotation) % 26) as u8);
+    }
+    //println!("Encoder: {:?}\nDecoder: {:?}", encoder, decoder);
+
+    // Code handles up to a 64 byte plaintext message, filters out non ASCII characters
+    let plaintext = "DONT SEARCH FOR ALL THE ANSWERS ALL AT ONCE".to_string();
+    let plaintext = plaintext
+        .chars()
+        .filter(|&c| c.is_ascii_uppercase())
+        .collect::<String>();
+    let len = plaintext.len();
+
+    // Encodes message
+    let encoded_message = transformer(&plaintext, Box::new(encoder));
+    println!("Encoded message: {}", encoded_message);
+
+    // Decodes message
+    let decoded_message = transformer(&encoded_message, Box::new(decoder));
+    println!("Decoded message: {}", decoded_message);
+}
+
+// Handles up to a 64 byte plaintext message
+fn transformer(plaintext: &String, schema: Box<[char]>) -> String {
+    let mut msg_array: [u8; 64] = [0; 64];
+    for (i, byte) in plaintext.trim().bytes().enumerate() {
+        msg_array[i] = byte;
+    }
+
+    for k in 0..plaintext.len() {
+        let j: usize = (msg_array[k] - b'A') as usize;
+        msg_array[k] = schema[j] as u8;
+    }
+
+    // Convert only the valid characters in msg_array to a string
+    String::from_utf8_lossy(&msg_array[..plaintext.len()]).to_string()
 }
 
 //============================================

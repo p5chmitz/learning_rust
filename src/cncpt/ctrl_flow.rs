@@ -326,15 +326,14 @@ pub mod if_let {
         Contents(String),
         Timestamp(String),
     }
-    
+
     pub fn if_let() {
-        
         // Creates a message
         let s: String = String::from("A rising tide lifts all the homies");
-    
+
         // Instantiates an enum m and binds the string to the Contents variant
         let m = Message::Contents(s);
-    
+
         // Uses if let to access the Contents value for the m Message object
         if let Message::Contents(result) = m {
             println!("The message is: {result}")

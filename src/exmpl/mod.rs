@@ -1,3 +1,4 @@
+pub mod data_structures;
 pub mod guessing_game;
 pub mod json;
 pub mod rng_range;

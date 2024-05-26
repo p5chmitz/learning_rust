@@ -85,8 +85,16 @@ pub fn string_wrapper_1() {
     //Using the to_string() method
     let data1 = "Im a literal";
     data1.to_string();
+    //let data1 = "Im a litera".to_string(); // Does the same as above in one line
     let data2 = "Im also a literal".to_string();
     println!("The \"to_string()\" method:\n  {}\n  {}", data1, data2);
+}
+#[test]
+// Shows that String can be dereferenced into a slice
+fn string_wrapper_test_1() {
+    let x: String = "Hello".to_string();
+    let y: &str = &x;
+    assert_eq!(x, y);
 }
 
 /**Uses the various mechanisms to append and concatenate strings*/

@@ -5,7 +5,11 @@
 
 use json::{object, JsonValue};
 use serde::{Deserialize, Serialize};
-use serde_json::{json, ser::{PrettyFormatter, Serializer}, Value};
+use serde_json::{
+    json,
+    ser::{PrettyFormatter, Serializer},
+    Value,
+};
 
 // This example uses json which hasn't been updated since 2020
 pub fn json_parsing() {
@@ -270,12 +274,10 @@ pub fn http_client(args: &Vec<String>) -> (u16, String) {
 /** Simple pretty-formatter for JSON responses;
  * Guarantees ordering with the optional preserve_order feature in serde_json */
 pub fn pretty_format(raw_json: &str) -> String {
-
     // Parses the raw JSON into a serde_json::Value object
     // Without assignment this requires additional turbofish type annotation
     match serde_json::from_str::<serde_json::Value>(raw_json) {
         Ok(json_value) => {
-
             // Creates a Vec<u8> buffer to hold the formatted string
             let mut buffer = Vec::new();
 
@@ -288,15 +290,15 @@ pub fn pretty_format(raw_json: &str) -> String {
             // Serializes the serde_json::Value object to the buffer
             match json_value.serialize(&mut serializer) {
                 Ok(serialized_json) => serialized_json,
-                Err(e) => println!("Error serializing JSON: {}", e)
+                Err(e) => println!("Error serializing JSON: {}", e),
             }
 
             // Converts the buffer into a String
             match String::from_utf8(buffer) {
                 Ok(formatted_string) => formatted_string,
-                Err(e) => format!("Error converting buffer to String: {}", e)
+                Err(e) => format!("Error converting buffer to String: {}", e),
             }
         }
-        Err(e) => format!("Error parsing JSON: {}", e)
+        Err(e) => format!("Error parsing JSON: {}", e),
     }
 }
