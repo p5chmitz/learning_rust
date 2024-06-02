@@ -167,6 +167,13 @@ fn main() {
 
     as_byte_array();
 
+    cncpt::iterators::iterators_1();
+    cncpt::iterators::iterators_3();
+    cncpt::iterators::iterators_5();
+    cncpt::iterators::iter_test();
+
+    cncpt::concurrency::concurrency_4();
+
     timestamp(2);
 }
 
@@ -177,3 +184,4 @@ fn as_byte_array() {
     assert_eq!(65, 0x41);
     assert_eq!(65, 'A' as i32);
 }
+
