@@ -6,7 +6,8 @@ pub mod original {
     // the enum will need a match-like expression to handle every possible variant.
     // This could get repetitive. Structs dont require the bloat.
     // Transformations are encapsulated entirely within the Post struct, as per
-    // OOP and the state design pattern.
+    // OOP and the state design pattern. However this means that invalid states are 
+    // possible because nothing is checked at compile time. 
     pub struct Post {
         state: Option<Box<dyn State>>,
         content: String,
@@ -158,6 +159,7 @@ pub mod original {
 //   encapsulating them such that outside code has no knowledge of them. This
 //   results in compiler errors if you try to misuse the states which provides more
 //   up-front safety. This also encodes the workflow into the type system.
+// - Invalid states are not possible and checked at compile time
 pub mod modified {
     // Published post
     pub struct Post {

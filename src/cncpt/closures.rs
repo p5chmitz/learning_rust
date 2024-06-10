@@ -188,4 +188,3 @@ fn rectangles() {
     ];
     assert_eq!(sorted, rectangles);
 }
-

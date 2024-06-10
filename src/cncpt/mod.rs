@@ -1,3 +1,5 @@
+pub mod closures;
+pub mod concurrency;
 pub mod ctrl_flow;
 pub mod error_handling;
 pub mod io;
@@ -5,10 +7,9 @@ pub mod iterators;
 pub mod lifetimes;
 pub mod ownership;
 pub mod test_framework;
+pub mod traits;
 pub mod types;
 pub mod variables;
-pub mod closures;
-pub mod concurrency;
 
 //Re-exports sub-modules for cleaner access in main.rs
 //Functions in these modules are accessed via cncpt::collecitons::function() or similar

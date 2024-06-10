@@ -3,7 +3,6 @@ use std::time::Duration;
 
 // Concurrency with closures
 pub fn concurrency_1() {
-
     // Data
     let mut v1 = vec![1, 2, 3, 4, 5, 6, 7, 8, 9];
     let v2 = vec!["a", "b", "c", "d", "e"];
@@ -48,8 +47,8 @@ pub fn concurrency_1() {
 // then the function formats the received chunks as a message
 //
 // Uses recv and try_recv
-use std::sync::mpsc;
 use std::io::{self, Write};
+use std::sync::mpsc;
 pub fn concurrency_2() {
     // Multiple producer, single consumer channel initialization
     let (tx, rx) = mpsc::channel();
@@ -68,10 +67,10 @@ pub fn concurrency_2() {
         "stop".to_string(),
     ];
 
-    // Creates a new thread and moves the data where 
+    // Creates a new thread and moves the data where
     // it is sent as timed elements of the vector
     thread::spawn(move || {
-        for e in val_vec.iter(){
+        for e in val_vec.iter() {
             tx.send(e.clone()).unwrap();
             thread::sleep(Duration::from_millis(3000))
         }
@@ -91,11 +90,11 @@ pub fn concurrency_2() {
             Ok(m) => {
                 // loop ends when the handle receives the stop message
                 if m == "stop".to_string() {
-                    break
+                    break;
                 }
                 //println!("\n{m}");
                 message.push(m)
-            },
+            }
             Err(e) => {
                 // Broke-dick animation job while the loop polls the rx handle
                 let states = ["Waiting   ", "Waiting.  ", "Waiting.. ", "Waiting..."];
@@ -104,7 +103,7 @@ pub fn concurrency_2() {
                     io::stdout().flush().unwrap();
                     thread::sleep(Duration::from_millis(200));
                 }
-            },
+            }
         };
     }
 
@@ -117,12 +116,10 @@ pub fn concurrency_2() {
     println!("Final message: {}", formatted.trim());
 }
 
-
 // Does literally the same thing as the previous method but treats
 // the receiver handle like an iterator and consumes it in a for loop;
 // When the channel is closed the iteration ends
 pub fn concurrency_3() {
-
     // Multiple producer, single consumer channel initialization
     let (tx, rx) = mpsc::channel();
 
@@ -136,10 +133,10 @@ pub fn concurrency_3() {
         "iterator".to_string(),
     ];
 
-    // Creates a new thread and moves the data where 
+    // Creates a new thread and moves the data where
     // it is sent as timed elements of the vector
     thread::spawn(move || {
-        for e in val_vec.iter(){
+        for e in val_vec.iter() {
             tx.send(e.clone()).unwrap();
             thread::sleep(Duration::from_millis(500))
         }
@@ -155,7 +152,6 @@ pub fn concurrency_3() {
 
 // Does the same as the 3rd iteration but clones the transmitter
 pub fn concurrency_4() {
-
     // Multiple producer, single consumer channel initialization
     let (tx, rx) = mpsc::channel();
 
@@ -169,12 +165,12 @@ pub fn concurrency_4() {
         "five".to_string(),
     ];
 
-    // Creates a new thread and moves the data where 
+    // Creates a new thread and moves the data where
     // it is sent as timed elements of the vector
     let tx_clone = tx.clone();
     let val_clone = val_vec.clone();
     thread::spawn(move || {
-        for e in val_clone.iter(){
+        for e in val_clone.iter() {
             tx_clone.send(e.clone()).unwrap();
             thread::sleep(Duration::from_millis(250))
         }
@@ -182,7 +178,7 @@ pub fn concurrency_4() {
     });
 
     thread::spawn(move || {
-        for e in val_vec.clone().iter(){
+        for e in val_vec.clone().iter() {
             tx.send(e.clone()).unwrap();
             thread::sleep(Duration::from_millis(500))
         }
@@ -194,10 +190,9 @@ pub fn concurrency_4() {
     for e in rx {
         println!("rx sez: {e}")
     }
-
 }
 
-pub trait Peter{}
+pub trait Peter {}
 
 // Concurrency with shared memory
 // This method uses mutexes and locks to achieve shared-state concurrency
@@ -222,4 +217,3 @@ pub fn concurrency_5() {
 
     println!("Result: {}", *counter.lock().unwrap());
 }
-

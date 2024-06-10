@@ -174,6 +174,8 @@ fn main() {
 
     cncpt::concurrency::concurrency_5();
 
+    cncpt::traits::traits_1();
+
     timestamp(2);
 }
 
@@ -184,4 +186,3 @@ fn as_byte_array() {
     assert_eq!(65, 0x41);
     assert_eq!(65, 'A' as i32);
 }
-

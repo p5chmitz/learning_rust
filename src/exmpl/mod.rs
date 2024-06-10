@@ -2,6 +2,7 @@ pub mod data_structures;
 pub mod guessing_game;
 pub mod json;
 pub mod rng_range;
+pub mod state_design_pattern;
 
 //Re-exports sub-module function for cleaner access in main.rs
 pub use guessing_game::guessing_game;
