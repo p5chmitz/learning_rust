@@ -176,6 +176,14 @@ fn main() {
 
     cncpt::traits::traits_1();
 
+    cncpt::ctrl_flow::loops::for_loops_2();
+
+    cncpt::types::primitives::reference::slices_2();
+    cncpt::types::primitives::reference::references_3();
+
+    cncpt::unsafe_rust::unsafe_1();
+    cncpt::unsafe_rust::unsafe_2();
+
     timestamp(2);
 }
 
