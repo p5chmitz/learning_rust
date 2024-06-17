@@ -2,6 +2,8 @@
 #![allow(unused_variables)]
 //Re-exported to use in main.rs as cncpt::loops::_my_age_static() for example
 
+// ifs
+//////
 pub mod ifs {
     /**Takes a float64 and prints the range*/
     pub fn if_statements(n: f64) {
@@ -62,9 +64,12 @@ pub mod ifs {
         println!("{_i}");
     }
 }
+
+// LOOPS
+////////
 pub mod loops {
     /**Introduces the basic loop keyword*/
-    fn _loops() {
+    fn loops_1() {
         let mut i: i32 = 12;
         loop {
             println!("{i}");
@@ -82,7 +87,7 @@ pub mod loops {
     }
 
     //Uses a loop in a declaration
-    fn _loop_lets() {
+    fn loops_2() {
         let mut i: i32 = 12;
         let _x: i32 = loop {
             println!("{i}");
@@ -100,7 +105,7 @@ pub mod loops {
     }
 
     //Uses loop labels for nested/scoped identification
-    fn _loop_labels() {
+    fn loops_3() {
         let mut count: i32 = 1;
         loop {
             println!("{count}");
@@ -120,7 +125,7 @@ pub mod loops {
     }
 
     //While loops, yo
-    fn _while_loops() {
+    fn while_loops_1() {
         let mut i: i32 = 10;
         while i >= 1 {
             println!("{i}");
@@ -130,7 +135,7 @@ pub mod loops {
     }
 
     //Playing around with while loops
-    fn _my_age() {
+    fn while_loops_2() {
         let mut age: i32 = 0;
         let mut year: i32 = 1983;
         println!("I was born in {}.", &year);
@@ -148,7 +153,7 @@ pub mod loops {
     }
 
     //Just a static age calculator
-    pub fn _my_age_static() {
+    pub fn my_age_1() {
         let year: i32 = 2023;
         let mut _age: i32 = year - 1984;
         println!(
@@ -156,11 +161,11 @@ pub mod loops {
             year,
             _age,
             (_age + 1)
-        )
+        );
     }
 
     //Just a static age calculator that takes a variable
-    fn _my_age_again(year: i32) {
+    fn my_age_2(year: i32) {
         let mut _age: i32 = year - 1984;
         println!(
             "For most of {} I was {}, but at the very end I turned {}.",
@@ -171,7 +176,7 @@ pub mod loops {
     }
 
     //For loop with an array
-    fn _for_loops() {
+    fn for_loops_1() {
         let a: [&str; 4] = ["a", "b", "c", "d"];
         for _index in a {
             println!("{_index}")
@@ -180,6 +185,14 @@ pub mod loops {
             println!("{_i}")
         }
         println!("Blorst off!");
+    }
+
+    pub fn for_loops_2() {
+        let i = 2;
+        let v = vec!['a', 'b', 'c'];
+        for (e, val) in v.iter().enumerate() {
+            println!("Element #{} holds {}", e, val)
+        }
     }
 }
 
