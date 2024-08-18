@@ -5,8 +5,8 @@ use regex::Regex;
 use std::collections::HashMap;
 use std::io::{self, Write};
 
-//============================================
-//Tuples
+//=======
+// Tuples
 
 // Declares a tuple with homogenous scalar types
 pub fn tuple_1() {
@@ -47,8 +47,8 @@ pub fn tuple_4() {
     println!("{name} is {age} years old.");
 }
 
-//============================================
-//Arrays
+//=======
+// Arrays
 
 pub fn array_1() {
     //Be explicit
@@ -249,7 +249,8 @@ pub fn array_7() {
     }
     //println!("Encoder: {:?}\nDecoder: {:?}", encoder, decoder);
 
-    // Code handles up to a 64 byte plaintext message, filters out non ASCII characters
+    // Code handles up to a 64 byte plaintext message, 
+    // filters out lowercase and non-ASCII characters
     let plaintext = "DONT SEARCH FOR ALL THE ANSWERS ALL AT ONCE".to_string();
     let plaintext = plaintext
         .chars()
@@ -282,8 +283,8 @@ fn transformer(plaintext: &String, schema: Box<[char]>) -> String {
     String::from_utf8_lossy(&msg_array[..plaintext.len()]).to_string()
 }
 
-//============================================
-//Vectors
+//========
+// Vectors
 
 /** Creates a Vector with 2 indexes and prints both,
  * resulting in a print statement that lists my birthday*/
@@ -410,9 +411,51 @@ pub fn vec_test_6(i: usize) {
     //    n += 1;
     //}
 }
+/** Illustrates how to properly index vectors */
+pub fn vec_test_7() {
+    // Vector v has 5 elements with indexes 0 - 4
+    let v: Vec<i32> = vec![10, 20, 30, 40, 50];
+    let magic_num: i32 = 50;
 
-//============================================
-//Hash Maps
+    // Standard for loop with STANDARD range
+    // Note that using inclusive range ..= results in overflow
+    for i in 0..v.len() {
+        print!("{}, ", v[i]);
+        if v[i] == magic_num {
+            println!("End");
+        }
+    }
+
+    // De-sugared for loop over iterator expression as a range
+    let mut iter: std::ops::Range<usize> = (0..v.len()).into_iter();
+    while let Some(i) = iter.next() {
+        print!("{}, ", v[i]);
+        if v[i] == magic_num {
+            println!("End");
+        }
+    }
+
+    // Requires value de-referencing because iter() yields
+    // index references as &i32
+    for i in v.iter() {
+        print!("{}, ", i);
+        if *i == magic_num {
+            println!("End");
+        }
+    }
+
+    // Alternatively into_iter() takes ownership and 
+    // allows direct access to indexed values
+    for i in v.into_iter() {
+        print!("{}, ", i);
+        if i == magic_num {
+            println!("End");
+        }
+    }
+}
+
+//==========
+// Hash Maps
 
 /** Creates a hash map of String keys and integer values;
  * Demonstrates basic insert and check-before-write methods;
@@ -463,8 +506,8 @@ pub fn hash_maps_3() {
     println!("{:#?}", map);
 }
 
-//============================================
-//Book tests
+//===========
+// Book tests
 
 /** Takes a vector of integers and calculates the mean, median, and mode;
 Listing occurs end of chapter 8 on collections */
