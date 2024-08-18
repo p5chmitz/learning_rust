@@ -203,7 +203,7 @@ pub mod modified {
         }
     }
 
-    // The heart of the state design patter is... the state
+    // The heart of the state design pattern is... the state
     trait State {
         // Required methods
         // Parmeter syntax takes ownership of Box<Self>, invalidating the old

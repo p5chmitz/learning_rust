@@ -9,8 +9,8 @@ pub mod ownership;
 pub mod test_framework;
 pub mod traits;
 pub mod types;
-pub mod variables;
 pub mod unsafe_rust;
+pub mod variables;
 
 //Re-exports sub-modules for cleaner access in main.rs
 //Functions in these modules are accessed via cncpt::collecitons::function() or similar

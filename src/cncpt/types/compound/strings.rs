@@ -1,17 +1,17 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-//=======================================
-//Slices
+//==============
+// String Slices
 
-/**Declares and binds a literal as a slice.
-The bytes are stored in the compiled binary.*/
+/** Declares and binds a literal as a slice;
+The bytes are stored in the compiled binary */
 pub fn string_slice_1() {
     let s: &str = "Im a slice in binary!";
     println!("{}", s);
 }
 
-/**Accesses a String vector to print slices*/
+/** Accesses a String vector to print slices */
 pub fn string_slice_2() {
     let s = String::from("Hello, world!");
     let hello = &s[0..5]; //References the first 5 indexes

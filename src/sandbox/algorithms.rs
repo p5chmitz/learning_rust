@@ -18,3 +18,11 @@ pub fn insertion_sort_1() {
     insertion_sort(&mut v);
     assert_eq!(v, ["e", "e", "p", "r", "t"]);
 }
+
+// Takes an i32 and prints each digit on a separate line
+pub fn recursion(n: i32) {
+    if n >= 10 {
+        recursion(n / 10)
+    }
+    println!("{}", n % 10)
+}

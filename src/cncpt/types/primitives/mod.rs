@@ -1,2 +1,2 @@
-pub mod scalar;
 pub mod reference;
+pub mod scalar;
